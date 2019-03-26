@@ -1,0 +1,15 @@
+SpriteText
+{
+  numComponents : 2
+  Transform
+  {
+    translation : { -200, 200 }
+    rotation : 0
+    scale : { 50, 50 }
+  }
+  SpriteText
+  {
+    frameIndex : 0
+    color : { 1 , 1 , 1 , 1 }
+  }
+}
