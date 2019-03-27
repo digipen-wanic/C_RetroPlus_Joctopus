@@ -24,7 +24,7 @@
 // Initial game state
 #include "Level1.h"
 
-
+#include "FrogMovement.h"
 #include "GameObjectFactory.h"
 #include "PlayerShip.h"
 #include "TimedDeath.h"
@@ -63,6 +63,7 @@ int WINAPI WinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prevInstance, _In
 	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::ScreenWrap>();
 	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::PlayerProjectile>();
 	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::Asteroid>();
+	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::FrogMovement>();
 
 	// Set initial level to the second level.
 	space->SetLevel(new Levels::Level1());

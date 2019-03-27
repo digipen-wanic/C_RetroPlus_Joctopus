@@ -64,7 +64,7 @@ namespace Levels
 
 		// Meshes
 		Mesh* meshShip;
-		Mesh* meshBullet;
+		Mesh* meshFrog;
 
 		Mesh* meshText;
 		Texture* textureText;
