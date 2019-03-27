@@ -1,0 +1,31 @@
+Frog
+{
+  numComponents : 5
+  Transform
+  {
+    translation : { 0, 0 }
+    rotation : 1.57
+    scale : { 50, 50 }
+  }
+  Sprite
+  {
+    frameIndex : 0
+    color : { 1 , 1 , 1 , 1 }
+  }
+  Physics
+  {
+    acceleration : { 0, 0 }
+    velocity : { 0, 0 }
+    angularVelocity : 0
+    mass : 1
+  }
+  ColliderRectangle
+  {
+    extents : { 25, 25 }
+  }
+  Behaviors::FrogMovement
+  {
+    speed : 50
+    direction : 3
+  }
+}
