@@ -11,6 +11,7 @@
 
 #include "stdafx.h"
 #include "FrogMovement.h"
+#include <Sprite.h>
 #include <Parser.h>
 #include <Collider.h>
 #include <GameObject.h>
@@ -21,7 +22,7 @@
 namespace Behaviors
 {
 	FrogMovement::FrogMovement(float speed, int direction)
-		:Component("FrogMovement"), speed(speed), direction(direction)
+		:Component("FrogMovement"), speed(speed), canWalk(true)
 	{
 	}
 	Component * FrogMovement::Clone() const
@@ -36,36 +37,47 @@ namespace Behaviors
 	{
 		UNREFERENCED_PARAMETER(dt);
 		Input& input = Input::GetInstance();
-		if (input.CheckTriggered('W'))
+
+		if (!canWalk)
 		{
-			GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() + Vector2D(0, speed));
-			GetOwner()->GetComponent<Transform>()->SetRotation(3.141f / 2.0f);
+			GetOwner()->GetComponent<Sprite>()->SetFrame(0);
+			canWalk = true;
 		}
-		if (input.CheckTriggered('S'))
+		else
 		{
-			GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() - Vector2D(0, speed));
-			GetOwner()->GetComponent<Transform>()->SetRotation(-3.141f / 2.0f);
-		}
-		if (input.CheckTriggered('D'))
-		{
-			GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() + Vector2D(speed, 0));
-			GetOwner()->GetComponent<Transform>()->SetRotation(0);
-		}
-		if (input.CheckTriggered('A'))
-		{
-			GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() - Vector2D(speed, 0));
-			GetOwner()->GetComponent<Transform>()->SetRotation(3.141f);
+			if (input.CheckTriggered('W'))
+			{
+				GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() + Vector2D(0, speed));
+				GetOwner()->GetComponent<Transform>()->SetRotation((float)M_PI / 2.0f);
+				GetOwner()->GetComponent<Sprite>()->SetFrame(1);
+			}
+			if (input.CheckTriggered('S'))
+			{
+				GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() - Vector2D(0, speed));
+				GetOwner()->GetComponent<Transform>()->SetRotation(-(float)M_PI / 2.0f);
+				GetOwner()->GetComponent<Sprite>()->SetFrame(1);
+			}
+			if (input.CheckTriggered('D'))
+			{
+				GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() + Vector2D(speed, 0));
+				GetOwner()->GetComponent<Transform>()->SetRotation(0);
+				GetOwner()->GetComponent<Sprite>()->SetFrame(1);
+			}
+			if (input.CheckTriggered('A'))
+			{
+				GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() - Vector2D(speed, 0));
+				GetOwner()->GetComponent<Transform>()->SetRotation((float)M_PI);
+				GetOwner()->GetComponent<Sprite>()->SetFrame(1);
+			}
 		}
 	}
 	void FrogMovement::Deserialize(Parser & parser)
 	{
 		parser.ReadVariable("speed", speed);
-		parser.ReadVariable("direction", direction);
 	}
 	void FrogMovement::Serialize(Parser & parser) const
 	{
 		parser.WriteVariable("speed", speed);
-		parser.WriteVariable("direction", direction);
 	}
 	void FrogCollisionHandler(GameObject & object, GameObject & other)
 	{

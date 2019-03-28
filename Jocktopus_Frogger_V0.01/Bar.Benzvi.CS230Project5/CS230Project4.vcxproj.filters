@@ -52,6 +52,7 @@
     <ClCompile Include="Source\Omega.cpp">
       <Filter>Game\Levels</Filter>
     </ClCompile>
+    <ClCompile Include="Source\FrogMovement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h">
@@ -90,5 +91,6 @@
     <ClInclude Include="Source\Omega.h">
       <Filter>Game\Levels</Filter>
     </ClInclude>
+    <ClInclude Include="Source\FrogMovement.h" />
   </ItemGroup>
 </Project>
