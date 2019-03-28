@@ -66,6 +66,9 @@ namespace Levels
 		GetSpace()->GetObjectManager().AddObject(*GameObjectFactory::GetInstance().CreateObject("Monkey", meshMonkey, spriteSourceMonkey));
 		//GetSpace()->GetObjectManager().AddObject(*Archetypes::CreateMonkey());
 
+		GetSpace()->GetObjectManager().AddObject(*GameObjectFactory::GetInstance().CreateObject("Cars", meshMonkey));
+
+
 		//GetSpace()->GetObjectManager().AddObject(*Archetypes::CreateTilemapObject(meshMap, spriteSourceMap, dataMap));
 		GameObject* tileMap = GameObjectFactory::GetInstance().CreateObject("Tilemap", meshMap, spriteSourceMap);
 		static_cast<SpriteTilemap*>(tileMap->GetComponent("Sprite"))->SetTilemap(dataMap);

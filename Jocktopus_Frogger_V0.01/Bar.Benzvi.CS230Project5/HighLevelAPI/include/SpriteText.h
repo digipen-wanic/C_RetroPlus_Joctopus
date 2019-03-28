@@ -5,6 +5,8 @@
 // Project:		Game Project 1
 // Course:		WANIC VGP2 2018-2019
 //
+// Brief: Header file for the spritext class, which displays a given string.
+//
 // Copyright © 2018 DigiPen (USA) Corporation.
 //
 //------------------------------------------------------------------------------
@@ -15,6 +17,11 @@
 #include "Sprite.h"
 #include "Vector2D.h"
 
+
+//Alignment enumerator
+// CENTER = the character in the middle of the string will be at the object's position
+// LEFT = the character at the beginning of the string will be at the object's position
+// RIGHT = the character at the end of the 
 enum TextAlignment {CENTER, LEFT, RIGHT};
 
 class SpriteText : public Sprite

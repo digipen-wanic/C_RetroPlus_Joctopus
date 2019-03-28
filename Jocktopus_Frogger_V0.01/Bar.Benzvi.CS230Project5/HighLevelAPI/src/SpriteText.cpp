@@ -5,6 +5,8 @@
 // Project:		Game Project 1
 // Course:		WANIC VGP2 2018-2019
 //
+// Brief: Header file for the spritext class, which displays a given string.
+//
 // Copyright © 2018 DigiPen (USA) Corporation.
 //
 //------------------------------------------------------------------------------
@@ -36,6 +38,10 @@ void SpriteText::Draw()
 	{
 		currOffset.x = -scale.x * textCount / 2;
 	}
+	else if (alignment == RIGHT)
+	{
+		currOffset.x = -scale.x * textCount;
+	}
 
 	for (size_t i = 0; i < textCount; ++i)
 	{
@@ -46,14 +52,7 @@ void SpriteText::Draw()
 			SetFrame(asciiVal - 48);
 			Sprite::Draw(currOffset);
 
-			if (alignment == CENTER || alignment == LEFT)
-			{
-				currOffset.x += scale.x;
-			}
-			else
-			{
-				currOffset.x -= scale.x;
-			}
+			currOffset.x += scale.x;
 		}
 	}
 

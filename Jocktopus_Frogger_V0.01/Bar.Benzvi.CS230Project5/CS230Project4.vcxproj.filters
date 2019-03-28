@@ -55,6 +55,9 @@
     <ClCompile Include="Source\FrogMovement.cpp">
       <Filter>Game\Behaviors</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ItemMovement.cpp">
+      <Filter>Game\Behaviors</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h">
@@ -94,6 +97,9 @@
       <Filter>Game\Levels</Filter>
     </ClInclude>
     <ClInclude Include="Source\FrogMovement.h">
+      <Filter>Game\Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ItemMovement.h">
       <Filter>Game\Behaviors</Filter>
     </ClInclude>
   </ItemGroup>
