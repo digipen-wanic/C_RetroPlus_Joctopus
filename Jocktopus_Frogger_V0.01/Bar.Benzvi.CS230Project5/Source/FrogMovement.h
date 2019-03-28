@@ -21,7 +21,7 @@ namespace Behaviors
 	class FrogMovement : public Component
 	{
 	public:
-		FrogMovement(float speed = 50, int direction = 0);
+		FrogMovement(float speed = 50);
 		Component* Clone() const override;
 		void Initialize() override;
 		void Update(float dt) override;
