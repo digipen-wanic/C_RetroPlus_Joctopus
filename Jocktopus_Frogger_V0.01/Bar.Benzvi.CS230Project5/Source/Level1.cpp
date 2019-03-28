@@ -60,7 +60,9 @@ namespace Levels
 		textureText = Texture::CreateTextureFromFile("Jocktopus_TextSpritesheet_Test.png");
 		spriteSourceText = new SpriteSource(2, 5, textureText);
 
-		meshFrog = CreateTriangleMesh(Colors::Green, Colors::Green, Colors::Green);
+		meshFrog = CreateQuadMesh(Vector2D(1.0f / 2.0f, 1), Vector2D(0.5f, 0.5f));
+		Texture* textureFrog = Texture::CreateTextureFromFile("FrogTest.png");
+		spriteSourceFrog = new SpriteSource(2, 1, textureFrog);
 
 		//GetSpace()->GetObjectManager().AddArchetype(*GameObjectFactory::GetInstance().CreateObject("Bullet", meshBullet));
 
@@ -84,7 +86,7 @@ namespace Levels
 
 		GetSpace()->GetObjectManager().AddObject(*text);
 
-		GetSpace()->GetObjectManager().AddObject(*GameObjectFactory::GetInstance().CreateObject("Frog", meshFrog));
+		GetSpace()->GetObjectManager().AddObject(*GameObjectFactory::GetInstance().CreateObject("Frog", meshFrog, spriteSourceFrog));
 
 		//GetSpace()->GetObjectManager().AddObject(*Archetypes::CreateShip(meshShip));
 		//musicChannel = soundManager->PlaySound("Asteroid Field");
@@ -141,6 +143,7 @@ namespace Levels
 
 		delete meshShip;
 		delete meshFrog;
+		delete spriteSourceFrog;
 		//soundManager->Shutdown();
 		std::cout << "Level1::Unload" << std::endl;
 	}

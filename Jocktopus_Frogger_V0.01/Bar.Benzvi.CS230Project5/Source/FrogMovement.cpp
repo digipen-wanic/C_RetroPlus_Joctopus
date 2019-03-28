@@ -21,7 +21,7 @@
 
 namespace Behaviors
 {
-	FrogMovement::FrogMovement(float speed, int direction)
+	FrogMovement::FrogMovement(float speed)
 		:Component("FrogMovement"), speed(speed), canWalk(true)
 	{
 	}
