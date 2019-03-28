@@ -118,7 +118,7 @@ void MovingPointLineReflection(Transform& transform, Physics& physics, const Lin
 
 	if (AlmostEqual(movingPoint.end, intersection))
 	{
-		tempEnd += movingPoint.direction * 0.001;
+		tempEnd += movingPoint.direction * 0.001f;
 	}
 
 	Vector2D newPos = ReflectPointOverLine(tempEnd, staticLine);
