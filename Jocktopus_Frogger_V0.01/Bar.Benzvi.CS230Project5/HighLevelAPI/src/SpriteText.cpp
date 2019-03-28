@@ -14,7 +14,7 @@
 #include "Transform.h"
 
 SpriteText::SpriteText()
-	: text("")
+	: text(""), alignment(CENTER)
 {
 
 }
@@ -32,6 +32,11 @@ void SpriteText::Draw()
 
 	size_t textCount = text.length();
 
+	if (alignment == CENTER)
+	{
+		currOffset.x = -scale.x * textCount / 2;
+	}
+
 	for (size_t i = 0; i < textCount; ++i)
 	{
 		int asciiVal = text[i];
@@ -40,7 +45,15 @@ void SpriteText::Draw()
 		{
 			SetFrame(asciiVal - 48);
 			Sprite::Draw(currOffset);
-			currOffset.x += scale.x;
+
+			if (alignment == CENTER || alignment == LEFT)
+			{
+				currOffset.x += scale.x;
+			}
+			else
+			{
+				currOffset.x -= scale.x;
+			}
 		}
 	}
 
@@ -49,4 +62,9 @@ void SpriteText::Draw()
 void SpriteText::SetString(std::string newString)
 {
 	text = newString;
+}
+
+void SpriteText::SetAlignment(TextAlignment newAlignment)
+{
+	alignment = newAlignment;
 }

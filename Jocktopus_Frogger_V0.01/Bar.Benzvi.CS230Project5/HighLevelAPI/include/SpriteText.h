@@ -15,6 +15,7 @@
 #include "Sprite.h"
 #include "Vector2D.h"
 
+enum TextAlignment {CENTER, LEFT, RIGHT};
 
 class SpriteText : public Sprite
 {
@@ -28,13 +29,20 @@ public:
 	// Draw a sprite (Sprite can be textured or untextured).
 	void Draw() override;
 
-	// Sets the tilemap data that will be used by the sprite.
+	// Sets the string that will be used by the sprite.
 	// Params:
-	//   map = A pointer to the tilemap resource.
+	//   newString = The string that this sprite will draw.
 	void SetString(std::string newString);
+
+	// Sets the alignment of this sprite.
+	// Params:
+	//	newAlignment = the new alignment of this spritetext
+	void SetAlignment(TextAlignment newAlignment);
 
 private:
 
 	std::string text;
+
+	TextAlignment alignment;
 
 };
