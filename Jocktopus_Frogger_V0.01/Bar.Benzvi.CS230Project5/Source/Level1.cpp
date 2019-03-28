@@ -60,9 +60,9 @@ namespace Levels
 		textureText = Texture::CreateTextureFromFile("Jocktopus_TextSpritesheet_Test.png");
 		spriteSourceText = new SpriteSource(2, 5, textureText);
 
-		meshFrog = CreateQuadMesh(Vector2D(1.0f / 2.0f, 1), Vector2D(0.5f, 0.5f));
-		Texture* textureFrog = Texture::CreateTextureFromFile("FrogTest.png");
-		spriteSourceFrog = new SpriteSource(2, 1, textureFrog);
+		meshFrog = CreateQuadMesh(Vector2D(1.0f, 1.0f / 2.0f), Vector2D(0.5f, 0.5f));
+		Texture* textureFrog = Texture::CreateTextureFromFile("PlayerFrog.png");
+		spriteSourceFrog = new SpriteSource(1, 2, textureFrog);
 
 		//GetSpace()->GetObjectManager().AddArchetype(*GameObjectFactory::GetInstance().CreateObject("Bullet", meshBullet));
 

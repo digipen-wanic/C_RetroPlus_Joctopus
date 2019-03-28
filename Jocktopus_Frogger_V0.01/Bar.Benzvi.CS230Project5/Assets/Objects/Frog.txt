@@ -4,7 +4,7 @@ Frog
   Transform
   {
     translation : { 0, 0 }
-    rotation : 1.57
+    rotation : 0
     scale : { 50, 50 }
   }
   Sprite

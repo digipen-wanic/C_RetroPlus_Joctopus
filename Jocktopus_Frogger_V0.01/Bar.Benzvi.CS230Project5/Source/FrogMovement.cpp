@@ -21,8 +21,8 @@
 
 namespace Behaviors
 {
-	FrogMovement::FrogMovement(float speed)
-		:Component("FrogMovement"), speed(speed), canWalk(true)
+	FrogMovement::FrogMovement(float speed, int walkFrames)
+		:Component("FrogMovement"), speed(speed), canWalk(0), walkFrames(walkFrames)
 	{
 	}
 	Component * FrogMovement::Clone() const
@@ -38,36 +38,43 @@ namespace Behaviors
 		UNREFERENCED_PARAMETER(dt);
 		Input& input = Input::GetInstance();
 
-		if (!canWalk)
+		if (canWalk > 0)
 		{
-			GetOwner()->GetComponent<Sprite>()->SetFrame(0);
-			canWalk = true;
+			canWalk--;
+			if (canWalk <= 0)
+			{
+				GetOwner()->GetComponent<Sprite>()->SetFrame(0);
+			}
 		}
 		else
 		{
 			if (input.CheckTriggered('W'))
 			{
 				GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() + Vector2D(0, speed));
-				GetOwner()->GetComponent<Transform>()->SetRotation((float)M_PI / 2.0f);
+				GetOwner()->GetComponent<Transform>()->SetRotation(0);
 				GetOwner()->GetComponent<Sprite>()->SetFrame(1);
+				canWalk = 2;
 			}
 			if (input.CheckTriggered('S'))
 			{
 				GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() - Vector2D(0, speed));
-				GetOwner()->GetComponent<Transform>()->SetRotation(-(float)M_PI / 2.0f);
+				GetOwner()->GetComponent<Transform>()->SetRotation((float)M_PI);
 				GetOwner()->GetComponent<Sprite>()->SetFrame(1);
+				canWalk = 2;
 			}
 			if (input.CheckTriggered('D'))
 			{
 				GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() + Vector2D(speed, 0));
-				GetOwner()->GetComponent<Transform>()->SetRotation(0);
+				GetOwner()->GetComponent<Transform>()->SetRotation(-(float)M_PI / 2.0f);
 				GetOwner()->GetComponent<Sprite>()->SetFrame(1);
+				canWalk = 2;
 			}
 			if (input.CheckTriggered('A'))
 			{
 				GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() - Vector2D(speed, 0));
-				GetOwner()->GetComponent<Transform>()->SetRotation((float)M_PI);
+				GetOwner()->GetComponent<Transform>()->SetRotation((float)M_PI / 2.0f);
 				GetOwner()->GetComponent<Sprite>()->SetFrame(1);
+				canWalk = 2;
 			}
 		}
 	}

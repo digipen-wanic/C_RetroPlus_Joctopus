@@ -21,7 +21,7 @@ namespace Behaviors
 	class FrogMovement : public Component
 	{
 	public:
-		FrogMovement(float speed = 50);
+		FrogMovement(float speed = 50, int walkFrames = 2);
 		Component* Clone() const override;
 		void Initialize() override;
 		void Update(float dt) override;
@@ -30,6 +30,7 @@ namespace Behaviors
 		void Serialize(Parser& parser) const;
 	private:
 		float speed;
-		bool canWalk;
+		int canWalk;
+		int walkFrames;
 	};
 }
