@@ -32,16 +32,20 @@ void SpriteText::Draw()
 	Vector2D currOffset(0, 0);
 	Vector2D scale = transform->GetScale();
 
+	float xOffset = 0;
+
 	size_t textCount = text.length();
 
 	if (alignment == CENTER)
 	{
-		currOffset.x = -scale.x * textCount / 2;
+		xOffset = -scale.x * textCount / 2;
 	}
 	else if (alignment == RIGHT)
 	{
-		currOffset.x = -scale.x * textCount;
+		xOffset = -scale.x * textCount;
 	}
+
+	currOffset.x = xOffset;
 
 	for (size_t i = 0; i < textCount; ++i)
 	{
@@ -54,6 +58,7 @@ void SpriteText::Draw()
 
 			currOffset.x += scale.x;
 		}
+
 	}
 
 }
