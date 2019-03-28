@@ -26,6 +26,5 @@ Frog
   Behaviors::FrogMovement
   {
     speed : 50
-    direction : 3
   }
 }

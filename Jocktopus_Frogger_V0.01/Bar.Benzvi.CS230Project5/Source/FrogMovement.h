@@ -12,6 +12,7 @@
 
 #pragma once
 #include "stdafx.h"
+#include <SpriteSource.h>
 #include <Component.h>
 #include <Vector2D.h>
 
@@ -29,7 +30,6 @@ namespace Behaviors
 		void Serialize(Parser& parser) const;
 	private:
 		float speed;
-		// 0 = up, 1 = right, 2 = down, 3 = left
-		int direction;
+		bool canWalk;
 	};
 }
