@@ -31,7 +31,7 @@ namespace Behaviors
 
 	FrogMovement::FrogMovement(float speed, int walkFrames, float deathTime)
 		:Component("FrogMovement"), speed(speed), canWalk(0), walkFrames(walkFrames), dying(false), 
-		currentForward(0), onFloat(false), deathTime(deathTime), timer(0)
+		currentForward(0), onFloat(false), deathTime(deathTime), timer(0), waterDeathActive(false)
 	{
 	}
 
@@ -46,10 +46,13 @@ namespace Behaviors
 		{
 			object.GetComponent<FrogMovement>()->InitDeathSequence();
 		}
-		else if (other.GetName() == "Float")
+		else if (other.GetName() == "Float" && !object.GetComponent<FrogMovement>()->dying)
 		{
 			object.GetComponent<FrogMovement>()->onFloat = true;
-			object.GetComponent<Physics>()->SetVelocity(Vector2D(other.GetComponent<ItemMovement>()->GetSpeed() * other.GetComponent<ItemMovement>()->GetDirection(), 0));
+			if (object.GetComponent<FrogMovement>()->canWalk <= 0)
+			{
+				object.GetComponent<Physics>()->SetVelocity(Vector2D(other.GetComponent<ItemMovement>()->GetSpeed() * other.GetComponent<ItemMovement>()->GetDirection(), 0));
+			}
 		}
 	}
 
@@ -146,9 +149,22 @@ namespace Behaviors
 		UNREFERENCED_PARAMETER(dt);
 
 		// Kills the player if they are far enough forward for water and not on a float
-		if (currentForward > 6 && !onFloat)
+		if (currentForward > 6 && !onFloat && waterDeathActive)
 		{
 			InitDeathSequence();
+		}
+		else if (currentForward > 6 && !onFloat)
+		{
+			waterDeathActive = true;
+		}
+		else
+		{
+			waterDeathActive = false;
+		}
+
+		if (!onFloat || canWalk > 0)
+		{
+			GetOwner()->GetComponent<Physics>()->SetVelocity(Vector2D(0, 0));
 		}
 
 		onFloat = false;

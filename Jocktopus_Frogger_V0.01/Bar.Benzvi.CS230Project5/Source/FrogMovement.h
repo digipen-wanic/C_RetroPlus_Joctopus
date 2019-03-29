@@ -95,5 +95,7 @@ namespace Behaviors
 		SoundManager* soundManager;
 
 		static int score;
+
+		bool waterDeathActive;
 	};
 }
