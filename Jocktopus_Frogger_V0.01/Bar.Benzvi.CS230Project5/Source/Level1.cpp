@@ -56,13 +56,17 @@ namespace Levels
 		//meshBullet = CreateTriangleMesh(Colors::Aqua, Colors::Grey, Colors::LightBlue);
 		mesh1x1 = CreateQuadMesh(Vector2D(1.0f, 1.0f), Vector2D(0.5f, 0.5f));
 		mesh1x2 = CreateQuadMesh(Vector2D(1.0f, 1.0f / 2.0f), Vector2D(0.5f, 0.5f));
+		mesh2x2 = CreateQuadMesh(Vector2D(1.0f / 2.0f, 1.0f / 2.0f), Vector2D(0.5f, 0.5f));
 
 		meshText = CreateQuadMesh(Vector2D(1.0f / 6.0f, 1.0f / 6.0f), Vector2D(0.5f, 0.5f));
 		textureText = Texture::CreateTextureFromFile("NumberLetterSpriteSheet.png");
 		spriteSourceText = new SpriteSource(6, 6, textureText);
 
+		Texture* textureDeadFrog = Texture::CreateTextureFromFile("PlayerFrogRoadKill.png");
+		spriteSourceDeadFrog = new SpriteSource(2, 2, textureDeadFrog);
+
 		Texture* textureFrog = Texture::CreateTextureFromFile("PlayerFrog.png");
-		spriteSourceFrog = new SpriteSource(1, 2, textureFrog);
+		spriteSourceFrog = new SpriteSource(2, 2, textureFrog);
 
 		Texture* textureLog = Texture::CreateTextureFromFile("BrownSquare.png");
 		spriteSourceLog = new SpriteSource(1, 1, textureLog);
@@ -112,7 +116,8 @@ namespace Levels
 		GetSpace()->GetObjectManager().AddObject(*text2);
 		
 
-		currFrog = GameObjectFactory::GetInstance().CreateObject("Frog", mesh1x2, spriteSourceFrog);
+		currFrog = GameObjectFactory::GetInstance().CreateObject("Frog", mesh2x2, spriteSourceFrog);
+		currFrog->GetComponent<Behaviors::FrogMovement>()->SetDeathAnimation(spriteSourceDeadFrog);
 
 		GetSpace()->GetObjectManager().AddObject(*currFrog);
 
@@ -237,7 +242,8 @@ namespace Levels
 
 		if (currFrog->IsDestroyed())
 		{
-			currFrog = GameObjectFactory::GetInstance().CreateObject("Frog", mesh1x2, spriteSourceFrog);
+			currFrog = GameObjectFactory::GetInstance().CreateObject("Frog", mesh2x2, spriteSourceFrog);
+			currFrog->GetComponent<Behaviors::FrogMovement>()->SetDeathAnimation(spriteSourceDeadFrog);
 
 			GetSpace()->GetObjectManager().AddObject(*currFrog);
 
