@@ -31,7 +31,8 @@ namespace Behaviors
 
 	FrogMovement::FrogMovement(float speed, int walkFrames, float deathTime)
 		:Component("FrogMovement"), speed(speed), canWalk(0), walkFrames(walkFrames), dying(false), 
-		currentForward(0), onFloat(false), deathTime(deathTime), timer(0), waterDeathActive(false)
+		currentForward(0), onFloat(false), deathTime(deathTime), timer(0), waterDeathActive(false),
+		deathAnimation(nullptr)
 	{
 	}
 
@@ -87,7 +88,7 @@ namespace Behaviors
 				{
 					GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() + Vector2D(0, speed));
 					GetOwner()->GetComponent<Transform>()->SetRotation(0);
-					GetOwner()->GetComponent<Sprite>()->SetFrame(1);
+					GetOwner()->GetComponent<Sprite>()->SetFrame(2);
 					canWalk = 2;
 					currentForward++;
 
@@ -105,7 +106,7 @@ namespace Behaviors
 				{
 					GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() - Vector2D(0, speed));
 					GetOwner()->GetComponent<Transform>()->SetRotation((float)M_PI);
-					GetOwner()->GetComponent<Sprite>()->SetFrame(1);
+					GetOwner()->GetComponent<Sprite>()->SetFrame(2);
 					canWalk = 2;
 					// If currentForward - 1 is greater than 0, we can move
 					if (currentForward - 1 >= 0)
@@ -119,7 +120,7 @@ namespace Behaviors
 				{
 					GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() + Vector2D(speed, 0));
 					GetOwner()->GetComponent<Transform>()->SetRotation(-(float)M_PI / 2.0f);
-					GetOwner()->GetComponent<Sprite>()->SetFrame(1);
+					GetOwner()->GetComponent<Sprite>()->SetFrame(2);
 					canWalk = 2;
 					soundManager->PlaySound("Jump.wav");
 				}
@@ -127,7 +128,7 @@ namespace Behaviors
 				{
 					GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() - Vector2D(speed, 0));
 					GetOwner()->GetComponent<Transform>()->SetRotation((float)M_PI / 2.0f);
-					GetOwner()->GetComponent<Sprite>()->SetFrame(1);
+					GetOwner()->GetComponent<Sprite>()->SetFrame(2);
 					canWalk = 2;
 					soundManager->PlaySound("Jump.wav");
 				}
@@ -190,14 +191,17 @@ namespace Behaviors
 		if (!dying)
 		{
 			dying = true;
-			//GetOwner()->GetComponent<Sprite>()->SetSpriteSource(deathAnimation);
-			//GetOwner()->GetComponent<Animation>()->Play(0, 4, 0.5f, false);
+			GetOwner()->GetComponent<Sprite>()->SetSpriteSource(deathAnimation);
+			GetOwner()->GetComponent<Animation>()->Play(0, 4, 0.5f, false);
 		}
 	}
 
 	void FrogMovement::SetDeathAnimation(SpriteSource * animation)
 	{
-		delete deathAnimation;
+		if (deathAnimation != nullptr)
+		{
+			delete deathAnimation;
+		}
 		deathAnimation = animation;
 	}
 

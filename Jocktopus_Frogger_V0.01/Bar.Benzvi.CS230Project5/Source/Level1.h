@@ -68,7 +68,9 @@ namespace Levels
 
 		Mesh* mesh1x1;
 		Mesh* mesh1x2;
+		Mesh* mesh2x2;
 
+		SpriteSource* spriteSourceDeadFrog;
 		SpriteSource* spriteSourceFrog;
 		SpriteSource* spriteSourceLog;
 		//SpriteSource* spriteSourceTurtle;
