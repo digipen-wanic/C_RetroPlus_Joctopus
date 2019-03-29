@@ -86,7 +86,11 @@ float Transform::GetRotation() const
 
 void Transform::SetScale(const Vector2D& scale_)
 {
-	scale = scale_;
+	if (!AlmostEqual(scale, scale_))
+	{
+		scale = scale_;
+		isDirty = true;
+	}
 }
 
 const Vector2D& Transform::GetScale() const
