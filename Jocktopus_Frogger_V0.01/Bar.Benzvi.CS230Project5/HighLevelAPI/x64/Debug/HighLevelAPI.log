@@ -1,38 +1,4 @@
-﻿  stdafx.cpp
-  Transform.cpp
-  Tilemap.cpp
-  SpriteTilemap.cpp
-  SpriteText.cpp
-  SpriteSource.cpp
-  Sprite.cpp
-  Space.cpp
-  SoundManager.cpp
-  Serializable.cpp
-  Physics.cpp
-  Parser.cpp
-  MeshHelper.cpp
-  Matrix2DStudent.cpp
-  Level.cpp
-  Intersection2D.cpp
-c:\users\bar.benzvi\downloads\jocktopus_frogger_v0.01\bar.benzvi.cs230project5\highlevelapi\src\intersection2d.cpp(121): warning C4305: 'argument': truncation from 'double' to 'float'
-  GameObjectManager.cpp
-  GameObjectFactory.cpp
-  GameObject.cpp
-  Component.cpp
-  ColliderTilemap.cpp
-  Generating Code...
-  Compiling...
-  ColliderRectangle.cpp
-  ColliderPoint.cpp
-  ColliderLine.cpp
-  ColliderCircle.cpp
-  Collider.cpp
-  Animation.cpp
-  Generating Code...
-BetaLow_x64_D.lib(gdiplus.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in BetaLow_x64_D.lib(RPCRT4.dll); second definition ignored
-BetaLow_x64_D.lib(gdiplus.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-BetaLow_x64_D.lib(OPENGL32.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in BetaLow_x64_D.lib(RPCRT4.dll); second definition ignored
-BetaLow_x64_D.lib(OPENGL32.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+﻿  GameObjectFactory.cpp
 glfw3.lib(context.c.obj) : warning LNK4006: _glfwChooseFBConfig already defined in BetaLow_x64_D.lib(context.c.obj); second definition ignored
 glfw3.lib(context.c.obj) : warning LNK4006: _glfwIsValidContextConfig already defined in BetaLow_x64_D.lib(context.c.obj); second definition ignored
 glfw3.lib(context.c.obj) : warning LNK4006: _glfwRefreshContextAttribs already defined in BetaLow_x64_D.lib(context.c.obj); second definition ignored
@@ -262,8 +228,6 @@ glfw3.lib(egl_context.c.obj) : warning LNK4006: glfwGetEGLContext already define
 glfw3.lib(egl_context.c.obj) : warning LNK4006: glfwGetEGLDisplay already defined in BetaLow_x64_D.lib(egl_context.c.obj); second definition ignored
 glfw3.lib(egl_context.c.obj) : warning LNK4006: glfwGetEGLSurface already defined in BetaLow_x64_D.lib(egl_context.c.obj); second definition ignored
 glfw3.lib(egl_context.c.obj) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-fmodL64_vc.lib(fmodL64.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in BetaLow_x64_D.lib(RPCRT4.dll); second definition ignored
-fmodL64_vc.lib(fmodL64.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-fmodstudioL64_vc.lib(fmodstudioL64.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in BetaLow_x64_D.lib(RPCRT4.dll); second definition ignored
+fmodstudioL64_vc.lib(fmodstudioL64.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in fmodL64_vc.lib(fmodL64.dll); second definition ignored
 fmodstudioL64_vc.lib(fmodstudioL64.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-  HighLevelAPI.vcxproj -> C:\Users\bar.benzvi\Downloads\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\HighLevelAPI\\lib\BetaHigh_x64_D.lib
+  HighLevelAPI.vcxproj -> C:\Users\kyle.jamison\Documents\GitHub\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\HighLevelAPI\\lib\BetaHigh_x64_D.lib

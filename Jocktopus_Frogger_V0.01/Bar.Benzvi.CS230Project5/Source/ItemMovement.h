@@ -23,15 +23,34 @@ namespace Behaviors
 	class ItemMovement : public Component
 	{
 	public:
-		ItemMovement::ItemMovement(float speed = 1.0, bool left = true);
-
-		void ItemMovement::Initialize();
-
-		void ItemMovement::Update();
-
-		void ItemMovement::SetSpeed(float Speed);
-
-		void ItemMovement::SetLeft(bool Left);
+		/*
+		Makes a Item Move
+		Takes: speed to tell how fast to move, left to tell if it is moving left
+		*/
+		ItemMovement(float speed = 20.0, bool left = true);
+		/*
+		Makes a clone on ItemMovement
+		*/
+		Component* Clone() const override;
+		/*
+		sets transform
+		*/
+		void Initialize() override;
+		/*
+		moves based on speed
+		Takes: time
+		*/
+		void Update(float dt) override;
+		/*
+		Sets speed
+		Takes: Speed
+		*/
+		void SetSpeed(float Speed);
+		/*
+		Sets left to true or false
+		Takes: bool
+		*/
+		void SetLeft(bool Left);
 
 	private:
 		bool moveLeft;
