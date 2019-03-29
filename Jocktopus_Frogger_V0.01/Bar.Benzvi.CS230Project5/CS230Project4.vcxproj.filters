@@ -58,7 +58,7 @@
     <ClCompile Include="Source\ItemMovement.cpp">
       <Filter>Game\Behaviors</Filter>
     </ClCompile>
-    <ClCompile Include="PurpleFrogMovement.cpp">
+    <ClCompile Include="Source\PurpleFrogMovement.cpp">
       <Filter>Game\Behaviors</Filter>
     </ClCompile>
   </ItemGroup>
@@ -105,7 +105,7 @@
     <ClInclude Include="Source\ItemMovement.h">
       <Filter>Game\Behaviors</Filter>
     </ClInclude>
-    <ClInclude Include="PurpleFrogMovement.h">
+    <ClInclude Include="Source\PurpleFrogMovement.h">
       <Filter>Game\Behaviors</Filter>
     </ClInclude>
   </ItemGroup>

@@ -25,6 +25,7 @@
 #include "Level1.h"
 
 #include "FrogMovement.h"
+#include "PurpleFrogMovement.h"
 #include "GameObjectFactory.h"
 #include "PlayerShip.h"
 #include "TimedDeath.h"
@@ -66,6 +67,7 @@ int WINAPI WinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prevInstance, _In
 	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::PlayerProjectile>();
 	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::Asteroid>();
 	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::FrogMovement>();
+	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::PurpleFrogMovement>();
 	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::ItemMovement>();
 
 	// Set initial level to the second level.

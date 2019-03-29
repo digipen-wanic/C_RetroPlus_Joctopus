@@ -33,6 +33,7 @@
 #include "Omega.h"
 #include "ItemMovement.h"
 #include "ColliderRectangle.h"
+#include "PurpleFrogMovement.h"
 
 
 namespace Levels
@@ -66,18 +67,116 @@ namespace Levels
 	{
 		std::cout << "Level2::Initialize" << std::endl;
 		
-		GetSpace()->GetObjectManager().AddObject(*GameObjectFactory::GetInstance().CreateObject("Monkey", meshMonkey, spriteSourceMonkey));
+		//GetSpace()->GetObjectManager().AddObject(*GameObjectFactory::GetInstance().CreateObject("Monkey", meshMonkey, spriteSourceMonkey));
 		//GetSpace()->GetObjectManager().AddObject(*Archetypes::CreateMonkey());
+
+		//Car type one
+		GameObject* car1_1 = GameObjectFactory::GetInstance().CreateObject("Car", meshMonkey);
+		car1_1->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		car1_1->GetComponent<Transform>()->SetTranslation(Vector2D(10, -250));
+		GetSpace()->GetObjectManager().AddObject(*car1_1);
+
+		GameObject* car1_2 = GameObjectFactory::GetInstance().CreateObject("Car", meshMonkey);
+		car1_2->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		car1_2->GetComponent<Transform>()->SetTranslation(Vector2D(190, -250));
+		GetSpace()->GetObjectManager().AddObject(*car1_2);
+
+		GameObject* car1_3 = GameObjectFactory::GetInstance().CreateObject("Car", meshMonkey);
+		car1_3->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		car1_3->GetComponent<Transform>()->SetTranslation(Vector2D(370, -250));
+		GetSpace()->GetObjectManager().AddObject(*car1_3);
+
+		//Car type two
+		GameObject* car2_1 = GameObjectFactory::GetInstance().CreateObject("Car", meshMonkey);
+		car2_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(35);
+		car2_1->GetComponent<Transform>()->SetTranslation(Vector2D(-10, -200));
+		GetSpace()->GetObjectManager().AddObject(*car2_1);
+
+		GameObject* car2_2 = GameObjectFactory::GetInstance().CreateObject("Car", meshMonkey);
+		car2_2->GetComponent<Behaviors::ItemMovement>()->SetSpeed(35);
+		car2_2->GetComponent<Transform>()->SetTranslation(Vector2D(-190, -200));
+		GetSpace()->GetObjectManager().AddObject(*car2_2);
+
+		GameObject* car2_3 = GameObjectFactory::GetInstance().CreateObject("Car", meshMonkey);
+		car2_3->GetComponent<Behaviors::ItemMovement>()->SetSpeed(35);
+		car2_3->GetComponent<Transform>()->SetTranslation(Vector2D(-370, -200));
+		GetSpace()->GetObjectManager().AddObject(*car2_3);
+
+		//Car type three
+		GameObject* car3_1 = GameObjectFactory::GetInstance().CreateObject("Car", meshMonkey);
+		car3_1->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		car3_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(40);
+		car3_1->GetComponent<Transform>()->SetTranslation(Vector2D(10, -150));
+		GetSpace()->GetObjectManager().AddObject(*car3_1);
+
+		GameObject* car3_2 = GameObjectFactory::GetInstance().CreateObject("Car", meshMonkey);
+		car3_2->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		car3_2->GetComponent<Behaviors::ItemMovement>()->SetSpeed(40);
+		car3_2->GetComponent<Transform>()->SetTranslation(Vector2D(190, -150));
+		GetSpace()->GetObjectManager().AddObject(*car3_2);
+
+		GameObject* car3_3 = GameObjectFactory::GetInstance().CreateObject("Car", meshMonkey);
+		car3_3->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		car3_3->GetComponent<Behaviors::ItemMovement>()->SetSpeed(40);
+		car3_3->GetComponent<Transform>()->SetTranslation(Vector2D(370, -150));
+		GetSpace()->GetObjectManager().AddObject(*car3_3);
+
+		//Car type four
+		GameObject* car4_1 = GameObjectFactory::GetInstance().CreateObject("Car", meshMonkey);
+		car4_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(60);
+		car4_1->GetComponent<Transform>()->SetTranslation(Vector2D(-100, -100));
+		GetSpace()->GetObjectManager().AddObject(*car4_1);
+
+		//Truck
+		GameObject* truck_1 = GameObjectFactory::GetInstance().CreateObject("Car", meshMonkey);
+		truck_1->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		truck_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(55);
+		truck_1->GetComponent<Transform>()->SetTranslation(Vector2D(50, -50));
+		truck_1->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
+		truck_1->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
+		GetSpace()->GetObjectManager().AddObject(*truck_1);
+
+		GameObject* truck_2 = GameObjectFactory::GetInstance().CreateObject("Car", meshMonkey);
+		truck_2->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		truck_2->GetComponent<Behaviors::ItemMovement>()->SetSpeed(55);
+		truck_2->GetComponent<Transform>()->SetTranslation(Vector2D(290, -50));
+		truck_2->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
+		truck_2->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
+		GetSpace()->GetObjectManager().AddObject(*truck_2);
+
+		// Floats
+		GameObject* float_1 = GameObjectFactory::GetInstance().CreateObject("Float", meshMonkey, spriteSourceMonkey);
+		float_1->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
+		float_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(55);
+		float_1->GetComponent<Transform>()->SetTranslation(Vector2D(290, 50));
+		float_1->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
+		float_1->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
+		GetSpace()->GetObjectManager().AddObject(*float_1);
+		
+		GameObject* float_2 = GameObjectFactory::GetInstance().CreateObject("Float", meshMonkey, spriteSourceMonkey);
+		float_2->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		float_2->GetComponent<Behaviors::ItemMovement>()->SetSpeed(35);
+		float_2->GetComponent<Transform>()->SetTranslation(Vector2D(290, 100));
+		float_2->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
+		float_2->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
+		GetSpace()->GetObjectManager().AddObject(*float_2);
+
+		// PFrog
+		GameObject* PFrog = GameObjectFactory::GetInstance().CreateObject("PFrog", meshMonkey, spriteSourceMonkey);
+		PFrog->GetComponent<Transform>()->SetTranslation(Vector2D(275, 100));
+		GetSpace()->GetObjectManager().AddObject(*PFrog);
+
+
 
 		//GetSpace()->GetObjectManager().AddObject(*Archetypes::CreateTilemapObject(meshMap, spriteSourceMap, dataMap));
 		GameObject* tileMap = GameObjectFactory::GetInstance().CreateObject("Tilemap", meshMap, spriteSourceMap);
 		static_cast<SpriteTilemap*>(tileMap->GetComponent("Sprite"))->SetTilemap(dataMap);
 		static_cast<ColliderTilemap*>(tileMap->GetComponent("Collider"))->SetTilemap(dataMap);
 
-		GetSpace()->GetObjectManager().AddObject(*tileMap);
+		//GetSpace()->GetObjectManager().AddObject(*tileMap);
 
 
-		static_cast<Animation*>(GetSpace()->GetObjectManager().GetObjectByName("Monkey")->GetComponent("Animation"))->Play(0, 8, 0.2f, true);
+		//static_cast<Animation*>(GetSpace()->GetObjectManager().GetObjectByName("Monkey")->GetComponent("Animation"))->Play(0, 8, 0.2f, true);
 	}
 
 	void Level2::Update(float dt)
