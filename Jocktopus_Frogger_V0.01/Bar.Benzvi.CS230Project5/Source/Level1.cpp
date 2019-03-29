@@ -34,6 +34,8 @@
 #include "Texture.h"
 #include "SpriteSource.h"
 #include "SpriteText.h"
+#include "ItemMovement.h"
+#include "ColliderRectangle.h"
 
 namespace Levels
 {
@@ -96,6 +98,80 @@ namespace Levels
 
 		//GetSpace()->GetObjectManager().AddObject(*Archetypes::CreateShip(meshShip));
 		//musicChannel = soundManager->PlaySound("Asteroid Field");
+
+		//Car type one
+		GameObject* car1_1 = GameObjectFactory::GetInstance().CreateObject("Car", meshFrog);
+		car1_1->GetComponent<Behaviors::ItemMovement>()->SetLeft(false);
+		car1_1->GetComponent<Transform>()->SetTranslation(Vector2D(10, -250));
+		GetSpace()->GetObjectManager().AddObject(*car1_1);
+
+		GameObject* car1_2 = GameObjectFactory::GetInstance().CreateObject("Car", meshFrog);
+		car1_2->GetComponent<Behaviors::ItemMovement>()->SetLeft(false);
+		car1_2->GetComponent<Transform>()->SetTranslation(Vector2D(190, -250));
+		GetSpace()->GetObjectManager().AddObject(*car1_2);
+
+		GameObject* car1_3 = GameObjectFactory::GetInstance().CreateObject("Car", meshFrog);
+		car1_3->GetComponent<Behaviors::ItemMovement>()->SetLeft(false);
+		car1_3->GetComponent<Transform>()->SetTranslation(Vector2D(370, -250));
+		GetSpace()->GetObjectManager().AddObject(*car1_3);
+
+		//Car type two
+		GameObject* car2_1 = GameObjectFactory::GetInstance().CreateObject("Car", meshFrog);
+		car2_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(35);
+		car2_1->GetComponent<Transform>()->SetTranslation(Vector2D(-10, -200));
+		GetSpace()->GetObjectManager().AddObject(*car2_1);
+
+		GameObject* car2_2 = GameObjectFactory::GetInstance().CreateObject("Car", meshFrog);
+		car2_2->GetComponent<Behaviors::ItemMovement>()->SetSpeed(35);
+		car2_2->GetComponent<Transform>()->SetTranslation(Vector2D(-190, -200));
+		GetSpace()->GetObjectManager().AddObject(*car2_2);
+
+		GameObject* car2_3 = GameObjectFactory::GetInstance().CreateObject("Car", meshFrog);
+		car2_3->GetComponent<Behaviors::ItemMovement>()->SetSpeed(35);
+		car2_3->GetComponent<Transform>()->SetTranslation(Vector2D(-370, -200));
+		GetSpace()->GetObjectManager().AddObject(*car2_3);
+
+		//Car type three
+		GameObject* car3_1 = GameObjectFactory::GetInstance().CreateObject("Car", meshFrog);
+		car3_1->GetComponent<Behaviors::ItemMovement>()->SetLeft(false);
+		car3_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(40);
+		car3_1->GetComponent<Transform>()->SetTranslation(Vector2D(10, -150));
+		GetSpace()->GetObjectManager().AddObject(*car3_1);
+
+		GameObject* car3_2 = GameObjectFactory::GetInstance().CreateObject("Car", meshFrog);
+		car3_2->GetComponent<Behaviors::ItemMovement>()->SetLeft(false);
+		car3_2->GetComponent<Behaviors::ItemMovement>()->SetSpeed(40);
+		car3_2->GetComponent<Transform>()->SetTranslation(Vector2D(190, -150));
+		GetSpace()->GetObjectManager().AddObject(*car3_2);
+
+		GameObject* car3_3 = GameObjectFactory::GetInstance().CreateObject("Car", meshFrog);
+		car3_3->GetComponent<Behaviors::ItemMovement>()->SetLeft(false);
+		car3_3->GetComponent<Behaviors::ItemMovement>()->SetSpeed(40);
+		car3_3->GetComponent<Transform>()->SetTranslation(Vector2D(370, -150));
+		GetSpace()->GetObjectManager().AddObject(*car3_3);
+
+		//Car type four
+		GameObject* car4_1 = GameObjectFactory::GetInstance().CreateObject("Car", meshFrog);
+		car4_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(60);
+		car4_1->GetComponent<Transform>()->SetTranslation(Vector2D(-100, -100));
+		GetSpace()->GetObjectManager().AddObject(*car4_1);
+
+		//Truck
+		GameObject* truck_1 = GameObjectFactory::GetInstance().CreateObject("Car", meshFrog);
+		truck_1->GetComponent<Behaviors::ItemMovement>()->SetLeft(false);
+		truck_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(55);
+		truck_1->GetComponent<Transform>()->SetTranslation(Vector2D(50, -50));
+		truck_1->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
+		truck_1->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
+		GetSpace()->GetObjectManager().AddObject(*truck_1);
+
+		GameObject* truck_2 = GameObjectFactory::GetInstance().CreateObject("Car", meshFrog);
+		truck_2->GetComponent<Behaviors::ItemMovement>()->SetLeft(false);
+		truck_2->GetComponent<Behaviors::ItemMovement>()->SetSpeed(55);
+		truck_2->GetComponent<Transform>()->SetTranslation(Vector2D(290, -50));
+		truck_2->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
+		truck_2->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
+		GetSpace()->GetObjectManager().AddObject(*truck_2);
 
 		std::cout << "Level1::Initialize" << std::endl;
 	}
