@@ -11,6 +11,7 @@
 
 #include "stdafx.h"
 #include "FrogMovement.h"
+#include "ItemMovement.h"
 #include <Sprite.h>
 #include <Parser.h>
 #include <Collider.h>
@@ -19,6 +20,7 @@
 #include <Input.h>
 #include <Transform.h>
 #include <Animation.h>
+#include <Physics.h>
 
 namespace Behaviors
 {
@@ -109,6 +111,11 @@ namespace Behaviors
 			furthestForward = currentForward;
 		}
 	}
+	void FrogMovement::FixedUpdate(float dt)
+	{
+		UNREFERENCED_PARAMETER(dt);
+		onFloat = false;
+	}
 	void FrogMovement::Shutdown()
 	{
 		delete deathAnimation;
@@ -144,6 +151,7 @@ namespace Behaviors
 		else if (other.GetName() == "Float")
 		{
 			object.GetComponent<FrogMovement>()->onFloat = true;
+			
 		}
 	}
 }
