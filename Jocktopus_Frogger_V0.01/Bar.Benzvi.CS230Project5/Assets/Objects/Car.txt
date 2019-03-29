@@ -1,6 +1,6 @@
 Car
 {
-  numComponents : 7
+  numComponents : 6
   Transform
   {
     translation : { 0, 0 }
@@ -22,12 +22,6 @@ Car
   ColliderRectangle
   {
     extents : { 15, 15 }
-  }
-  Behaviors::ColorChange
-  {
-    normalColor : { 0 , 1 , 0 , 1 }
-    collidedColor : { 1 , 0 , 0 , 1 }
-    colliderColorTime : 0.1
   }
   Behaviors::ScreenWrap
   {

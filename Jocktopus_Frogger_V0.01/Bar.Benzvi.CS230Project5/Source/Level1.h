@@ -65,13 +65,18 @@ namespace Levels
 		//------------------------------------------------------------------------------
 
 		// Meshes
-		Mesh* meshShip;
 
-		Mesh* meshFrog;
+		Mesh* mesh1x1;
+		Mesh* mesh1x2;
+
 		SpriteSource* spriteSourceFrog;
-
-		Mesh* meshFloat;
-		SpriteSource* spriteSourceFloat;
+		SpriteSource* spriteSourceLog;
+		//SpriteSource* spriteSourceTurtle;
+		SpriteSource* spriteSourceCar1;
+		SpriteSource* spriteSourceCar2;
+		SpriteSource* spriteSourceCar3;
+		SpriteSource* spriteSourceCar4;
+		SpriteSource* spriteSourceCar5;
 
 		Mesh* meshText;
 		Texture* textureText;

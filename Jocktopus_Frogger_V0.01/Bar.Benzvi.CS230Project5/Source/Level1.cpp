@@ -41,7 +41,7 @@
 namespace Levels
 {
 	Level1::Level1()
-		: Level("Level1"), meshShip(nullptr), meshFrog(nullptr), lives(2), timer(40.0f)
+		: Level("Level1"), mesh1x1(nullptr), mesh1x2(nullptr), lives(2), timer(40.0f)
 	{
 
 	}
@@ -54,18 +54,33 @@ namespace Levels
 
 		//meshShip = CreateTriangleMesh(Colors::Red, Colors::Blue, Colors::Green);
 		//meshBullet = CreateTriangleMesh(Colors::Aqua, Colors::Grey, Colors::LightBlue);
+		mesh1x1 = CreateQuadMesh(Vector2D(1.0f, 1.0f), Vector2D(0.5f, 0.5f));
+		mesh1x2 = CreateQuadMesh(Vector2D(1.0f, 1.0f / 2.0f), Vector2D(0.5f, 0.5f));
 
 		meshText = CreateQuadMesh(Vector2D(1.0f / 6.0f, 1.0f / 6.0f), Vector2D(0.5f, 0.5f));
 		textureText = Texture::CreateTextureFromFile("NumberLetterSpriteSheet.png");
 		spriteSourceText = new SpriteSource(6, 6, textureText);
 
-		meshFrog = CreateQuadMesh(Vector2D(1.0f, 1.0f / 2.0f), Vector2D(0.5f, 0.5f));
 		Texture* textureFrog = Texture::CreateTextureFromFile("PlayerFrog.png");
 		spriteSourceFrog = new SpriteSource(1, 2, textureFrog);
 
-		meshFloat = CreateQuadMesh(Vector2D(1.0f, 1.0f), Vector2D(0.5f, 0.5f));
-		Texture* textureFloat = Texture::CreateTextureFromFile("BrownSquare.png");
-		spriteSourceFloat = new SpriteSource(1, 1, textureFloat);
+		Texture* textureLog = Texture::CreateTextureFromFile("BrownSquare.png");
+		spriteSourceLog = new SpriteSource(1, 1, textureLog);
+
+		Texture* textureCar1 = Texture::CreateTextureFromFile("yellowcar_01.png");
+		spriteSourceCar1 = new SpriteSource(1, 1, textureCar1);
+
+		Texture* textureCar2 = Texture::CreateTextureFromFile("dozer_01.png");
+		spriteSourceCar2 = new SpriteSource(1, 1, textureCar2);
+
+		Texture* textureCar3 = Texture::CreateTextureFromFile("pinkcar_01.png");
+		spriteSourceCar3 = new SpriteSource(1, 1, textureCar3);
+
+		Texture* textureCar4 = Texture::CreateTextureFromFile("whitecar_01.png");
+		spriteSourceCar4 = new SpriteSource(1, 1, textureCar4);
+
+		Texture* textureCar5 = Texture::CreateTextureFromFile("truck_01.png");
+		spriteSourceCar5 = new SpriteSource(1, 1, textureCar5);
 
 		//GetSpace()->GetObjectManager().AddArchetype(*GameObjectFactory::GetInstance().CreateObject("Bullet", meshBullet));
 
@@ -97,11 +112,11 @@ namespace Levels
 		GetSpace()->GetObjectManager().AddObject(*text2);
 		
 
-		currFrog = GameObjectFactory::GetInstance().CreateObject("Frog", meshFrog, spriteSourceFrog);
+		currFrog = GameObjectFactory::GetInstance().CreateObject("Frog", mesh1x2, spriteSourceFrog);
 
 		GetSpace()->GetObjectManager().AddObject(*currFrog);
 
-		timerObject = GameObjectFactory::GetInstance().CreateObject("Timer", meshFloat);
+		timerObject = GameObjectFactory::GetInstance().CreateObject("Timer", mesh1x1);
 
 		GetSpace()->GetObjectManager().AddObject(*timerObject);
 
@@ -109,73 +124,78 @@ namespace Levels
 		//musicChannel = soundManager->PlaySound("Asteroid Field");
 
 		//Car type one
-		GameObject* car1_1 = GameObjectFactory::GetInstance().CreateObject("Car", meshFrog);
-		car1_1->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		GameObject* car1_1 = GameObjectFactory::GetInstance().CreateObject("Car", mesh1x1, spriteSourceCar1);
+		car1_1->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
 		car1_1->GetComponent<Transform>()->SetTranslation(Vector2D(10, -250));
 		GetSpace()->GetObjectManager().AddObject(*car1_1);
 
-		GameObject* car1_2 = GameObjectFactory::GetInstance().CreateObject("Car", meshFrog);
-		car1_2->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		GameObject* car1_2 = GameObjectFactory::GetInstance().CreateObject("Car", mesh1x1, spriteSourceCar1);
+		car1_2->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
 		car1_2->GetComponent<Transform>()->SetTranslation(Vector2D(190, -250));
 		GetSpace()->GetObjectManager().AddObject(*car1_2);
 
-		GameObject* car1_3 = GameObjectFactory::GetInstance().CreateObject("Car", meshFrog);
-		car1_3->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		GameObject* car1_3 = GameObjectFactory::GetInstance().CreateObject("Car", mesh1x1, spriteSourceCar1);
+		car1_3->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
 		car1_3->GetComponent<Transform>()->SetTranslation(Vector2D(370, -250));
 		GetSpace()->GetObjectManager().AddObject(*car1_3);
 
 		//Car type two
-		GameObject* car2_1 = GameObjectFactory::GetInstance().CreateObject("Car", meshFrog);
+		GameObject* car2_1 = GameObjectFactory::GetInstance().CreateObject("Car", mesh1x1, spriteSourceCar2);
+		car2_1->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
 		car2_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(35);
 		car2_1->GetComponent<Transform>()->SetTranslation(Vector2D(-10, -200));
 		GetSpace()->GetObjectManager().AddObject(*car2_1);
 
-		GameObject* car2_2 = GameObjectFactory::GetInstance().CreateObject("Car", meshFrog);
+		GameObject* car2_2 = GameObjectFactory::GetInstance().CreateObject("Car", mesh1x1, spriteSourceCar2);
+		car2_2->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
 		car2_2->GetComponent<Behaviors::ItemMovement>()->SetSpeed(35);
 		car2_2->GetComponent<Transform>()->SetTranslation(Vector2D(-190, -200));
 		GetSpace()->GetObjectManager().AddObject(*car2_2);
 
-		GameObject* car2_3 = GameObjectFactory::GetInstance().CreateObject("Car", meshFrog);
+		GameObject* car2_3 = GameObjectFactory::GetInstance().CreateObject("Car", mesh1x1, spriteSourceCar2);
+		car2_3->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
 		car2_3->GetComponent<Behaviors::ItemMovement>()->SetSpeed(35);
 		car2_3->GetComponent<Transform>()->SetTranslation(Vector2D(-370, -200));
 		GetSpace()->GetObjectManager().AddObject(*car2_3);
 
 		//Car type three
-		GameObject* car3_1 = GameObjectFactory::GetInstance().CreateObject("Car", meshFrog);
-		car3_1->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		GameObject* car3_1 = GameObjectFactory::GetInstance().CreateObject("Car", mesh1x1, spriteSourceCar3);
+		car3_1->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
 		car3_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(40);
 		car3_1->GetComponent<Transform>()->SetTranslation(Vector2D(10, -150));
 		GetSpace()->GetObjectManager().AddObject(*car3_1);
 
-		GameObject* car3_2 = GameObjectFactory::GetInstance().CreateObject("Car", meshFrog);
-		car3_2->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		GameObject* car3_2 = GameObjectFactory::GetInstance().CreateObject("Car", mesh1x1, spriteSourceCar3);
+		car3_2->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
 		car3_2->GetComponent<Behaviors::ItemMovement>()->SetSpeed(40);
 		car3_2->GetComponent<Transform>()->SetTranslation(Vector2D(190, -150));
 		GetSpace()->GetObjectManager().AddObject(*car3_2);
 
-		GameObject* car3_3 = GameObjectFactory::GetInstance().CreateObject("Car", meshFrog);
-		car3_3->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		GameObject* car3_3 = GameObjectFactory::GetInstance().CreateObject("Car", mesh1x1, spriteSourceCar3);
+		car3_3->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
 		car3_3->GetComponent<Behaviors::ItemMovement>()->SetSpeed(40);
 		car3_3->GetComponent<Transform>()->SetTranslation(Vector2D(370, -150));
 		GetSpace()->GetObjectManager().AddObject(*car3_3);
 
 		//Car type four
-		GameObject* car4_1 = GameObjectFactory::GetInstance().CreateObject("Car", meshFrog);
+		GameObject* car4_1 = GameObjectFactory::GetInstance().CreateObject("Car", mesh1x1, spriteSourceCar4);
+		car4_1->GetComponent<Transform>()->SetScale(Vector2D(-car4_1->GetComponent<Transform>()->GetScale().x, car4_1->GetComponent<Transform>()->GetScale().y));
+		car4_1->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
 		car4_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(60);
 		car4_1->GetComponent<Transform>()->SetTranslation(Vector2D(-100, -100));
 		GetSpace()->GetObjectManager().AddObject(*car4_1);
 
 		//Truck
-		GameObject* truck_1 = GameObjectFactory::GetInstance().CreateObject("Car", meshFrog);
-		truck_1->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		GameObject* truck_1 = GameObjectFactory::GetInstance().CreateObject("Car", mesh1x1, spriteSourceCar5);
+		truck_1->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
 		truck_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(55);
 		truck_1->GetComponent<Transform>()->SetTranslation(Vector2D(50, -50));
 		truck_1->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
 		truck_1->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
 		GetSpace()->GetObjectManager().AddObject(*truck_1);
 
-		GameObject* truck_2 = GameObjectFactory::GetInstance().CreateObject("Car", meshFrog);
-		truck_2->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		GameObject* truck_2 = GameObjectFactory::GetInstance().CreateObject("Car", mesh1x1, spriteSourceCar5);
+		truck_2->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
 		truck_2->GetComponent<Behaviors::ItemMovement>()->SetSpeed(55);
 		truck_2->GetComponent<Transform>()->SetTranslation(Vector2D(290, -50));
 		truck_2->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
@@ -183,7 +203,7 @@ namespace Levels
 		GetSpace()->GetObjectManager().AddObject(*truck_2);
 
 		// Floats
-		GameObject* float_1 = GameObjectFactory::GetInstance().CreateObject("Float", meshFloat, spriteSourceFloat);
+		GameObject* float_1 = GameObjectFactory::GetInstance().CreateObject("Float", mesh1x1, spriteSourceLog);
 		float_1->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
 		float_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(55);
 		float_1->GetComponent<Transform>()->SetTranslation(Vector2D(290, 50));
@@ -217,7 +237,7 @@ namespace Levels
 
 		if (currFrog->IsDestroyed())
 		{
-			currFrog = GameObjectFactory::GetInstance().CreateObject("Frog", meshFrog, spriteSourceFrog);
+			currFrog = GameObjectFactory::GetInstance().CreateObject("Frog", mesh1x2, spriteSourceFrog);
 
 			GetSpace()->GetObjectManager().AddObject(*currFrog);
 
@@ -269,11 +289,15 @@ namespace Levels
 	{
 		delete meshText;
 		delete spriteSourceText;
-		delete meshShip;
-		delete meshFrog;
+		delete mesh1x2;
 		delete spriteSourceFrog;
-		delete meshFloat;
-		delete spriteSourceFloat;
+		delete mesh1x1;
+		delete spriteSourceLog;
+		delete spriteSourceCar1;
+		delete spriteSourceCar2;
+		delete spriteSourceCar3;
+		delete spriteSourceCar4;
+		delete spriteSourceCar5;
 		//soundManager->Shutdown();
 		std::cout << "Level1::Unload" << std::endl;
 	}
