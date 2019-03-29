@@ -29,6 +29,8 @@ namespace Behaviors
 		void Initialize() override;
 		// Runs every frame
 		void Update(float dt) override;
+		// Runs every 1/60 seconds
+		void FixedUpdate(float dt) override;
 		// Runs whenever the object is created
 		void Shutdown() override;
 		// Runs whenever a collision is detected
