@@ -61,6 +61,7 @@ namespace Behaviors
 	{
 		soundManager = Engine::GetInstance().GetModule<SoundManager>();
 		soundManager->AddEffect("Jump.wav");
+		soundManager->AddEffect("DieExplosion.wav");
 
 		// Init collision handler
 		static_cast<Collider*>(GetOwner()->GetComponent("Collider"))->SetCollisionHandler(FrogCollisionHandler);
@@ -191,6 +192,8 @@ namespace Behaviors
 		if (!dying)
 		{
 			dying = true;
+			soundManager->PlaySound("DieExplosion.wav");
+			GetOwner()->GetComponent<Transform>()->SetRotation(0);
 			GetOwner()->GetComponent<Sprite>()->SetSpriteSource(deathAnimation);
 			GetOwner()->GetComponent<Animation>()->Play(0, 4, 0.5f, false);
 		}

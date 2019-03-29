@@ -90,6 +90,7 @@ namespace Levels
 		GameObject* timerObject;
 		int lives;
 		float timer;
+		bool lost;
 
 		// Sounds
 		SoundManager* soundManager;

@@ -41,7 +41,7 @@
 namespace Levels
 {
 	Level1::Level1()
-		: Level("Level1"), mesh1x1(nullptr), mesh1x2(nullptr), lives(2), timer(40.0f)
+		: Level("Level1"), mesh1x1(nullptr), mesh1x2(nullptr), lives(2), timer(40.0f), lost(false)
 	{
 
 	}
@@ -51,6 +51,7 @@ namespace Levels
 
 		soundManager = Engine::GetInstance().GetModule<SoundManager>();
 		soundManager->AddEffect("Respawn1.wav");
+		soundManager->AddEffect("LoseSong.wav");
 
 		//meshShip = CreateTriangleMesh(Colors::Red, Colors::Blue, Colors::Green);
 		//meshBullet = CreateTriangleMesh(Colors::Aqua, Colors::Grey, Colors::LightBlue);
@@ -222,45 +223,53 @@ namespace Levels
 	void Level1::Update(float dt)
 	{
 
-		timer -= dt;
-
-		if (timerObject != nullptr)
+		if (!lost)
 		{
+			timer -= dt;
 
-			Transform* timerTransform = timerObject->GetComponent<Transform>();
-
-			timerTransform->SetTranslation(Vector2D((-timerTransform->GetScale().x / 2) + 100.0f, -330.0f));
-			timerTransform->SetScale(Vector2D(timer * 5.0f, 25.0f));
-
-			std::cout << timerTransform->GetScale() << std::endl;
-		}
-
-		if (timer <= 0.0f)
-		{
-			currFrog->Destroy();
-		}
-
-		if (currFrog->IsDestroyed())
-		{
-			currFrog = GameObjectFactory::GetInstance().CreateObject("Frog", mesh2x2, spriteSourceFrog);
-			currFrog->GetComponent<Behaviors::FrogMovement>()->SetDeathAnimation(spriteSourceDeadFrog);
-
-			GetSpace()->GetObjectManager().AddObject(*currFrog);
-
-			soundManager->PlaySound("Respawn1.wav");
-
-			lives--;
-
-			timer = 40.0f;
-
-			if (lives < 0)
+			if (timerObject != nullptr)
 			{
-				GetSpace()->SetLevel<Levels::Level2>();
+
+				Transform* timerTransform = timerObject->GetComponent<Transform>();
+
+				timerTransform->SetTranslation(Vector2D((-timerTransform->GetScale().x / 2) + 100.0f, -330.0f));
+				timerTransform->SetScale(Vector2D(timer * 5.0f, 25.0f));
+
+				std::cout << timerTransform->GetScale() << std::endl;
 			}
-		}
-		else
-		{
-			scoreText->GetComponent<SpriteText>()->SetString(std::to_string(currFrog->GetComponent<Behaviors::FrogMovement>()->GetScore()));
+
+			if (timer <= 0.0f)
+			{
+				currFrog->Destroy();
+			}
+
+			if (currFrog->IsDestroyed())
+			{
+				lives--;
+
+				if (lives < 0)
+				{
+					soundManager->PlaySound("LoseSong.wav");
+					lost = true;
+					//GetSpace()->SetLevel<Levels::Level2>();
+					return;
+				}
+
+				currFrog = GameObjectFactory::GetInstance().CreateObject("Frog", mesh2x2, spriteSourceFrog);
+				currFrog->GetComponent<Behaviors::FrogMovement>()->SetDeathAnimation(spriteSourceDeadFrog);
+
+				GetSpace()->GetObjectManager().AddObject(*currFrog);
+
+				soundManager->PlaySound("Respawn1.wav");
+
+				timer = 40.0f;
+
+
+			}
+			else
+			{
+				scoreText->GetComponent<SpriteText>()->SetString(std::to_string(currFrog->GetComponent<Behaviors::FrogMovement>()->GetScore()));
+			}
 		}
 
 		
