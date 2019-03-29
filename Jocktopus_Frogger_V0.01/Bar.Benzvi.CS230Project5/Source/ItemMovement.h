@@ -27,7 +27,7 @@ namespace Behaviors
 		Makes a Item Move
 		Takes: speed to tell how fast to move, left to tell if it is moving left
 		*/
-		ItemMovement(float speed = 20.0, bool left = true);
+		ItemMovement(float speed = 20.0, int dir = -1);
 		/*
 		Makes a clone on ItemMovement
 		*/
@@ -52,18 +52,18 @@ namespace Behaviors
 		*/
 		float GetSpeed();
 		/*
-		Sets left to true or false
-		Takes: bool
+		Sets the x direction this item will move in
+		Takes: int
 		*/
-		void SetLeft(bool Left);
+		void SetDirection(int dir);
 		/*
-		Get left to true or false
-		Returns: bool
+		Gets the x direction this item is moving in
+		Returns: int
 		*/
-		bool SetLeft();
+		int GetDirection() const;
 
 	private:
-		bool moveLeft;
+		int direction;
 		Transform* transform;
 		float speed;
 	};

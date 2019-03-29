@@ -26,6 +26,8 @@
 class Mesh;
 class Texture;
 class SpriteSource;
+class GameObject;
+class SoundManager;
 
 //------------------------------------------------------------------------------
 // Public Structures:
@@ -74,6 +76,16 @@ namespace Levels
 		Mesh* meshText;
 		Texture* textureText;
 		SpriteSource* spriteSourceText;
+
+		// Game Variables
+		GameObject* currFrog;
+		GameObject* scoreText;
+		GameObject* timerObject;
+		int lives;
+		float timer;
+
+		// Sounds
+		SoundManager* soundManager;
 
 		// Title
 		static const unsigned titleStringLength = 20;

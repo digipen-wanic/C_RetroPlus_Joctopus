@@ -34,6 +34,7 @@
 #include "PlayerProjectile.h"
 #include "Asteroid.h"
 #include "ItemMovement.h"
+#include "SoundManager.h"
 
 //------------------------------------------------------------------------------
 
@@ -71,6 +72,7 @@ int WINAPI WinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prevInstance, _In
 	space->SetLevel(new Levels::Level1());
 
 	// Add additional modules to engine
+	Engine::GetInstance().AddModule(new SoundManager());
 	Engine::GetInstance().AddModule(space);
 	
 	// Game engine goes!

@@ -12,8 +12,8 @@ Move the thing
 
 namespace Behaviors
 {
-	ItemMovement::ItemMovement(float speed, bool left)
-		: Component("ItemMovement"), moveLeft(left), speed(speed)
+	ItemMovement::ItemMovement(float speed, int dir)
+		: Component("ItemMovement"), direction(dir), speed(speed)
 	{}
 	Component * ItemMovement::Clone() const
 	{
@@ -25,14 +25,7 @@ namespace Behaviors
 	}
 	void ItemMovement::Update(float dt)
 	{
-		if (moveLeft)
-		{
-			transform->SetTranslation(Vector2D(transform->GetTranslation().x + (speed * dt), transform->GetTranslation().y));
-		}
-		else
-		{
-			transform->SetTranslation(Vector2D(transform->GetTranslation().x - (speed * dt), transform->GetTranslation().y));
-		}
+		transform->SetTranslation(Vector2D(transform->GetTranslation().x + (speed * direction * dt), transform->GetTranslation().y));
 	}
 	void ItemMovement::SetSpeed(float Speed)
 	{
@@ -42,12 +35,12 @@ namespace Behaviors
 	{
 		return speed;
 	}
-	void ItemMovement::SetLeft(bool Left)
+	void ItemMovement::SetDirection(int dir)
 	{
-		moveLeft = Left;
+		direction = dir;
 	}
-	bool ItemMovement::SetLeft()
+	int ItemMovement::GetDirection() const
 	{
-		return moveLeft;
+		return direction;
 	}
 }
