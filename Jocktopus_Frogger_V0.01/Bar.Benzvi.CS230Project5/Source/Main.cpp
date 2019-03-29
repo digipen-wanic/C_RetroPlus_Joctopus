@@ -33,6 +33,7 @@
 #include "ScreenWrap.h"
 #include "PlayerProjectile.h"
 #include "Asteroid.h"
+#include "ItemMovement.h"
 
 //------------------------------------------------------------------------------
 
@@ -64,6 +65,7 @@ int WINAPI WinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prevInstance, _In
 	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::PlayerProjectile>();
 	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::Asteroid>();
 	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::FrogMovement>();
+	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::ItemMovement>();
 
 	// Set initial level to the second level.
 	space->SetLevel(new Levels::Level1());
@@ -72,7 +74,7 @@ int WINAPI WinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prevInstance, _In
 	Engine::GetInstance().AddModule(space);
 	
 	// Game engine goes!
-	Engine::GetInstance().Start(800, 600, 200);
+	Engine::GetInstance().Start(678, 694, 200);
 
 	return 0;
 }

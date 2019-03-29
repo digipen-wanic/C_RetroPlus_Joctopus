@@ -27,6 +27,7 @@
 #include "SpriteText.h"
 
 
+
 GameObject* GameObjectFactory::CreateObject(const std::string& name, Mesh* mesh, SpriteSource* spriteSource)
 {
 	GameObject* object = new GameObject(name);

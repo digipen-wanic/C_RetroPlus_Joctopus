@@ -1,11 +1,11 @@
-Rectangle
+Cars
 {
-  numComponents : 6
+  numComponents : 7
   Transform
   {
     translation : { 0, 0 }
     rotation : 0
-    scale : { 250, 100 }
+    scale : { 30, 30 }
   }
   Sprite
   {
@@ -21,7 +21,7 @@ Rectangle
   }
   ColliderRectangle
   {
-    extents : { 125, 50 }
+    extents : { 15, 15 }
   }
   Behaviors::ColorChange
   {
@@ -32,7 +32,7 @@ Rectangle
   Behaviors::ScreenWrap
   {
   }
-  Behaviors::ItemMovment
+  Behaviors::ItemMovement
   {
   }
 }

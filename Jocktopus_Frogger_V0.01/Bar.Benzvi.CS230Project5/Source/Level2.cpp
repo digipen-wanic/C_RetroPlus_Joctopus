@@ -31,6 +31,9 @@
 #include "SpriteTilemap.h"
 #include "ColliderTilemap.h"
 #include "Omega.h"
+#include "ItemMovement.h"
+#include "ColliderRectangle.h"
+
 
 namespace Levels
 {
@@ -65,9 +68,30 @@ namespace Levels
 		
 		GetSpace()->GetObjectManager().AddObject(*GameObjectFactory::GetInstance().CreateObject("Monkey", meshMonkey, spriteSourceMonkey));
 		//GetSpace()->GetObjectManager().AddObject(*Archetypes::CreateMonkey());
-
-		GetSpace()->GetObjectManager().AddObject(*GameObjectFactory::GetInstance().CreateObject("Cars", meshMonkey));
-
+		GameObject* car1 = GameObjectFactory::GetInstance().CreateObject("Cars", meshMonkey);
+		car1->GetComponent<Behaviors::ItemMovement>()->SetLeft(false);
+		car1->GetComponent<Transform>()->SetTranslation(Vector2D(100,-100));
+		GetSpace()->GetObjectManager().AddObject(*car1);
+		GameObject* car2 = GameObjectFactory::GetInstance().CreateObject("Cars", meshMonkey);
+		car2->GetComponent<Behaviors::ItemMovement>()->SetSpeed(35);
+		car2->GetComponent<Transform>()->SetTranslation(Vector2D(-100, -50));
+		GetSpace()->GetObjectManager().AddObject(*car2);
+		GameObject* car3 = GameObjectFactory::GetInstance().CreateObject("Cars", meshMonkey);
+		car3->GetComponent<Behaviors::ItemMovement>()->SetLeft(false);
+		car3->GetComponent<Behaviors::ItemMovement>()->SetSpeed(40);
+		car3->GetComponent<Transform>()->SetTranslation(Vector2D(100, 00));
+		GetSpace()->GetObjectManager().AddObject(*car3);
+		GameObject* car4 = GameObjectFactory::GetInstance().CreateObject("Cars", meshMonkey);
+		car4->GetComponent<Behaviors::ItemMovement>()->SetSpeed(60);
+		car4->GetComponent<Transform>()->SetTranslation(Vector2D(-100, 50));
+		GetSpace()->GetObjectManager().AddObject(*car4);
+		GameObject* truck = GameObjectFactory::GetInstance().CreateObject("Cars", meshMonkey);
+		truck->GetComponent<Behaviors::ItemMovement>()->SetLeft(false);
+		truck->GetComponent<Behaviors::ItemMovement>()->SetSpeed(55);
+		truck->GetComponent<Transform>()->SetTranslation(Vector2D(100, 100));
+		truck->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
+		truck->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
+		GetSpace()->GetObjectManager().AddObject(*truck);
 
 		//GetSpace()->GetObjectManager().AddObject(*Archetypes::CreateTilemapObject(meshMap, spriteSourceMap, dataMap));
 		GameObject* tileMap = GameObjectFactory::GetInstance().CreateObject("Tilemap", meshMap, spriteSourceMap);
