@@ -56,8 +56,15 @@ void SpriteText::Draw()
 			SetFrame(asciiVal - 48);
 			Sprite::Draw(currOffset);
 
-			currOffset.x += scale.x;
+			
 		}
+		else if (asciiVal < 91 && asciiVal > 65)
+		{
+			SetFrame(asciiVal - 55);
+			Sprite::Draw(currOffset);
+		}
+
+		currOffset.x += scale.x;
 
 	}
 

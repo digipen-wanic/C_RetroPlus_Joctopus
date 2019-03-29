@@ -56,9 +56,9 @@ namespace Levels
 		//meshShip = CreateTriangleMesh(Colors::Red, Colors::Blue, Colors::Green);
 		//meshBullet = CreateTriangleMesh(Colors::Aqua, Colors::Grey, Colors::LightBlue);
 
-		meshText = CreateQuadMesh(Vector2D(1.0f / 2.0f, 1.0f / 5.0f), Vector2D(0.5f, 0.5f));
-		textureText = Texture::CreateTextureFromFile("Jocktopus_TextSpritesheet_Test.png");
-		spriteSourceText = new SpriteSource(2, 5, textureText);
+		meshText = CreateQuadMesh(Vector2D(1.0f / 6.0f, 1.0f / 6.0f), Vector2D(0.5f, 0.5f));
+		textureText = Texture::CreateTextureFromFile("NumberLetterSpriteSheet.png");
+		spriteSourceText = new SpriteSource(6, 6, textureText);
 
 		meshFrog = CreateQuadMesh(Vector2D(1.0f, 1.0f / 2.0f), Vector2D(0.5f, 0.5f));
 		Texture* textureFrog = Texture::CreateTextureFromFile("PlayerFrog.png");
@@ -81,10 +81,16 @@ namespace Levels
 		//GetSpace()->GetObjectManager().AddObject(*ship);
 
 		GameObject* text = GameObjectFactory::GetInstance().CreateObject("SpriteText", meshText, spriteSourceText);
+		GameObject* text2 = GameObjectFactory::GetInstance().CreateObject("SpriteText", meshText, spriteSourceText);
 
-		text->GetComponent<SpriteText>()->SetString("0123456789");
-
+		text->GetComponent<SpriteText>()->SetString("ACEGHIK");
+		text->GetComponent<SpriteText>()->SetAlignment(LEFT);
 		GetSpace()->GetObjectManager().AddObject(*text);
+
+		text2->GetComponent<SpriteText>()->SetString("MNOPRSTY");
+		text2->GetComponent<SpriteText>()->SetAlignment(LEFT);
+		text2->GetComponent<Transform>()->SetTranslation(Vector2D(-150.0f, 150.0f));
+		GetSpace()->GetObjectManager().AddObject(*text2);
 
 		GetSpace()->GetObjectManager().AddObject(*GameObjectFactory::GetInstance().CreateObject("Frog", meshFrog, spriteSourceFrog));
 
