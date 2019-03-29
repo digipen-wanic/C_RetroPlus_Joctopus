@@ -3,7 +3,7 @@ PFrog
   numComponents : 7
   Transform
   {
-    translation : { 275, 100 }
+    translation : { 245, 100 }
     rotation : 0
     scale : { 60, 30 }
   }
