@@ -1,0 +1,35 @@
+PFrog
+{
+  numComponents : 7
+  Transform
+  {
+    translation : { 245, 100 }
+    rotation : 0
+    scale : { 60, 30 }
+  }
+  Sprite
+  {
+    frameIndex : 0
+    color : { 1 , 1 , 1 , 1 }
+  }
+  Physics
+  {
+    acceleration : { 0, 0 }
+    velocity : { 0, 0 }
+    angularVelocity : 0
+    mass : 1
+  }
+  ColliderRectangle
+  {
+    extents : { 15, 15 }
+  }
+  Behaviors::PurpleFrogMovement
+  {
+  }
+  Animation
+  {
+  }
+  Behaviors::ScreenWrap
+  {
+  }
+}
