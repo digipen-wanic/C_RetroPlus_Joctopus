@@ -66,6 +66,10 @@ namespace Levels
 		Texture* textureFrog = Texture::CreateTextureFromFile("PlayerFrog.png");
 		spriteSourceFrog = new SpriteSource(1, 2, textureFrog);
 
+		meshFloat = CreateQuadMesh(Vector2D(1.0f, 1.0f), Vector2D(0.5f, 0.5f));
+		Texture* textureFloat = Texture::CreateTextureFromFile("BrownSquare.png");
+		spriteSourceFloat = new SpriteSource(1, 1, textureFloat);
+
 		//GetSpace()->GetObjectManager().AddArchetype(*GameObjectFactory::GetInstance().CreateObject("Bullet", meshBullet));
 
 		//GetSpace()->GetObjectManager().AddArchetype(*Archetypes::CreateBulletArchetype(meshBullet));
@@ -173,6 +177,15 @@ namespace Levels
 		truck_2->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
 		GetSpace()->GetObjectManager().AddObject(*truck_2);
 
+		// Floats
+		GameObject* float_1 = GameObjectFactory::GetInstance().CreateObject("Float", meshFloat, spriteSourceFloat);
+		float_1->GetComponent<Behaviors::ItemMovement>()->SetLeft(false);
+		float_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(55);
+		float_1->GetComponent<Transform>()->SetTranslation(Vector2D(290, 50));
+		float_1->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
+		float_1->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
+		GetSpace()->GetObjectManager().AddObject(*float_1);
+
 		std::cout << "Level1::Initialize" << std::endl;
 	}
 
@@ -226,6 +239,8 @@ namespace Levels
 		delete meshShip;
 		delete meshFrog;
 		delete spriteSourceFrog;
+		delete meshFloat;
+		delete spriteSourceFloat;
 		//soundManager->Shutdown();
 		std::cout << "Level1::Unload" << std::endl;
 	}
