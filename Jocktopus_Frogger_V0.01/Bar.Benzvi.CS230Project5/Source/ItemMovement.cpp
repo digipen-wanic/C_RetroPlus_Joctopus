@@ -38,8 +38,16 @@ namespace Behaviors
 	{
 		speed = Speed;
 	}
+	float ItemMovement::GetSpeed()
+	{
+		return speed;
+	}
 	void ItemMovement::SetLeft(bool Left)
 	{
 		moveLeft = Left;
+	}
+	bool ItemMovement::SetLeft()
+	{
+		return moveLeft;
 	}
 }

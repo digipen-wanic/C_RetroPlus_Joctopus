@@ -47,10 +47,20 @@ namespace Behaviors
 		*/
 		void SetSpeed(float Speed);
 		/*
+		Get speed
+		Returns: Speed
+		*/
+		float GetSpeed();
+		/*
 		Sets left to true or false
 		Takes: bool
 		*/
 		void SetLeft(bool Left);
+		/*
+		Get left to true or false
+		Returns: bool
+		*/
+		bool SetLeft();
 
 	private:
 		bool moveLeft;
