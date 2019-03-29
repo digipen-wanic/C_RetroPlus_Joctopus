@@ -1,4 +1,4 @@
-﻿  GameObjectFactory.cpp
+﻿  SpriteText.cpp
 glfw3.lib(context.c.obj) : warning LNK4006: _glfwChooseFBConfig already defined in BetaLow_x64_D.lib(context.c.obj); second definition ignored
 glfw3.lib(context.c.obj) : warning LNK4006: _glfwIsValidContextConfig already defined in BetaLow_x64_D.lib(context.c.obj); second definition ignored
 glfw3.lib(context.c.obj) : warning LNK4006: _glfwRefreshContextAttribs already defined in BetaLow_x64_D.lib(context.c.obj); second definition ignored
