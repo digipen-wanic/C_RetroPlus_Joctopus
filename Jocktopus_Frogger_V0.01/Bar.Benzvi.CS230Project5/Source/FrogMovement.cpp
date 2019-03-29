@@ -151,7 +151,7 @@ namespace Behaviors
 		else if (other.GetName() == "Float")
 		{
 			object.GetComponent<FrogMovement>()->onFloat = true;
-			
+			object.GetComponent<Physics>()->SetVelocity(Vector2D(other.GetComponent<ItemMovement>()->GetSpeed(), 0));
 		}
 	}
 }
