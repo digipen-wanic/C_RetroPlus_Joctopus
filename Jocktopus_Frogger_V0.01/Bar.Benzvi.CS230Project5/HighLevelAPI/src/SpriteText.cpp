@@ -5,7 +5,7 @@
 // Project:		Game Project 1
 // Course:		WANIC VGP2 2018-2019
 //
-// Brief: Header file for the spritext class, which displays a given string.
+// Brief: Cpp file for the spritext class, which displays a given string.
 //
 // Copyright © 2018 DigiPen (USA) Corporation.
 //
@@ -36,6 +36,7 @@ void SpriteText::Draw()
 
 	size_t textCount = text.length();
 
+	//Set the xOffset based off of our alignment
 	if (alignment == CENTER)
 	{
 		xOffset = -scale.x * textCount / 2;
@@ -47,10 +48,12 @@ void SpriteText::Draw()
 
 	currOffset.x = xOffset;
 
+	//"Print" all characters in our string
 	for (size_t i = 0; i < textCount; ++i)
 	{
 		int asciiVal = text[i];
 
+		//If the current character is a number
 		if (asciiVal < 58 && asciiVal > 47)
 		{
 			SetFrame(asciiVal - 48);
@@ -58,6 +61,7 @@ void SpriteText::Draw()
 
 			
 		}
+		//If the current character is an uppercase letter
 		else if (asciiVal < 91 && asciiVal > 65)
 		{
 			SetFrame(asciiVal - 55);
