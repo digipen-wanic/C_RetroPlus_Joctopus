@@ -105,5 +105,8 @@
     <ClInclude Include="Source\ItemMovement.h">
       <Filter>Game\Behaviors</Filter>
     </ClInclude>
+    <ClInclude Include="PurpleFrogMovement.h">
+      <Filter>Game\Behaviors</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
