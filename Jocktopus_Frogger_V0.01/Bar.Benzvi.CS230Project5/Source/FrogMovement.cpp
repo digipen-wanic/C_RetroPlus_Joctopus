@@ -18,12 +18,13 @@
 #include <Space.h>
 #include <Input.h>
 #include <Transform.h>
+#include <Animation.h>
 
 namespace Behaviors
 {
-	FrogMovement::FrogMovement(float speed, int walkFrames)
+	FrogMovement::FrogMovement(float speed, int walkFrames, float deathTime)
 		:Component("FrogMovement"), speed(speed), canWalk(0), walkFrames(walkFrames), dying(false), furthestForward(0),
-		currentForward(0), onFloat(false)
+		currentForward(0), onFloat(false), deathTime(deathTime), timer(0)
 	{
 	}
 	Component * FrogMovement::Clone() const
@@ -93,12 +94,24 @@ namespace Behaviors
 				}
 			}
 		}
+		else
+		{
+			timer += dt;
+			if (timer >= deathTime)
+			{
+				GetOwner()->GetSpace()->RestartLevel();
+			}
+		}
 
 		// Checks if the player has moved further forward than before and sets the furthest forward if they have
 		if (currentForward > furthestForward)
 		{
 			furthestForward = currentForward;
 		}
+	}
+	void FrogMovement::Shutdown()
+	{
+		delete deathAnimation;
 	}
 	void FrogMovement::Deserialize(Parser & parser)
 	{
@@ -110,11 +123,17 @@ namespace Behaviors
 	}
 	void FrogMovement::InitDeathSequence()
 	{
-		// TODO: Make death sequence
 		if (!dying)
 		{
 			dying = true;
+			GetOwner()->GetComponent<Sprite>()->SetSpriteSource(deathAnimation);
+			GetOwner()->GetComponent<Animation>()->Play(0, 4, 0.5f, false);
 		}
+	}
+	void FrogMovement::SetDeathAnimation(SpriteSource * animation)
+	{
+		delete deathAnimation;
+		deathAnimation = animation;
 	}
 	void FrogCollisionHandler(GameObject & object, GameObject & other)
 	{
