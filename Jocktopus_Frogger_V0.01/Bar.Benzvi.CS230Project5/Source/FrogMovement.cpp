@@ -23,15 +23,21 @@
 #include <Physics.h>
 #include "SoundManager.h"
 #include "Engine.h"
+#include "GameObjectFactory.h"
+#include "SpriteSource.h"
+#include "Texture.h"
+#include "MeshHelper.h"
+#include "GameObjectManager.h"
 
 namespace Behaviors
 {
 	int FrogMovement::score = 0;
 	int FrogMovement::furthestForward = 0;
+	int FrogMovement::lives = 2;
 
 	FrogMovement::FrogMovement(float speed, int walkFrames, float deathTime)
 		:Component("FrogMovement"), speed(speed), canWalk(0), walkFrames(walkFrames), dying(false), 
-		currentForward(0), onFloat(false), deathTime(deathTime), timer(0), waterDeathActive(false),
+		currentForward(0), onFloat(false), deathTime(deathTime), timer(0), loseTimer(40.0f), waterDeathActive(false),
 		deathAnimation(nullptr)
 	{
 	}
@@ -75,6 +81,9 @@ namespace Behaviors
 		// Runs movement if the player isn't dying
 		if (!dying)
 		{
+
+			loseTimer -= dt;
+
 			if (canWalk > 0)
 			{
 				canWalk--;
@@ -155,9 +164,24 @@ namespace Behaviors
 		{
 			InitDeathSequence();
 		}
-		else if (currentForward > 6 && !onFloat)
+		else if (currentForward > 6 && currentForward < 13 && !onFloat)
 		{
 			waterDeathActive = true;
+		}
+		else if (currentForward == 12)
+		{
+			GameObject* winFrog = GameObjectFactory::GetInstance().CreateObject("WinFrog", winMesh, winSpriteSource);
+			winFrog->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation());
+
+			GetOwner()->GetSpace()->GetObjectManager().AddObject(*winFrog);
+
+			GetOwner()->Destroy();
+
+			int timerScore = static_cast<int>(timer * 20);
+			std::cout << timerScore << std::endl;
+
+			score += timerScore + 50;
+
 		}
 		else
 		{
@@ -193,6 +217,7 @@ namespace Behaviors
 		{
 			dying = true;
 			soundManager->PlaySound("DieExplosion.wav");
+			--lives;
 			GetOwner()->GetComponent<Transform>()->SetRotation(0);
 			GetOwner()->GetComponent<Sprite>()->SetSpriteSource(deathAnimation);
 			GetOwner()->GetComponent<Animation>()->Play(0, 4, 0.5f, false);
@@ -213,5 +238,21 @@ namespace Behaviors
 	int FrogMovement::GetScore() const
 	{
 		return score;
+	}
+
+	float FrogMovement::GetTimer() const
+	{
+		return loseTimer;
+	}
+
+	int FrogMovement::GetLives()
+	{
+		return lives;
+	}
+
+	void FrogMovement::SetWinSprite(Mesh* mesh, SpriteSource* spriteSource)
+	{
+		winMesh = mesh;
+		winSpriteSource = spriteSource;
 	}
 }

@@ -79,6 +79,7 @@ namespace Levels
 		SpriteSource* spriteSourceCar3;
 		SpriteSource* spriteSourceCar4;
 		SpriteSource* spriteSourceCar5;
+		SpriteSource* spriteSourceWinFrog;
 
 		Mesh* meshText;
 		Texture* textureText;

@@ -17,6 +17,8 @@
 #include <Vector2D.h>
 
 class SoundManager;
+class Mesh;
+class SpriteSource;
 
 namespace Behaviors
 {
@@ -61,6 +63,13 @@ namespace Behaviors
 		//Gets the static score variable
 		int GetScore() const;
 
+		//Gets the current amount of time until the current frog dies
+		float GetTimer() const;
+
+		static int GetLives();
+
+		void SetWinSprite(Mesh* mesh, SpriteSource* spriteSource);
+
 	private:
 		// Amount the frog moves
 		float speed;
@@ -70,6 +79,8 @@ namespace Behaviors
 
 		// Timer that counts until the player dies
 		float timer;
+
+		float loseTimer;
 
 		// 0 if can walk
 		int canWalk;
@@ -92,9 +103,14 @@ namespace Behaviors
 		// Animation to play when the frog dies
 		SpriteSource* deathAnimation;
 
+		// WinSpriteStuff
+		Mesh* winMesh;
+		SpriteSource* winSpriteSource;
+
 		SoundManager* soundManager;
 
 		static int score;
+		static int lives;
 
 		bool waterDeathActive;
 	};
