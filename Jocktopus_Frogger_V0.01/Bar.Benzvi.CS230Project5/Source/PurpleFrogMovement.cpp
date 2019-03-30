@@ -26,6 +26,13 @@ namespace Behaviors
 		if (other.GetName() == "Float")
 		{
 			object.GetComponent<Physics>()->SetVelocity(Vector2D(other.GetComponent<ItemMovement>()->GetSpeed() * other.GetComponent<ItemMovement>()->GetDirection(), 0));
+
+			if (((object.GetComponent<Transform>()->GetTranslation().x - (object.GetComponent<Transform>()->GetScale().x / 4)) != other.GetComponent<Transform>()->GetTranslation().x) && ((object.GetComponent<Transform>()->GetTranslation().x + (object.GetComponent<Transform>()->GetScale().x / 4) != other.GetComponent<Transform>()->GetTranslation().x)))
+			{
+				std::cout << object.GetComponent<Transform>()->GetTranslation().x - (object.GetComponent<Transform>()->GetScale().x / 3) << " !=" << other.GetComponent<Transform>()->GetTranslation().x << std::endl;
+				object.GetComponent<Transform>()->SetTranslation(other.GetComponent<Transform>()->GetTranslation() - Vector2D(object.GetComponent<Transform>()->GetScale().x/4, 0));
+				object.GetComponent<PurpleFrogMovement>()->SetDirection(1);
+			}
 		}
 	}
 	void PurpleFrogMovement::Initialize()
@@ -43,6 +50,11 @@ namespace Behaviors
 			direction *= -1;
 			timer = 0;
 		}
+	}
+
+	void PurpleFrogMovement::SetDirection(int dir)
+	{
+		direction = dir;
 	}
 	
 }

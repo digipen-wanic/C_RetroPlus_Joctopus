@@ -1,6 +1,6 @@
-Float
+Turtle
 {
-  numComponents : 6
+  numComponents : 7
   Transform
   {
     translation : { 0, 0 }
@@ -27,6 +27,9 @@ Float
   {
   }
   Behaviors::ItemMovement
+  {
+  }
+  Behaviors::TurtleMovement
   {
   }
 }
