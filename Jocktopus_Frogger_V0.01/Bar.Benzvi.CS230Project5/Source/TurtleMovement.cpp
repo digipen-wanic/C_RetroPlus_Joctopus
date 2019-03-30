@@ -69,12 +69,12 @@ namespace Behaviors
 			currPhase = Sunk;
 			spriteComp->SetSpriteSource(startSprite);
 			spriteComp->SetFrame(0);
-			spriteComp->SetColor(Color(spriteComp->GetColor().r, spriteComp->GetColor().g, spriteComp->GetColor().b, 0));
+			spriteComp->SetAlpha(0);
 		}
 		else if (currPhase == Sunk)
 		{
 			currPhase = Floating;
-			spriteComp->SetColor(Color(spriteComp->GetColor().r, spriteComp->GetColor().g, spriteComp->GetColor().b, 1));
+			spriteComp->SetAlpha(1);
 		}
 	}
 	bool TurtleMovement::IsStandable()
