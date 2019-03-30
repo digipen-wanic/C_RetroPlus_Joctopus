@@ -42,6 +42,11 @@ namespace Behaviors
 		void Update(float dt) override;
 		// Runs whenever a collision is detected
 		friend void PFrogCollisionHandler(GameObject& object, GameObject& other);
+		/*
+		sets the direction
+		Takes: int for pos or neg
+		*/
+		void SetDirection(int dir);
 
 	private:
 		float delay;
