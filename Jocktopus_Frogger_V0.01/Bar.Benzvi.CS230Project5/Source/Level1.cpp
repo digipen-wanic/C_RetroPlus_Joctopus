@@ -208,14 +208,156 @@ namespace Levels
 		truck_2->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
 		GetSpace()->GetObjectManager().AddObject(*truck_2);
 
-		// Floats
-		GameObject* float_1 = GameObjectFactory::GetInstance().CreateObject("Float", mesh1x1, spriteSourceLog);
-		float_1->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
-		float_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(55);
-		float_1->GetComponent<Transform>()->SetTranslation(Vector2D(290, 50));
-		float_1->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
-		float_1->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
-		GetSpace()->GetObjectManager().AddObject(*float_1);
+		// Turtle
+		GameObject* turtle_1_1 = GameObjectFactory::GetInstance().CreateObject("Float", mesh1x1, spriteSourceLog);
+		turtle_1_1->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
+		turtle_1_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(55);
+		turtle_1_1->GetComponent<Transform>()->SetTranslation(Vector2D(290, 50));
+		turtle_1_1->GetComponent<Transform>()->SetScale(Vector2D(90, 30));
+		turtle_1_1->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(45, 15));
+		GetSpace()->GetObjectManager().AddObject(*turtle_1_1);
+
+		GameObject* turtle_1_2 = GameObjectFactory::GetInstance().CreateObject("Float", mesh1x1, spriteSourceLog);
+		turtle_1_2->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
+		turtle_1_2->GetComponent<Behaviors::ItemMovement>()->SetSpeed(55);
+		turtle_1_2->GetComponent<Transform>()->SetTranslation(Vector2D(110, 50));
+		turtle_1_2->GetComponent<Transform>()->SetScale(Vector2D(90, 30));
+		turtle_1_2->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(45, 15));
+		GetSpace()->GetObjectManager().AddObject(*turtle_1_2);
+
+		GameObject* turtle_1_3 = GameObjectFactory::GetInstance().CreateObject("Float", mesh1x1, spriteSourceLog);
+		turtle_1_3->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
+		turtle_1_3->GetComponent<Behaviors::ItemMovement>()->SetSpeed(55);
+		turtle_1_3->GetComponent<Transform>()->SetTranslation(Vector2D(-70, 50));
+		turtle_1_3->GetComponent<Transform>()->SetScale(Vector2D(90, 30));
+		turtle_1_3->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(45, 15));
+		GetSpace()->GetObjectManager().AddObject(*turtle_1_3);
+
+		GameObject* turtle_1_4 = GameObjectFactory::GetInstance().CreateObject("Float", mesh1x1, spriteSourceLog);
+		turtle_1_4->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
+		turtle_1_4->GetComponent<Behaviors::ItemMovement>()->SetSpeed(55);
+		turtle_1_4->GetComponent<Transform>()->SetTranslation(Vector2D(-250, 50));
+		turtle_1_4->GetComponent<Transform>()->SetScale(Vector2D(90, 30));
+		turtle_1_4->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(45, 15));
+		GetSpace()->GetObjectManager().AddObject(*turtle_1_4);
+
+		GameObject* turtle_2_1 = GameObjectFactory::GetInstance().CreateObject("Float", mesh1x1, spriteSourceLog);
+		turtle_2_1->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
+		turtle_2_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(65);
+		turtle_2_1->GetComponent<Transform>()->SetTranslation(Vector2D(260, 200));
+		turtle_2_1->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
+		turtle_2_1->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
+		GetSpace()->GetObjectManager().AddObject(*turtle_2_1);
+
+		GameObject* turtle_2_2 = GameObjectFactory::GetInstance().CreateObject("Float", mesh1x1, spriteSourceLog);
+		turtle_2_2->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
+		turtle_2_2->GetComponent<Behaviors::ItemMovement>()->SetSpeed(65);
+		turtle_2_2->GetComponent<Transform>()->SetTranslation(Vector2D(180, 200));
+		turtle_2_2->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
+		turtle_2_2->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
+		GetSpace()->GetObjectManager().AddObject(*turtle_2_2);
+
+		GameObject* turtle_2_3 = GameObjectFactory::GetInstance().CreateObject("Float", mesh1x1, spriteSourceLog);
+		turtle_2_3->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
+		turtle_2_3->GetComponent<Behaviors::ItemMovement>()->SetSpeed(65);
+		turtle_2_3->GetComponent<Transform>()->SetTranslation(Vector2D(0, 200));
+		turtle_2_3->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
+		turtle_2_3->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
+		GetSpace()->GetObjectManager().AddObject(*turtle_2_3);
+
+		GameObject* turtle_2_4 = GameObjectFactory::GetInstance().CreateObject("Float", mesh1x1, spriteSourceLog);
+		turtle_2_4->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
+		turtle_2_4->GetComponent<Behaviors::ItemMovement>()->SetSpeed(65);
+		turtle_2_4->GetComponent<Transform>()->SetTranslation(Vector2D(-180, 200));
+		turtle_2_4->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
+		turtle_2_4->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
+		GetSpace()->GetObjectManager().AddObject(*turtle_2_4);
+
+		// Log
+		GameObject* log_1_1 = GameObjectFactory::GetInstance().CreateObject("Float", mesh1x1, spriteSourceLog);
+		log_1_1->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		log_1_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(45);
+		log_1_1->GetComponent<Transform>()->SetTranslation(Vector2D(250, 100));
+		log_1_1->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
+		log_1_1->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
+		GetSpace()->GetObjectManager().AddObject(*log_1_1);
+
+		GameObject* log_1_2 = GameObjectFactory::GetInstance().CreateObject("Float", mesh1x1, spriteSourceLog);
+		log_1_2->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		log_1_2->GetComponent<Behaviors::ItemMovement>()->SetSpeed(45);
+		log_1_2->GetComponent<Transform>()->SetTranslation(Vector2D(170, 100));
+		log_1_2->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
+		log_1_2->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
+		GetSpace()->GetObjectManager().AddObject(*log_1_2);
+
+		GameObject* log_1_3 = GameObjectFactory::GetInstance().CreateObject("Float", mesh1x1, spriteSourceLog);
+		log_1_3->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		log_1_3->GetComponent<Behaviors::ItemMovement>()->SetSpeed(45);
+		log_1_3->GetComponent<Transform>()->SetTranslation(Vector2D(-10, 100));
+		log_1_3->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
+		log_1_3->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
+		GetSpace()->GetObjectManager().AddObject(*log_1_3);
+
+		GameObject* log_2_1 = GameObjectFactory::GetInstance().CreateObject("Float", mesh1x1, spriteSourceLog);
+		log_2_1->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		log_2_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(75);
+		log_2_1->GetComponent<Transform>()->SetTranslation(Vector2D(290, 150));
+		log_2_1->GetComponent<Transform>()->SetScale(Vector2D(120, 30));
+		log_2_1->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(60, 15));
+		GetSpace()->GetObjectManager().AddObject(*log_2_1);
+
+		GameObject* log_2_2 = GameObjectFactory::GetInstance().CreateObject("Float", mesh1x1, spriteSourceLog);
+		log_2_2->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		log_2_2->GetComponent<Behaviors::ItemMovement>()->SetSpeed(75);
+		log_2_2->GetComponent<Transform>()->SetTranslation(Vector2D(110, 150));
+		log_2_2->GetComponent<Transform>()->SetScale(Vector2D(120, 30));
+		log_2_2->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(60, 15));
+		GetSpace()->GetObjectManager().AddObject(*log_2_2);
+
+		GameObject* log_2_3 = GameObjectFactory::GetInstance().CreateObject("Float", mesh1x1, spriteSourceLog);
+		log_2_3->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		log_2_3->GetComponent<Behaviors::ItemMovement>()->SetSpeed(75);
+		log_2_3->GetComponent<Transform>()->SetTranslation(Vector2D(-70, 150));
+		log_2_3->GetComponent<Transform>()->SetScale(Vector2D(120, 30));
+		log_2_3->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(60, 15));
+		GetSpace()->GetObjectManager().AddObject(*log_2_3);
+
+		GameObject* log_3_1 = GameObjectFactory::GetInstance().CreateObject("Float", mesh1x1, spriteSourceLog);
+		log_3_1->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		log_3_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(60);
+		log_3_1->GetComponent<Transform>()->SetTranslation(Vector2D(290, 250));
+		log_3_1->GetComponent<Transform>()->SetScale(Vector2D(90, 30));
+		log_3_1->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(45, 15));
+		GetSpace()->GetObjectManager().AddObject(*log_3_1);
+
+		GameObject* log_3_2 = GameObjectFactory::GetInstance().CreateObject("Float", mesh1x1, spriteSourceLog);
+		log_3_2->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		log_3_2->GetComponent<Behaviors::ItemMovement>()->SetSpeed(60);
+		log_3_2->GetComponent<Transform>()->SetTranslation(Vector2D(110, 250));
+		log_3_2->GetComponent<Transform>()->SetScale(Vector2D(90, 30));
+		log_3_2->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(45, 15));
+		GetSpace()->GetObjectManager().AddObject(*log_3_2);
+
+		GameObject* log_3_3 = GameObjectFactory::GetInstance().CreateObject("Float", mesh1x1, spriteSourceLog);
+		log_3_3->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		log_3_3->GetComponent<Behaviors::ItemMovement>()->SetSpeed(60);
+		log_3_3->GetComponent<Transform>()->SetTranslation(Vector2D(-70, 250));
+		log_3_3->GetComponent<Transform>()->SetScale(Vector2D(90, 30));
+		log_3_3->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(45, 15));
+		GetSpace()->GetObjectManager().AddObject(*log_3_3);
+
+		GameObject* log_3_4 = GameObjectFactory::GetInstance().CreateObject("Float", mesh1x1, spriteSourceLog);
+		log_3_4->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
+		log_3_4->GetComponent<Behaviors::ItemMovement>()->SetSpeed(60);
+		log_3_4->GetComponent<Transform>()->SetTranslation(Vector2D(-250, 250));
+		log_3_4->GetComponent<Transform>()->SetScale(Vector2D(90, 30));
+		log_3_4->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(45, 15));
+		GetSpace()->GetObjectManager().AddObject(*log_3_4);
+
+		// PFrog
+		GameObject* PFrog = GameObjectFactory::GetInstance().CreateObject("PFrog", mesh2x2, spriteSourceFrog);
+		PFrog->GetComponent<Transform>()->SetTranslation(Vector2D(235, 100));
+		GetSpace()->GetObjectManager().AddObject(*PFrog);
 
 		std::cout << "Level1::Initialize" << std::endl;
 	}
