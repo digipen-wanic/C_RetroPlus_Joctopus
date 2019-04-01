@@ -131,7 +131,7 @@ namespace Levels
 		currFrog->GetComponent<Behaviors::FrogMovement>()->SetDeathAnimation(spriteSourceDeadFrog);
 		currFrog->GetComponent<Behaviors::FrogMovement>()->SetWinSprite(mesh1x1, spriteSourceWinFrog);
 
-		GetSpace()->GetObjectManager().AddObject(*currFrog);
+
 
 		timerObject = GameObjectFactory::GetInstance().CreateObject("Timer", mesh1x1);
 
@@ -255,7 +255,7 @@ namespace Levels
 		GameObject* turtle_2_1 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x1, spriteSourceLogSmall);
 		turtle_2_1->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
 		turtle_2_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(65);
-		turtle_2_1->GetComponent<Transform>()->SetTranslation(Vector2D(260, 200));
+		turtle_2_1->GetComponent<Transform>()->SetTranslation(Vector2D(360, 200));
 		turtle_2_1->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
 		turtle_2_1->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
 		GetSpace()->GetObjectManager().AddObject(*turtle_2_1);
@@ -296,7 +296,7 @@ namespace Levels
 		GameObject* log_1_2 = GameObjectFactory::GetInstance().CreateObject("Log", mesh1x1, spriteSourceLogSmall);
 		log_1_2->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
 		log_1_2->GetComponent<Behaviors::ItemMovement>()->SetSpeed(45);
-		log_1_2->GetComponent<Transform>()->SetTranslation(Vector2D(170, 100));
+		log_1_2->GetComponent<Transform>()->SetTranslation(Vector2D(70, 100));
 		log_1_2->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
 		log_1_2->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
 		GetSpace()->GetObjectManager().AddObject(*log_1_2);
@@ -304,7 +304,7 @@ namespace Levels
 		GameObject* log_1_3 = GameObjectFactory::GetInstance().CreateObject("Log", mesh1x1, spriteSourceLogSmall);
 		log_1_3->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
 		log_1_3->GetComponent<Behaviors::ItemMovement>()->SetSpeed(45);
-		log_1_3->GetComponent<Transform>()->SetTranslation(Vector2D(-10, 100));
+		log_1_3->GetComponent<Transform>()->SetTranslation(Vector2D(-110, 100));
 		log_1_3->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
 		log_1_3->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
 		GetSpace()->GetObjectManager().AddObject(*log_1_3);
@@ -369,6 +369,8 @@ namespace Levels
 		GameObject* PFrog = GameObjectFactory::GetInstance().CreateObject("PFrog", mesh2x2, spriteSourceFrog);
 		PFrog->GetComponent<Transform>()->SetTranslation(Vector2D(235, 100));
 		GetSpace()->GetObjectManager().AddObject(*PFrog);
+
+		GetSpace()->GetObjectManager().AddObject(*currFrog);
 
 		std::cout << "Level1::Initialize" << std::endl;
 	}
