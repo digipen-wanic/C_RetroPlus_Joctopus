@@ -72,7 +72,9 @@ namespace Levels
 
 		SpriteSource* spriteSourceDeadFrog;
 		SpriteSource* spriteSourceFrog;
-		SpriteSource* spriteSourceLog;
+		SpriteSource* spriteSourceLogSmall;
+		SpriteSource* spriteSourceLogMedium;
+		SpriteSource* spriteSourceLogLarge;
 		//SpriteSource* spriteSourceTurtle;
 		SpriteSource* spriteSourceCar1;
 		SpriteSource* spriteSourceCar2;

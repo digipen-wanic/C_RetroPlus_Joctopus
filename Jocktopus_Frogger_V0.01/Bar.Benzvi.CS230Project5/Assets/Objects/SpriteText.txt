@@ -3,7 +3,7 @@ SpriteText
   numComponents : 2
   Transform
   {
-    translation : { -200, 200 }
+    translation : { -300, 300 }
     rotation : 0
     scale : { 25, 25 }
   }

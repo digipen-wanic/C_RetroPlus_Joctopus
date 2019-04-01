@@ -53,7 +53,7 @@ namespace Behaviors
 		{
 			object.GetComponent<FrogMovement>()->InitDeathSequence();
 		}
-		else if (other.GetName() == "Float" && !object.GetComponent<FrogMovement>()->dying)
+		else if ((other.GetName() == "Log" || other.GetName() == "Turtle") && !object.GetComponent<FrogMovement>()->dying)
 		{
 			object.GetComponent<FrogMovement>()->onFloat = true;
 			if (object.GetComponent<FrogMovement>()->canWalk <= 0)
@@ -164,7 +164,7 @@ namespace Behaviors
 		{
 			InitDeathSequence();
 		}
-		else if (currentForward > 6 && currentForward < 13 && !onFloat)
+		else if (currentForward > 6 && currentForward < 12 && !onFloat)
 		{
 			waterDeathActive = true;
 		}
@@ -175,12 +175,11 @@ namespace Behaviors
 
 			GetOwner()->GetSpace()->GetObjectManager().AddObject(*winFrog);
 
-			GetOwner()->Destroy();
-
-			int timerScore = static_cast<int>(timer * 20);
-			std::cout << timerScore << std::endl;
+			int timerScore = static_cast<int>((loseTimer * 20.0f));
 
 			score += timerScore + 50;
+
+			GetOwner()->Destroy();
 
 		}
 		else
