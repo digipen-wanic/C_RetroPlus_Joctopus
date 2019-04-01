@@ -23,15 +23,16 @@ namespace Behaviors
 	}
 	void PFrogCollisionHandler(GameObject & object, GameObject & other)
 	{
-		if (other.GetName() == "Float")
+		if (other.GetName() == "Log")
 		{
+			
 			object.GetComponent<Physics>()->SetVelocity(Vector2D(other.GetComponent<ItemMovement>()->GetSpeed() * other.GetComponent<ItemMovement>()->GetDirection(), 0));
 
 			if (((object.GetComponent<Transform>()->GetTranslation().x - (object.GetComponent<Transform>()->GetScale().x / 4)) != other.GetComponent<Transform>()->GetTranslation().x) && ((object.GetComponent<Transform>()->GetTranslation().x + (object.GetComponent<Transform>()->GetScale().x / 4) != other.GetComponent<Transform>()->GetTranslation().x)))
 			{
-				std::cout << object.GetComponent<Transform>()->GetTranslation().x - (object.GetComponent<Transform>()->GetScale().x / 3) << " !=" << other.GetComponent<Transform>()->GetTranslation().x << std::endl;
-				object.GetComponent<Transform>()->SetTranslation(other.GetComponent<Transform>()->GetTranslation() - Vector2D(object.GetComponent<Transform>()->GetScale().x/4, 0));
-				object.GetComponent<PurpleFrogMovement>()->SetDirection(1);
+				//std::cout << object.GetComponent<Transform>()->GetTranslation().x - (object.GetComponent<Transform>()->GetScale().x / 3) << " !=" << other.GetComponent<Transform>()->GetTranslation().x << std::endl;
+				//object.GetComponent<Transform>()->SetTranslation(other.GetComponent<Transform>()->GetTranslation() - Vector2D(object.GetComponent<Transform>()->GetScale().x/4, 0));
+				//object.GetComponent<PurpleFrogMovement>()->SetDirection(1);
 			}
 		}
 	}
@@ -40,6 +41,7 @@ namespace Behaviors
 		transform = GetOwner()->GetComponent<Transform>();
 		static_cast<Collider*>(GetOwner()->GetComponent("Collider"))->SetCollisionHandler(PFrogCollisionHandler);
 		timer = 0;
+		std::cout << "Pfrog" << std::endl;
 	}
 	void PurpleFrogMovement::Update(float dt)
 	{
