@@ -130,7 +130,7 @@ namespace Levels
 		currFrog->GetComponent<Behaviors::FrogMovement>()->SetDeathAnimation(spriteSourceDeadFrog);
 		currFrog->GetComponent<Behaviors::FrogMovement>()->SetWinSprite(mesh1x1, spriteSourceWinFrog);
 
-		GetSpace()->GetObjectManager().AddObject(*currFrog);
+
 
 		timerObject = GameObjectFactory::GetInstance().CreateObject("Timer", mesh1x1);
 
@@ -368,6 +368,8 @@ namespace Levels
 		GameObject* PFrog = GameObjectFactory::GetInstance().CreateObject("PFrog", mesh2x2, spriteSourceFrog);
 		PFrog->GetComponent<Transform>()->SetTranslation(Vector2D(235, 100));
 		GetSpace()->GetObjectManager().AddObject(*PFrog);
+
+		GetSpace()->GetObjectManager().AddObject(*currFrog);
 
 		std::cout << "Level1::Initialize" << std::endl;
 	}
