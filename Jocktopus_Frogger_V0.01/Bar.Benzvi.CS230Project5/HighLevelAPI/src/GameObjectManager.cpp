@@ -40,9 +40,9 @@ void GameObjectManager::Update(float dt)
 
 void GameObjectManager::Shutdown()
 {
-	for (auto it = gameObjectActiveList.cend(); it != gameObjectActiveList.cend(); ++it)
+	for (auto it = gameObjectActiveList.cbegin(); it != gameObjectActiveList.cend(); ++it)
 	{
-		(*it)->Destroy();
+		delete *it;
 	}
 
 	gameObjectActiveList.clear();
@@ -50,9 +50,9 @@ void GameObjectManager::Shutdown()
 
 void GameObjectManager::Unload()
 {
-	for (auto it = gameObjectArchetypes.cend(); it != gameObjectArchetypes.cend(); ++it)
+	for (auto it = gameObjectArchetypes.cbegin(); it != gameObjectArchetypes.cend(); ++it)
 	{
-		(*it)->Destroy();
+		delete *it;
 	}
 
 	gameObjectArchetypes.clear();
