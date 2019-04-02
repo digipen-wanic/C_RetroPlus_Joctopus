@@ -16,6 +16,7 @@
 //------------------------------------------------------------------------------
 
 #include <Level.h>
+#include "SoundManager.h"
 
 //------------------------------------------------------------------------------
 
@@ -79,6 +80,43 @@ namespace Levels
 		Mesh* meshMap;
 		unsigned columnsMap;
 		unsigned rowsMap;
+
+		/////////////////////////////////////////////////////////////////////////////
+		Mesh* mesh1x1;
+		Mesh* mesh1x2;
+		Mesh* mesh2x2;
+
+		SpriteSource* spriteSourceDeadFrog;
+		SpriteSource* spriteSourceFrog;
+		SpriteSource* spriteSourceLogSmall;
+		SpriteSource* spriteSourceLogMedium;
+		SpriteSource* spriteSourceLogLarge;
+		//SpriteSource* spriteSourceTurtle;
+		SpriteSource* spriteSourceCar1;
+		SpriteSource* spriteSourceCar2;
+		SpriteSource* spriteSourceCar3;
+		SpriteSource* spriteSourceCar4;
+		SpriteSource* spriteSourceCar5;
+		SpriteSource* spriteSourceWinFrog;
+
+		Mesh* meshText;
+		Texture* textureText;
+		SpriteSource* spriteSourceText;
+
+		// Game Variables
+		GameObject* currFrog;
+		GameObject* scoreText;
+		GameObject* timerObject;
+		int lives;
+		float timer;
+		bool lost;
+
+		// Sounds
+		SoundManager* soundManager;
+
+		// Title
+		static const unsigned titleStringLength = 20;
+		char windowTitle[titleStringLength];
 	};
 }
 
