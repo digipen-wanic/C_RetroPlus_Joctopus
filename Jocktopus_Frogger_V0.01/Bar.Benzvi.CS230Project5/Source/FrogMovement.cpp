@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 // File Name:	FrogMovement.cpp
-// Author(s):	Freddy Martin
+// Author(s):	Freddy Martin, Bar Ben-zvi
 // Project:		BetaFramework
 // Course:		WANIC VGP2 2018-2019
 //
@@ -29,6 +29,7 @@
 #include "MeshHelper.h"
 #include "GameObjectManager.h"
 #include "TurtleMovement.h"
+#include "WinSlot.h"
 
 namespace Behaviors
 {
@@ -39,7 +40,7 @@ namespace Behaviors
 	FrogMovement::FrogMovement(float speed, int walkFrames, float deathTime)
 		:Component("FrogMovement"), speed(speed), canWalk(0), walkFrames(walkFrames), dying(false), 
 		currentForward(0), onFloat(false), deathTime(deathTime), timer(0), loseTimer(40.0f), waterDeathActive(false),
-		deathAnimation(nullptr), drownAnimation(nullptr)
+		purpleFrogActive(false), deathAnimation(nullptr), drownAnimation(nullptr)
 	{
 	}
 
@@ -50,9 +51,41 @@ namespace Behaviors
 
 	void FrogCollisionHandler(GameObject& object, GameObject& other)
 	{
+		FrogMovement* movement = object.GetComponent<FrogMovement>();
+
+		if (other.GetName() == "Fly")
+		{
+			movement->score += 100;
+			other.Destroy();
+		}
+
 		if (other.GetName() == "Car")
 		{
-			object.GetComponent<FrogMovement>()->InitDeathSequence();
+			movement->InitDeathSequence();
+		}
+		else if (other.GetName() == "PFrog")
+		{
+			movement->purpleFrogActive = true;
+			other.Destroy();
+		}
+		else if (other.GetName() == "WinSlot" && !other.GetComponent<WinSlot>()->GetContainsFrog())
+		{
+
+			GameObject* winFrog = GameObjectFactory::GetInstance().CreateObject("WinFrog", movement->winMesh, movement->winSpriteSource);
+			winFrog->GetComponent<Transform>()->SetTranslation(other.GetComponent<Transform>()->GetTranslation());
+
+			object.GetSpace()->GetObjectManager().AddObject(*winFrog);
+
+			int timerScore = static_cast<int>((movement->loseTimer * 20.0f));
+
+			movement->score += timerScore + 50;
+
+			if (movement->purpleFrogActive)
+			{
+				movement->score += 100;
+			}
+
+			object.Destroy();
 		}
 		else if ((other.GetName() == "Log" || other.GetName() == "Turtle") && !object.GetComponent<FrogMovement>()->dying)
 		{
@@ -167,23 +200,9 @@ namespace Behaviors
 		{
 			InitDeathSequence();
 		}
-		else if (currentForward > 6 && currentForward < 12 && !onFloat)
+		else if (currentForward > 6 && !onFloat)
 		{
 			waterDeathActive = true;
-		}
-		else if (currentForward == 12)
-		{
-			GameObject* winFrog = GameObjectFactory::GetInstance().CreateObject("WinFrog", winMesh, winSpriteSource);
-			winFrog->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation());
-
-			GetOwner()->GetSpace()->GetObjectManager().AddObject(*winFrog);
-
-			int timerScore = static_cast<int>((loseTimer * 20.0f));
-
-			score += timerScore + 50;
-
-			GetOwner()->Destroy();
-
 		}
 		else
 		{

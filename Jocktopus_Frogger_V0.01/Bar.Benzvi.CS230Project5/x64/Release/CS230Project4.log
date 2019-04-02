@@ -1,9 +1,36 @@
-﻿  Level2.cpp
-  TurtleMovement.cpp
-Source\TurtleMovement.cpp(43): error C2220: warning treated as error - no 'object' file generated
-Source\TurtleMovement.cpp(43): warning C4150: deletion of pointer to incomplete type 'SpriteSource'; no destructor called
-  C:\Users\bar.benzvi\Documents\GitHub\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\HighLevelAPI\include\Sprite.h(28): note: see declaration of 'SpriteSource'
-Source\TurtleMovement.cpp(46): warning C4100: 'parser': unreferenced formal parameter
-Source\TurtleMovement.cpp(49): warning C4100: 'parser': unreferenced formal parameter
-Source\TurtleMovement.cpp(56): warning C4150: deletion of pointer to incomplete type 'SpriteSource'; no destructor called
-  C:\Users\bar.benzvi\Documents\GitHub\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\HighLevelAPI\include\Sprite.h(28): note: see declaration of 'SpriteSource'
+﻿  Generating code
+  3 of 1012 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    3 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+BetaHigh_x64.lib(Vertex.obj) : warning LNK4099: PDB 'BetaLow_x64.pdb' was not found with 'BetaHigh_x64.lib(Vertex.obj)' or at 'C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\x64\Release\BetaLow_x64.pdb'; linking object as if no debug info
+BetaHigh_x64.lib(Vector3D.obj) : warning LNK4099: PDB 'BetaLow_x64.pdb' was not found with 'BetaHigh_x64.lib(Vector3D.obj)' or at 'C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\x64\Release\BetaLow_x64.pdb'; linking object as if no debug info
+BetaHigh_x64.lib(Vector2D.obj) : warning LNK4099: PDB 'BetaLow_x64.pdb' was not found with 'BetaHigh_x64.lib(Vector2D.obj)' or at 'C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\x64\Release\BetaLow_x64.pdb'; linking object as if no debug info
+BetaHigh_x64.lib(Texture.obj) : warning LNK4099: PDB 'BetaLow_x64.pdb' was not found with 'BetaHigh_x64.lib(Texture.obj)' or at 'C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\x64\Release\BetaLow_x64.pdb'; linking object as if no debug info
+BetaHigh_x64.lib(System.obj) : warning LNK4099: PDB 'BetaLow_x64.pdb' was not found with 'BetaHigh_x64.lib(System.obj)' or at 'C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\x64\Release\BetaLow_x64.pdb'; linking object as if no debug info
+BetaHigh_x64.lib(stdafx.obj) : warning LNK4099: PDB 'BetaLow_x64.pdb' was not found with 'BetaHigh_x64.lib(stdafx.obj)' or at 'C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\x64\Release\BetaLow_x64.pdb'; linking object as if no debug info
+BetaHigh_x64.lib(Shapes2D.obj) : warning LNK4099: PDB 'BetaLow_x64.pdb' was not found with 'BetaHigh_x64.lib(Shapes2D.obj)' or at 'C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\x64\Release\BetaLow_x64.pdb'; linking object as if no debug info
+BetaHigh_x64.lib(ShaderManager.obj) : warning LNK4099: PDB 'BetaLow_x64.pdb' was not found with 'BetaHigh_x64.lib(ShaderManager.obj)' or at 'C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\x64\Release\BetaLow_x64.pdb'; linking object as if no debug info
+BetaHigh_x64.lib(Renderer.obj) : warning LNK4099: PDB 'BetaLow_x64.pdb' was not found with 'BetaHigh_x64.lib(Renderer.obj)' or at 'C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\x64\Release\BetaLow_x64.pdb'; linking object as if no debug info
+BetaHigh_x64.lib(Random.obj) : warning LNK4099: PDB 'BetaLow_x64.pdb' was not found with 'BetaHigh_x64.lib(Random.obj)' or at 'C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\x64\Release\BetaLow_x64.pdb'; linking object as if no debug info
+BetaHigh_x64.lib(MeshFactory.obj) : warning LNK4099: PDB 'BetaLow_x64.pdb' was not found with 'BetaHigh_x64.lib(MeshFactory.obj)' or at 'C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\x64\Release\BetaLow_x64.pdb'; linking object as if no debug info
+BetaHigh_x64.lib(Mesh.obj) : warning LNK4099: PDB 'BetaLow_x64.pdb' was not found with 'BetaHigh_x64.lib(Mesh.obj)' or at 'C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\x64\Release\BetaLow_x64.pdb'; linking object as if no debug info
+BetaHigh_x64.lib(Matrix3D.obj) : warning LNK4099: PDB 'BetaLow_x64.pdb' was not found with 'BetaHigh_x64.lib(Matrix3D.obj)' or at 'C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\x64\Release\BetaLow_x64.pdb'; linking object as if no debug info
+BetaHigh_x64.lib(Matrix2D.obj) : warning LNK4099: PDB 'BetaLow_x64.pdb' was not found with 'BetaHigh_x64.lib(Matrix2D.obj)' or at 'C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\x64\Release\BetaLow_x64.pdb'; linking object as if no debug info
+BetaHigh_x64.lib(Input.obj) : warning LNK4099: PDB 'BetaLow_x64.pdb' was not found with 'BetaHigh_x64.lib(Input.obj)' or at 'C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\x64\Release\BetaLow_x64.pdb'; linking object as if no debug info
+BetaHigh_x64.lib(Graphics.obj) : warning LNK4099: PDB 'BetaLow_x64.pdb' was not found with 'BetaHigh_x64.lib(Graphics.obj)' or at 'C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\x64\Release\BetaLow_x64.pdb'; linking object as if no debug info
+BetaHigh_x64.lib(FrameRateController.obj) : warning LNK4099: PDB 'BetaLow_x64.pdb' was not found with 'BetaHigh_x64.lib(FrameRateController.obj)' or at 'C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\x64\Release\BetaLow_x64.pdb'; linking object as if no debug info
+BetaHigh_x64.lib(ForwardRenderer.obj) : warning LNK4099: PDB 'BetaLow_x64.pdb' was not found with 'BetaHigh_x64.lib(ForwardRenderer.obj)' or at 'C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\x64\Release\BetaLow_x64.pdb'; linking object as if no debug info
+BetaHigh_x64.lib(Engine.obj) : warning LNK4099: PDB 'BetaLow_x64.pdb' was not found with 'BetaHigh_x64.lib(Engine.obj)' or at 'C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\x64\Release\BetaLow_x64.pdb'; linking object as if no debug info
+BetaHigh_x64.lib(DebugDraw.obj) : warning LNK4099: PDB 'BetaLow_x64.pdb' was not found with 'BetaHigh_x64.lib(DebugDraw.obj)' or at 'C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\x64\Release\BetaLow_x64.pdb'; linking object as if no debug info
+BetaHigh_x64.lib(Color.obj) : warning LNK4099: PDB 'BetaLow_x64.pdb' was not found with 'BetaHigh_x64.lib(Color.obj)' or at 'C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\x64\Release\BetaLow_x64.pdb'; linking object as if no debug info
+BetaHigh_x64.lib(Camera.obj) : warning LNK4099: PDB 'BetaLow_x64.pdb' was not found with 'BetaHigh_x64.lib(Camera.obj)' or at 'C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\x64\Release\BetaLow_x64.pdb'; linking object as if no debug info
+BetaHigh_x64.lib(BetaObject.obj) : warning LNK4099: PDB 'BetaLow_x64.pdb' was not found with 'BetaHigh_x64.lib(BetaObject.obj)' or at 'C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\x64\Release\BetaLow_x64.pdb'; linking object as if no debug info
+BetaHigh_x64.lib(glad.obj) : warning LNK4099: PDB 'BetaLow_x64.pdb' was not found with 'BetaHigh_x64.lib(glad.obj)' or at 'C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\x64\Release\BetaLow_x64.pdb'; linking object as if no debug info
+  CS230Project4.vcxproj -> C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\\x64\Release\BetaFramework.exe
+  glfw\lib\x64\glfw3.dll
+  1 File(s) copied
+  fmod\lib\fmod64.dll
+  1 File(s) copied
+  fmod\lib\fmodstudio64.dll
+  1 File(s) copied

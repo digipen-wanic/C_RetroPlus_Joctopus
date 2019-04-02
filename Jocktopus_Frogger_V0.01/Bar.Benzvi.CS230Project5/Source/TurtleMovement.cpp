@@ -70,6 +70,10 @@ namespace Behaviors
 	{
 		Sprite* spriteComp = GetOwner()->GetComponent<Sprite>();
 		Animation* animationComp = GetOwner()->GetComponent<Animation>();
+		if (animationComp == nullptr)
+		{
+			return;
+		}
 		if (currPhase == Floating)
 		{
 			currPhase = Sinking;

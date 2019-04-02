@@ -50,7 +50,7 @@ namespace Levels
 	{
 
 		soundManager = Engine::GetInstance().GetModule<SoundManager>();
-		soundManager->SetEffectsVolume(0.2f);
+		soundManager->SetEffectsVolume(0.0f);
 		soundManager->AddEffect("Respawn1.wav");
 		soundManager->AddEffect("LoseSong.wav");
 
@@ -123,10 +123,30 @@ namespace Levels
 		background->GetComponent<Transform>()->SetScale(Vector2D(672, 768));
 		GetSpace()->GetObjectManager().AddObject(*background);
 
+		GameObject* winSlot1 = GameObjectFactory::GetInstance().CreateObject("WinSlot");
+		winSlot1->GetComponent<Transform>()->SetTranslation(Vector2D(-6.0f, 270.0f));
+		GetSpace()->GetObjectManager().AddObject(*winSlot1);
+
+		GameObject* winSlot2 = GameObjectFactory::GetInstance().CreateObject("WinSlot");
+		winSlot2->GetComponent<Transform>()->SetTranslation(Vector2D(-140.0f, 270.0f));
+		GetSpace()->GetObjectManager().AddObject(*winSlot2);
+
+		GameObject* winSlot3 = GameObjectFactory::GetInstance().CreateObject("WinSlot");
+		winSlot3->GetComponent<Transform>()->SetTranslation(Vector2D(130.0f, 270.0f));
+		GetSpace()->GetObjectManager().AddObject(*winSlot3);
+
+		GameObject* winSlot4 = GameObjectFactory::GetInstance().CreateObject("WinSlot");
+		winSlot4->GetComponent<Transform>()->SetTranslation(Vector2D(-276.0f, 270.0f));
+		GetSpace()->GetObjectManager().AddObject(*winSlot4);
+
+		GameObject* winSlot5 = GameObjectFactory::GetInstance().CreateObject("WinSlot");
+		winSlot5->GetComponent<Transform>()->SetTranslation(Vector2D(264.0f, 270.0f));
+		GetSpace()->GetObjectManager().AddObject(*winSlot5);
+
 		scoreText = GameObjectFactory::GetInstance().CreateObject("SpriteText", meshText, spriteSourceText);
 		GameObject* text2 = GameObjectFactory::GetInstance().CreateObject("SpriteText", meshText, spriteSourceText);
 
-		scoreText->GetComponent<SpriteText>()->SetString("");
+		scoreText->GetComponent<SpriteText>()->SetString(""); 
 		scoreText->GetComponent<SpriteText>()->SetAlignment(LEFT);
 		GetSpace()->GetObjectManager().AddObject(*scoreText);
 		

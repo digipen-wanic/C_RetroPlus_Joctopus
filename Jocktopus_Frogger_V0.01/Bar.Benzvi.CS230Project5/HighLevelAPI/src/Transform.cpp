@@ -23,7 +23,7 @@ Transform::Transform(float x, float y)
 }
 
 Transform::Transform(Vector2D translation, Vector2D scale, float rotation)
-	: Component("Transform"), translation(translation), scale(scale), rotation(rotation)
+	: Component("Transform"), translation(translation), scale(scale), rotation(rotation), isDirty(true)
 {
 }
 

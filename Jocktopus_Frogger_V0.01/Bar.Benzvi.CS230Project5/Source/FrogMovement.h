@@ -114,5 +114,6 @@ namespace Behaviors
 		static int lives;
 
 		bool waterDeathActive;
+		bool purpleFrogActive;
 	};
 }
