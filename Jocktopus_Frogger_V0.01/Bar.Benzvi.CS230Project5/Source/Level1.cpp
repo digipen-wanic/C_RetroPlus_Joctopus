@@ -276,6 +276,7 @@ namespace Levels
 		GameObject* turtle_1_2 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x3, spriteSourceTurtleFloat3);
 		turtle_1_2->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
 		turtle_1_2->GetComponent<Behaviors::ItemMovement>()->SetSpeed(55);
+		turtle_1_2->GetComponent<Behaviors::TurtleMovement>()->SetActive(false);
 		turtle_1_2->GetComponent<Transform>()->SetTranslation(Vector2D(110, 50));
 		turtle_1_2->GetComponent<Transform>()->SetScale(Vector2D(90, 30));
 		turtle_1_2->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(45, 15));
@@ -284,6 +285,7 @@ namespace Levels
 		GameObject* turtle_1_3 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x3, spriteSourceTurtleFloat3);
 		turtle_1_3->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
 		turtle_1_3->GetComponent<Behaviors::ItemMovement>()->SetSpeed(55);
+		turtle_1_3->GetComponent<Behaviors::TurtleMovement>()->SetActive(false);
 		turtle_1_3->GetComponent<Transform>()->SetTranslation(Vector2D(-70, 50));
 		turtle_1_3->GetComponent<Transform>()->SetScale(Vector2D(90, 30));
 		turtle_1_3->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(45, 15));
@@ -292,6 +294,7 @@ namespace Levels
 		GameObject* turtle_1_4 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x3, spriteSourceTurtleFloat3);
 		turtle_1_4->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
 		turtle_1_4->GetComponent<Behaviors::ItemMovement>()->SetSpeed(55);
+		turtle_1_4->GetComponent<Behaviors::TurtleMovement>()->SetActive(false);
 		turtle_1_4->GetComponent<Transform>()->SetTranslation(Vector2D(-250, 50));
 		turtle_1_4->GetComponent<Transform>()->SetScale(Vector2D(90, 30));
 		turtle_1_4->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(45, 15));
@@ -309,6 +312,7 @@ namespace Levels
 		GameObject* turtle_2_2 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x3, spriteSourceTurtleFloat2);
 		turtle_2_2->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
 		turtle_2_2->GetComponent<Behaviors::ItemMovement>()->SetSpeed(65);
+		turtle_2_2->GetComponent<Behaviors::TurtleMovement>()->SetActive(false);
 		turtle_2_2->GetComponent<Transform>()->SetTranslation(Vector2D(180, 200));
 		turtle_2_2->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
 		turtle_2_2->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
@@ -317,6 +321,7 @@ namespace Levels
 		GameObject* turtle_2_3 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x3, spriteSourceTurtleFloat2);
 		turtle_2_3->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
 		turtle_2_3->GetComponent<Behaviors::ItemMovement>()->SetSpeed(65);
+		turtle_2_3->GetComponent<Behaviors::TurtleMovement>()->SetActive(false);
 		turtle_2_3->GetComponent<Transform>()->SetTranslation(Vector2D(0, 200));
 		turtle_2_3->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
 		turtle_2_3->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
@@ -325,6 +330,7 @@ namespace Levels
 		GameObject* turtle_2_4 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x3, spriteSourceTurtleFloat2);
 		turtle_2_4->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
 		turtle_2_4->GetComponent<Behaviors::ItemMovement>()->SetSpeed(65);
+		turtle_2_4->GetComponent<Behaviors::TurtleMovement>()->SetActive(false);
 		turtle_2_4->GetComponent<Transform>()->SetTranslation(Vector2D(-180, 200));
 		turtle_2_4->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
 		turtle_2_4->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));

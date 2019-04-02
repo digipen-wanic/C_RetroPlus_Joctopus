@@ -90,9 +90,7 @@ namespace Behaviors
 		}
 		else if ((other.GetName() == "Log" || other.GetName() == "Turtle") && !object.GetComponent<FrogMovement>()->dying)
 		{
-			
-			if (object.GetComponent<FrogMovement>()->canWalk <= 0 || 
-				(other.GetComponent<TurtleMovement>() != nullptr && other.GetComponent<TurtleMovement>()->IsStandable()))
+			if (other.GetComponent<TurtleMovement>() == nullptr || other.GetComponent<TurtleMovement>()->IsStandable())
 			{
 				object.GetComponent<FrogMovement>()->onFloat = true;
 				object.GetComponent<Physics>()->SetVelocity(Vector2D(other.GetComponent<ItemMovement>()->GetSpeed() * other.GetComponent<ItemMovement>()->GetDirection(), 0));
