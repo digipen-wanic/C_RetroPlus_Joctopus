@@ -80,7 +80,7 @@ int WINAPI WinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prevInstance, _In
 	Engine::GetInstance().AddModule(space);
 	
 	// Game engine goes!
-	Engine::GetInstance().Start(678, 694, 200);
+	Engine::GetInstance().Start(672, 768, 200);
 
 	return 0;
 }
