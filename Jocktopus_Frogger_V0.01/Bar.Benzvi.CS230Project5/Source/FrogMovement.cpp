@@ -223,7 +223,7 @@ namespace Behaviors
 		}
 	}
 
-	void FrogMovement::SetDeathAnimation(SpriteSource * animation)
+	void FrogMovement::SetDeathAnimation(SpriteSource* animation)
 	{
 		if (deathAnimation != nullptr)
 		{

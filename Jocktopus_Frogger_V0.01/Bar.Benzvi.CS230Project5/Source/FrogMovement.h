@@ -28,7 +28,7 @@ namespace Behaviors
 	{
 	public:
 		// Constructor
-		FrogMovement(float speed = 50, int walkFrames = 4, float deathTime = 2);
+		FrogMovement(float speed = 48, int walkFrames = 4, float deathTime = 2);
 
 		// Returns clone of the component
 		Component* Clone() const override;
