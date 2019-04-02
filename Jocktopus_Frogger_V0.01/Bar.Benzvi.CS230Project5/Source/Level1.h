@@ -73,6 +73,7 @@ namespace Levels
 
 		SpriteSource* spriteSourceDeadFrog;
 		SpriteSource* spriteSourceFrog;
+		SpriteSource* spriteSourcePFrog;
 		SpriteSource* spriteSourceLogSmall;
 		SpriteSource* spriteSourceLogMedium;
 		SpriteSource* spriteSourceLogLarge;
@@ -97,6 +98,7 @@ namespace Levels
 		Texture* textureBackground;
 		Texture* textureDeadFrog;
 		Texture* textureFrog;
+		Texture* texturePFrog;
 		Texture* textureLogLarge;
 		Texture* textureLogMedium;
 		Texture* textureLogSmall;
