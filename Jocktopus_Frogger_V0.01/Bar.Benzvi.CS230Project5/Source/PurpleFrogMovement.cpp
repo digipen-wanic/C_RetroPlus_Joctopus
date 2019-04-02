@@ -25,14 +25,16 @@ namespace Behaviors
 	{
 		if (other.GetName() == "Log")
 		{
-			
+			object.GetComponent<PurpleFrogMovement>()->SetOnLog(true);
 			object.GetComponent<Physics>()->SetVelocity(Vector2D(other.GetComponent<ItemMovement>()->GetSpeed() * other.GetComponent<ItemMovement>()->GetDirection(), 0));
 
-			if (((object.GetComponent<Transform>()->GetTranslation().x - (object.GetComponent<Transform>()->GetScale().x / 4)) != other.GetComponent<Transform>()->GetTranslation().x) && ((object.GetComponent<Transform>()->GetTranslation().x + (object.GetComponent<Transform>()->GetScale().x / 4) != other.GetComponent<Transform>()->GetTranslation().x)))
+			if (object.GetComponent<Transform>()->GetTranslation().x - other.GetComponent<Transform>()->GetTranslation().x > 0)
 			{
-				//std::cout << object.GetComponent<Transform>()->GetTranslation().x - (object.GetComponent<Transform>()->GetScale().x / 3) << " !=" << other.GetComponent<Transform>()->GetTranslation().x << std::endl;
-				//object.GetComponent<Transform>()->SetTranslation(other.GetComponent<Transform>()->GetTranslation() - Vector2D(object.GetComponent<Transform>()->GetScale().x/4, 0));
-				//object.GetComponent<PurpleFrogMovement>()->SetDirection(1);
+				object.GetComponent<PurpleFrogMovement>()->SetDirection(-1);
+			}
+			else
+			{
+				object.GetComponent<PurpleFrogMovement>()->SetDirection(1);
 			}
 		}
 	}
@@ -42,21 +44,42 @@ namespace Behaviors
 		static_cast<Collider*>(GetOwner()->GetComponent("Collider"))->SetCollisionHandler(PFrogCollisionHandler);
 		timer = 0;
 		std::cout << "Pfrog" << std::endl;
+		fellOff = false;
+		fixed = true;
 	}
 	void PurpleFrogMovement::Update(float dt)
 	{
 		timer += dt;
+		if (onLog == false)
+		{
+			GetOwner()->GetComponent<Physics>()->SetVelocity(Vector2D(0, 0));
+		}
 		if (timer >= delay)
 		{
-			GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() + Vector2D(speed * direction, 0));
-			direction *= -1;
-			timer = 0;
+
+
+			if (onLog == true)
+			{
+				transform->SetTranslation(transform->GetTranslation() + Vector2D(speed * direction, 0));
+
+				direction *= -1;
+				timer = 0;
+				
+				onLog = false;
+			}
+			
 		}
+		
 	}
 
 	void PurpleFrogMovement::SetDirection(int dir)
 	{
 		direction = dir;
+	}
+
+	void PurpleFrogMovement::SetOnLog(bool log)
+	{
+		onLog = log;
 	}
 	
 }

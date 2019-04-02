@@ -48,12 +48,17 @@ namespace Behaviors
 		*/
 		void SetDirection(int dir);
 
+		void SetOnLog(bool dir);
+
 	private:
 		float delay;
 		float timer;
 		float speed;
 		Transform* transform;
 		int direction;
+		bool onLog;
+		bool fellOff; 
+		bool fixed;
 	};
 
 }
