@@ -87,6 +87,19 @@ namespace Levels
 		Texture* textureText;
 		SpriteSource* spriteSourceText;
 
+		// Textures
+		Texture* textureDeadFrog;
+		Texture* textureFrog;
+		Texture* textureLogLarge;
+		Texture* textureLogMedium;
+		Texture* textureLogSmall;
+		Texture* textureCar1;
+		Texture* textureCar2;
+		Texture* textureCar3;
+		Texture* textureCar4;
+		Texture* textureCar5;
+		Texture* textureWinFrog;
+
 		// Game Variables
 		GameObject* currFrog;
 		GameObject* scoreText;

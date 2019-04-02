@@ -64,36 +64,37 @@ namespace Levels
 		textureText = Texture::CreateTextureFromFile("NumberLetterSpriteSheet.png");
 		spriteSourceText = new SpriteSource(6, 6, textureText);
 
-		Texture* textureDeadFrog = Texture::CreateTextureFromFile("PlayerFrogRoadKill.png");
+		textureDeadFrog = Texture::CreateTextureFromFile("PlayerFrogRoadKill.png");
 		spriteSourceDeadFrog = new SpriteSource(2, 2, textureDeadFrog);
 
-		Texture* textureFrog = Texture::CreateTextureFromFile("PlayerFrog.png");
+		textureFrog = Texture::CreateTextureFromFile("PlayerFrog.png");
 		spriteSourceFrog = new SpriteSource(2, 2, textureFrog);
 
-		spriteSourceWinFrog = new SpriteSource(1, 1, Texture::CreateTextureFromFile("EndFrogSmirk.png"));
+		textureWinFrog = Texture::CreateTextureFromFile("EndFrogSmirk.png");
+		spriteSourceWinFrog = new SpriteSource(1, 1, textureWinFrog);
 
-		Texture* textureLogLarge = Texture::CreateTextureFromFile("LargeLog.png");
+		textureLogLarge = Texture::CreateTextureFromFile("LargeLog.png");
 		spriteSourceLogLarge = new SpriteSource(1, 1, textureLogLarge);
 
-		Texture* textureLogMedium = Texture::CreateTextureFromFile("MediumLog.png");
+		textureLogMedium = Texture::CreateTextureFromFile("MediumLog.png");
 		spriteSourceLogMedium = new SpriteSource(1, 1, textureLogMedium);
 
-		Texture* textureLogSmall = Texture::CreateTextureFromFile("SmallLog.png");
+		textureLogSmall = Texture::CreateTextureFromFile("SmallLog.png");
 		spriteSourceLogSmall = new SpriteSource(1, 1, textureLogSmall);
 
-		Texture* textureCar1 = Texture::CreateTextureFromFile("yellowcar_01.png");
+		textureCar1 = Texture::CreateTextureFromFile("yellowcar_01.png");
 		spriteSourceCar1 = new SpriteSource(1, 1, textureCar1);
 
-		Texture* textureCar2 = Texture::CreateTextureFromFile("dozer_01.png");
+		textureCar2 = Texture::CreateTextureFromFile("dozer_01.png");
 		spriteSourceCar2 = new SpriteSource(1, 1, textureCar2);
 
-		Texture* textureCar3 = Texture::CreateTextureFromFile("pinkcar_01.png");
+		textureCar3 = Texture::CreateTextureFromFile("pinkcar_01.png");
 		spriteSourceCar3 = new SpriteSource(1, 1, textureCar3);
 
-		Texture* textureCar4 = Texture::CreateTextureFromFile("whitecar_01.png");
+		textureCar4 = Texture::CreateTextureFromFile("whitecar_01.png");
 		spriteSourceCar4 = new SpriteSource(1, 1, textureCar4);
 
-		Texture* textureCar5 = Texture::CreateTextureFromFile("truck_01.png");
+		textureCar5 = Texture::CreateTextureFromFile("truck_01.png");
 		spriteSourceCar5 = new SpriteSource(1, 1, textureCar5);
 
 		//GetSpace()->GetObjectManager().AddArchetype(*GameObjectFactory::GetInstance().CreateObject("Bullet", meshBullet));
@@ -467,7 +468,10 @@ namespace Levels
 		delete spriteSourceText;
 		delete mesh1x2;
 		delete spriteSourceFrog;
+		delete spriteSourceWinFrog;
+		delete spriteSourceDeadFrog;
 		delete mesh1x1;
+		delete mesh2x2;
 		delete spriteSourceLogSmall;
 		delete spriteSourceLogMedium;
 		delete spriteSourceLogLarge;
@@ -476,6 +480,18 @@ namespace Levels
 		delete spriteSourceCar3;
 		delete spriteSourceCar4;
 		delete spriteSourceCar5;
+		delete textureText;
+		delete textureDeadFrog;
+		delete textureFrog;
+		delete textureLogLarge;
+		delete textureLogMedium;
+		delete textureLogSmall;
+		delete textureCar1;
+		delete textureCar2;
+		delete textureCar3;
+		delete textureCar4;
+		delete textureCar5;
+		delete textureWinFrog;
 		//soundManager->Shutdown();
 		std::cout << "Level1::Unload" << std::endl;
 	}
