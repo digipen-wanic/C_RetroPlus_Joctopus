@@ -94,7 +94,7 @@ namespace Behaviors
 		{
 			currPhase = Floating;
 			spriteComp->SetAlpha(1);
-			animationComp->Play(0, 3, 0.33f, true);
+			animationComp->Play(0, 3, 0.5f, true);
 		}
 	}
 	bool TurtleMovement::IsStandable()
