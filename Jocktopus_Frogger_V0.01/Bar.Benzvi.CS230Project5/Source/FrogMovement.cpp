@@ -28,6 +28,7 @@
 #include "Texture.h"
 #include "MeshHelper.h"
 #include "GameObjectManager.h"
+#include "TurtleMovement.h"
 
 namespace Behaviors
 {
@@ -38,7 +39,7 @@ namespace Behaviors
 	FrogMovement::FrogMovement(float speed, int walkFrames, float deathTime)
 		:Component("FrogMovement"), speed(speed), canWalk(0), walkFrames(walkFrames), dying(false), 
 		currentForward(0), onFloat(false), deathTime(deathTime), timer(0), loseTimer(40.0f), waterDeathActive(false),
-		deathAnimation(nullptr)
+		deathAnimation(nullptr), drownAnimation(nullptr)
 	{
 	}
 
@@ -55,9 +56,11 @@ namespace Behaviors
 		}
 		else if ((other.GetName() == "Log" || other.GetName() == "Turtle") && !object.GetComponent<FrogMovement>()->dying)
 		{
-			object.GetComponent<FrogMovement>()->onFloat = true;
-			if (object.GetComponent<FrogMovement>()->canWalk <= 0)
+			
+			if (object.GetComponent<FrogMovement>()->canWalk <= 0 || 
+				(other.GetComponent<TurtleMovement>() != nullptr && other.GetComponent<TurtleMovement>()->IsStandable()))
 			{
+				object.GetComponent<FrogMovement>()->onFloat = true;
 				object.GetComponent<Physics>()->SetVelocity(Vector2D(other.GetComponent<ItemMovement>()->GetSpeed() * other.GetComponent<ItemMovement>()->GetDirection(), 0));
 			}
 		}
@@ -218,18 +221,31 @@ namespace Behaviors
 			soundManager->PlaySound("DieExplosion.wav");
 			--lives;
 			GetOwner()->GetComponent<Transform>()->SetRotation(0);
-			GetOwner()->GetComponent<Sprite>()->SetSpriteSource(deathAnimation);
+			if (!waterDeathActive)
+			{
+				GetOwner()->GetComponent<Sprite>()->SetSpriteSource(deathAnimation);
+			}
+			else
+			{
+				GetOwner()->GetComponent<Sprite>()->SetSpriteSource(drownAnimation);
+			}
+			
 			GetOwner()->GetComponent<Animation>()->Play(0, 4, 0.5f, false);
 		}
 	}
 
-	void FrogMovement::SetDeathAnimation(SpriteSource * animation)
+	void FrogMovement::SetDeathAnimations(SpriteSource* deathAnimation_, SpriteSource* drownAnimation_)
 	{
 		if (deathAnimation != nullptr)
 		{
 			delete deathAnimation;
 		}
-		deathAnimation = animation;
+		if (drownAnimation != nullptr)
+		{
+			delete drownAnimation;
+		}
+		deathAnimation = deathAnimation_;
+		drownAnimation = drownAnimation_;
 	}
 
 	

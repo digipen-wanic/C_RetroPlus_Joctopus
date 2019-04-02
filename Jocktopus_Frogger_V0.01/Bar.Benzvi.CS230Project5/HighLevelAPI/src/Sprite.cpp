@@ -126,6 +126,11 @@ void Sprite::SetSpriteSource(SpriteSource* spriteSource_)
 	spriteSource = spriteSource_;
 }
 
+SpriteSource * Sprite::GetSpriteSource() const
+{
+	return spriteSource;
+}
+
 void Sprite::SetColor(Color color_)
 {
 	color = color_;

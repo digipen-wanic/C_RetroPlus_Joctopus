@@ -28,7 +28,7 @@ namespace Behaviors
 	{
 	public:
 		// Constructor
-		FrogMovement(float speed = 50, int walkFrames = 4, float deathTime = 2);
+		FrogMovement(float speed = 48, int walkFrames = 4, float deathTime = 2);
 
 		// Returns clone of the component
 		Component* Clone() const override;
@@ -58,7 +58,7 @@ namespace Behaviors
 		void InitDeathSequence();
 
 		// Sets the death animation of the frog
-		void SetDeathAnimation(SpriteSource* animation);
+		void SetDeathAnimations(SpriteSource* deathAnimation_, SpriteSource* drownAnimation);
 
 		//Gets the static score variable
 		int GetScore() const;
@@ -102,6 +102,7 @@ namespace Behaviors
 
 		// Animation to play when the frog dies
 		SpriteSource* deathAnimation;
+		SpriteSource* drownAnimation;
 
 		// WinSpriteStuff
 		Mesh* winMesh;

@@ -82,12 +82,15 @@ namespace Levels
 		SpriteSource* spriteSourceCar4;
 		SpriteSource* spriteSourceCar5;
 		SpriteSource* spriteSourceWinFrog;
+		SpriteSource* spriteSourceBackground;
+		SpriteSource* spriteSourceDrownFrog;
 
 		Mesh* meshText;
 		Texture* textureText;
 		SpriteSource* spriteSourceText;
 
 		// Textures
+		Texture* textureBackground;
 		Texture* textureDeadFrog;
 		Texture* textureFrog;
 		Texture* textureLogLarge;
@@ -99,6 +102,7 @@ namespace Levels
 		Texture* textureCar4;
 		Texture* textureCar5;
 		Texture* textureWinFrog;
+		Texture* textureDrownFrog;
 
 		// Game Variables
 		GameObject* currFrog;
