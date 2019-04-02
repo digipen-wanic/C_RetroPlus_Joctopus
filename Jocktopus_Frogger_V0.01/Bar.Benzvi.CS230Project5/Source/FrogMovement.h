@@ -58,7 +58,7 @@ namespace Behaviors
 		void InitDeathSequence();
 
 		// Sets the death animation of the frog
-		void SetDeathAnimation(SpriteSource* animation);
+		void SetDeathAnimations(SpriteSource* deathAnimation_, SpriteSource* drownAnimation);
 
 		//Gets the static score variable
 		int GetScore() const;
@@ -102,6 +102,7 @@ namespace Behaviors
 
 		// Animation to play when the frog dies
 		SpriteSource* deathAnimation;
+		SpriteSource* drownAnimation;
 
 		// WinSpriteStuff
 		Mesh* winMesh;

@@ -70,6 +70,9 @@ namespace Levels
 		textureDeadFrog = Texture::CreateTextureFromFile("PlayerFrogRoadKill.png");
 		spriteSourceDeadFrog = new SpriteSource(2, 2, textureDeadFrog);
 
+		textureDrownFrog = Texture::CreateTextureFromFile("PlayerFrogDrown.png");
+		spriteSourceDrownFrog = new SpriteSource(2, 2, textureDrownFrog);
+
 		textureFrog = Texture::CreateTextureFromFile("PlayerFrog.png");
 		spriteSourceFrog = new SpriteSource(2, 2, textureFrog);
 
@@ -135,7 +138,7 @@ namespace Levels
 		
 
 		currFrog = GameObjectFactory::GetInstance().CreateObject("Frog", mesh2x2, spriteSourceFrog);
-		currFrog->GetComponent<Behaviors::FrogMovement>()->SetDeathAnimation(spriteSourceDeadFrog);
+		currFrog->GetComponent<Behaviors::FrogMovement>()->SetDeathAnimations(spriteSourceDeadFrog, spriteSourceDrownFrog);
 		currFrog->GetComponent<Behaviors::FrogMovement>()->SetWinSprite(mesh1x1, spriteSourceWinFrog);
 
 
@@ -404,7 +407,7 @@ namespace Levels
 				}
 
 				currFrog = GameObjectFactory::GetInstance().CreateObject("Frog", mesh2x2, spriteSourceFrog);
-				currFrog->GetComponent<Behaviors::FrogMovement>()->SetDeathAnimation(spriteSourceDeadFrog);
+				currFrog->GetComponent<Behaviors::FrogMovement>()->SetDeathAnimations(spriteSourceDeadFrog, spriteSourceDrownFrog);
 				currFrog->GetComponent<Behaviors::FrogMovement>()->SetWinSprite(mesh1x1, spriteSourceWinFrog);
 
 				GetSpace()->GetObjectManager().AddObject(*currFrog);
@@ -501,6 +504,8 @@ namespace Levels
 		delete textureCar5;
 		delete textureWinFrog;
 		delete textureBackground;
+		delete textureDrownFrog;
+		delete spriteSourceDrownFrog;
 		//soundManager->Shutdown();
 		std::cout << "Level1::Unload" << std::endl;
 	}
