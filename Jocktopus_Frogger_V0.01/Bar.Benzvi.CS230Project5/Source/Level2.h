@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 // File Name:	Level2.h
-// Author(s):	Jeremy Kings (j.kings)
+// Author(s):	Jeremy Kings (j.kings), Kyle
 // Project:		BetaFramework
 // Course:		WANIC VGP2 2018-2019
 //
@@ -85,23 +85,50 @@ namespace Levels
 		Mesh* mesh1x1;
 		Mesh* mesh1x2;
 		Mesh* mesh2x2;
+		Mesh* mesh1x3;
 
 		SpriteSource* spriteSourceDeadFrog;
 		SpriteSource* spriteSourceFrog;
+		SpriteSource* spriteSourcePFrog;
 		SpriteSource* spriteSourceLogSmall;
 		SpriteSource* spriteSourceLogMedium;
 		SpriteSource* spriteSourceLogLarge;
-		//SpriteSource* spriteSourceTurtle;
+		SpriteSource* spriteSourceTurtleFloat2;
+		SpriteSource* spriteSourceTurtleFloat3;
+		SpriteSource* spriteSourceTurtleSink2;
+		SpriteSource* spriteSourceTurtleSink3;
 		SpriteSource* spriteSourceCar1;
 		SpriteSource* spriteSourceCar2;
 		SpriteSource* spriteSourceCar3;
 		SpriteSource* spriteSourceCar4;
 		SpriteSource* spriteSourceCar5;
 		SpriteSource* spriteSourceWinFrog;
+		SpriteSource* spriteSourceBackground;
+		SpriteSource* spriteSourceDrownFrog;
 
 		Mesh* meshText;
 		Texture* textureText;
 		SpriteSource* spriteSourceText;
+
+		// Textures
+		Texture* textureBackground;
+		Texture* textureDeadFrog;
+		Texture* textureFrog;
+		Texture* texturePFrog;
+		Texture* textureLogLarge;
+		Texture* textureLogMedium;
+		Texture* textureLogSmall;
+		Texture* textureCar1;
+		Texture* textureCar2;
+		Texture* textureCar3;
+		Texture* textureCar4;
+		Texture* textureCar5;
+		Texture* textureWinFrog;
+		Texture* textureDrownFrog;
+		Texture* textureTurtleFloat2;
+		Texture* textureTurtleFloat3;
+		Texture* textureTurtleSink2;
+		Texture* textureTurtleSink3;
 
 		// Game Variables
 		GameObject* currFrog;

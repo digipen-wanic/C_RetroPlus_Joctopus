@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 // File Name:	Level2.cpp
-// Author(s):	Bar Ben-zvi
+// Author(s):	Bar Ben-zvi, Kyle
 // Project:		BetaFramework
 // Course:		WANIC VGP2 2018-2019
 //
@@ -37,6 +37,8 @@
 #include "PurpleFrogMovement.h"
 #include "SoundManager.h"
 #include "FrogMovement.h"
+#include "TurtleMovement.h"
+
 
 
 namespace Levels
@@ -76,42 +78,65 @@ namespace Levels
 		mesh1x1 = CreateQuadMesh(Vector2D(1.0f, 1.0f), Vector2D(0.5f, 0.5f));
 		mesh1x2 = CreateQuadMesh(Vector2D(1.0f, 1.0f / 2.0f), Vector2D(0.5f, 0.5f));
 		mesh2x2 = CreateQuadMesh(Vector2D(1.0f / 2.0f, 1.0f / 2.0f), Vector2D(0.5f, 0.5f));
+		mesh1x3 = CreateQuadMesh(Vector2D(1.0f, 1.0f / 3.0f), Vector2D(0.5f, 0.5f));
 
 		meshText = CreateQuadMesh(Vector2D(1.0f / 6.0f, 1.0f / 6.0f), Vector2D(0.5f, 0.5f));
 		textureText = Texture::CreateTextureFromFile("NumberLetterSpriteSheet.png");
 		spriteSourceText = new SpriteSource(6, 6, textureText);
 
-		Texture* textureDeadFrog = Texture::CreateTextureFromFile("PlayerFrogRoadKill.png");
+		textureBackground = Texture::CreateTextureFromFile("Background.png");
+		spriteSourceBackground = new SpriteSource(1, 1, textureBackground);
+
+		textureDeadFrog = Texture::CreateTextureFromFile("PlayerFrogRoadKill.png");
 		spriteSourceDeadFrog = new SpriteSource(2, 2, textureDeadFrog);
 
-		Texture* textureFrog = Texture::CreateTextureFromFile("PlayerFrog.png");
+		textureDrownFrog = Texture::CreateTextureFromFile("PlayerFrogDrown.png");
+		spriteSourceDrownFrog = new SpriteSource(2, 2, textureDrownFrog);
+
+		textureFrog = Texture::CreateTextureFromFile("PlayerFrog.png");
 		spriteSourceFrog = new SpriteSource(2, 2, textureFrog);
 
-		spriteSourceWinFrog = new SpriteSource(1, 1, Texture::CreateTextureFromFile("EndFrogSmirk.png"));
+		texturePFrog = Texture::CreateTextureFromFile("pinkfrog_01.png");
+		spriteSourcePFrog = new SpriteSource(2, 2, texturePFrog);
 
-		Texture* textureLogLarge = Texture::CreateTextureFromFile("LargeLog.png");
+		textureWinFrog = Texture::CreateTextureFromFile("EndFrogSmirk.png");
+		spriteSourceWinFrog = new SpriteSource(1, 1, textureWinFrog);
+
+		textureLogLarge = Texture::CreateTextureFromFile("LargeLog.png");
 		spriteSourceLogLarge = new SpriteSource(1, 1, textureLogLarge);
 
-		Texture* textureLogMedium = Texture::CreateTextureFromFile("MediumLog.png");
+		textureLogMedium = Texture::CreateTextureFromFile("MediumLog.png");
 		spriteSourceLogMedium = new SpriteSource(1, 1, textureLogMedium);
 
-		Texture* textureLogSmall = Texture::CreateTextureFromFile("SmallLog.png");
+		textureLogSmall = Texture::CreateTextureFromFile("SmallLog.png");
 		spriteSourceLogSmall = new SpriteSource(1, 1, textureLogSmall);
 
-		Texture* textureCar1 = Texture::CreateTextureFromFile("yellowcar_01.png");
+		textureCar1 = Texture::CreateTextureFromFile("yellowcar_01.png");
 		spriteSourceCar1 = new SpriteSource(1, 1, textureCar1);
 
-		Texture* textureCar2 = Texture::CreateTextureFromFile("dozer_01.png");
+		textureCar2 = Texture::CreateTextureFromFile("dozer_01.png");
 		spriteSourceCar2 = new SpriteSource(1, 1, textureCar2);
 
-		Texture* textureCar3 = Texture::CreateTextureFromFile("pinkcar_01.png");
+		textureCar3 = Texture::CreateTextureFromFile("pinkcar_01.png");
 		spriteSourceCar3 = new SpriteSource(1, 1, textureCar3);
 
-		Texture* textureCar4 = Texture::CreateTextureFromFile("whitecar_01.png");
+		textureCar4 = Texture::CreateTextureFromFile("whitecar_01.png");
 		spriteSourceCar4 = new SpriteSource(1, 1, textureCar4);
 
-		Texture* textureCar5 = Texture::CreateTextureFromFile("truck_01.png");
+		textureCar5 = Texture::CreateTextureFromFile("truck_01.png");
 		spriteSourceCar5 = new SpriteSource(1, 1, textureCar5);
+
+		textureTurtleFloat2 = Texture::CreateTextureFromFile("TurtleSwim2.png");
+		spriteSourceTurtleFloat2 = new SpriteSource(1, 3, textureTurtleFloat2);
+
+		textureTurtleFloat3 = Texture::CreateTextureFromFile("TurtleSwim3.png");
+		spriteSourceTurtleFloat3 = new SpriteSource(1, 3, textureTurtleFloat3);
+
+		textureTurtleSink2 = Texture::CreateTextureFromFile("TurtleRollDouble.png");
+		spriteSourceTurtleSink2 = new SpriteSource(1, 3, textureTurtleSink2);
+
+		textureTurtleSink3 = Texture::CreateTextureFromFile("TurtleRollTriple.png");
+		spriteSourceTurtleSink3 = new SpriteSource(1, 3, textureTurtleSink3);
 
 		std::cout << "Level2::Load" << std::endl;
 	}
@@ -141,10 +166,15 @@ namespace Levels
 
 
 		currFrog = GameObjectFactory::GetInstance().CreateObject("Frog", mesh2x2, spriteSourceFrog);
-		//currFrog->GetComponent<Behaviors::FrogMovement>()->SetDeathAnimation(spriteSourceDeadFrog);
+		currFrog->GetComponent<Behaviors::FrogMovement>()->SetDeathAnimations(spriteSourceDeadFrog, spriteSourceDrownFrog);
 		currFrog->GetComponent<Behaviors::FrogMovement>()->SetWinSprite(mesh1x1, spriteSourceWinFrog);
 
-
+		GameObject* wallL = GameObjectFactory::GetInstance().CreateObject("Wall", mesh1x1);
+		wallL->GetComponent<Transform>()->SetTranslation(Vector2D(-336, 0));
+		GetSpace()->GetObjectManager().AddObject(*wallL);
+		GameObject* wallR = GameObjectFactory::GetInstance().CreateObject("Wall", mesh1x1);
+		wallR->GetComponent<Transform>()->SetTranslation(Vector2D(336, 0));
+		GetSpace()->GetObjectManager().AddObject(*wallR);
 
 		timerObject = GameObjectFactory::GetInstance().CreateObject("Timer", mesh1x1);
 
@@ -209,7 +239,6 @@ namespace Levels
 
 		//Car type four
 		GameObject* car4_1 = GameObjectFactory::GetInstance().CreateObject("Car", mesh1x1, spriteSourceCar4);
-		car4_1->GetComponent<Transform>()->SetScale(Vector2D(-car4_1->GetComponent<Transform>()->GetScale().x, car4_1->GetComponent<Transform>()->GetScale().y));
 		car4_1->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
 		car4_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(60);
 		car4_1->GetComponent<Transform>()->SetTranslation(Vector2D(-100, -112));
@@ -233,15 +262,16 @@ namespace Levels
 		GetSpace()->GetObjectManager().AddObject(*truck_2);
 
 		// Turtle
-		GameObject* turtle_1_1 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x1, spriteSourceLogSmall);
+		GameObject* turtle_1_1 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x3, spriteSourceTurtleFloat3);
 		turtle_1_1->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
 		turtle_1_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(55);
+		turtle_1_1->GetComponent<Behaviors::TurtleMovement>()->SetFlipAnimation(spriteSourceTurtleSink3);
 		turtle_1_1->GetComponent<Transform>()->SetTranslation(Vector2D(290, 32));
 		turtle_1_1->GetComponent<Transform>()->SetScale(Vector2D(90, 30));
 		turtle_1_1->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(45, 15));
 		GetSpace()->GetObjectManager().AddObject(*turtle_1_1);
 
-		GameObject* turtle_1_2 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x1, spriteSourceLogSmall);
+		GameObject* turtle_1_2 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x3, spriteSourceTurtleFloat3);
 		turtle_1_2->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
 		turtle_1_2->GetComponent<Behaviors::ItemMovement>()->SetSpeed(55);
 		turtle_1_2->GetComponent<Transform>()->SetTranslation(Vector2D(110, 32));
@@ -249,7 +279,7 @@ namespace Levels
 		turtle_1_2->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(45, 15));
 		GetSpace()->GetObjectManager().AddObject(*turtle_1_2);
 
-		GameObject* turtle_1_3 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x1, spriteSourceLogSmall);
+		GameObject* turtle_1_3 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x3, spriteSourceTurtleFloat3);
 		turtle_1_3->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
 		turtle_1_3->GetComponent<Behaviors::ItemMovement>()->SetSpeed(55);
 		turtle_1_3->GetComponent<Transform>()->SetTranslation(Vector2D(-70, 32));
@@ -257,7 +287,7 @@ namespace Levels
 		turtle_1_3->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(45, 15));
 		GetSpace()->GetObjectManager().AddObject(*turtle_1_3);
 
-		GameObject* turtle_1_4 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x1, spriteSourceLogSmall);
+		GameObject* turtle_1_4 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x3, spriteSourceTurtleFloat3);
 		turtle_1_4->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
 		turtle_1_4->GetComponent<Behaviors::ItemMovement>()->SetSpeed(55);
 		turtle_1_4->GetComponent<Transform>()->SetTranslation(Vector2D(-250, 32));
@@ -265,7 +295,7 @@ namespace Levels
 		turtle_1_4->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(45, 15));
 		GetSpace()->GetObjectManager().AddObject(*turtle_1_4);
 
-		GameObject* turtle_2_1 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x1, spriteSourceLogSmall);
+		GameObject* turtle_2_1 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x3, spriteSourceTurtleFloat2);
 		turtle_2_1->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
 		turtle_2_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(65);
 		turtle_2_1->GetComponent<Transform>()->SetTranslation(Vector2D(360, 176));
@@ -273,7 +303,7 @@ namespace Levels
 		turtle_2_1->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
 		GetSpace()->GetObjectManager().AddObject(*turtle_2_1);
 
-		GameObject* turtle_2_2 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x1, spriteSourceLogSmall);
+		GameObject* turtle_2_2 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x3, spriteSourceTurtleFloat2);
 		turtle_2_2->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
 		turtle_2_2->GetComponent<Behaviors::ItemMovement>()->SetSpeed(65);
 		turtle_2_2->GetComponent<Transform>()->SetTranslation(Vector2D(180, 176));
@@ -281,7 +311,7 @@ namespace Levels
 		turtle_2_2->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
 		GetSpace()->GetObjectManager().AddObject(*turtle_2_2);
 
-		GameObject* turtle_2_3 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x1, spriteSourceLogSmall);
+		GameObject* turtle_2_3 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x3, spriteSourceTurtleFloat2);
 		turtle_2_3->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
 		turtle_2_3->GetComponent<Behaviors::ItemMovement>()->SetSpeed(65);
 		turtle_2_3->GetComponent<Transform>()->SetTranslation(Vector2D(0, 176));
@@ -289,7 +319,7 @@ namespace Levels
 		turtle_2_3->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
 		GetSpace()->GetObjectManager().AddObject(*turtle_2_3);
 
-		GameObject* turtle_2_4 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x1, spriteSourceLogSmall);
+		GameObject* turtle_2_4 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x3, spriteSourceTurtleFloat2);
 		turtle_2_4->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
 		turtle_2_4->GetComponent<Behaviors::ItemMovement>()->SetSpeed(65);
 		turtle_2_4->GetComponent<Transform>()->SetTranslation(Vector2D(-180, 176));
@@ -387,7 +417,7 @@ namespace Levels
 		GetSpace()->GetObjectManager().AddObject(*log_3_4);
 
 		// PFrog
-		GameObject* PFrog = GameObjectFactory::GetInstance().CreateObject("PFrog", mesh2x2, spriteSourceFrog);
+		GameObject* PFrog = GameObjectFactory::GetInstance().CreateObject("PFrog", mesh1x1, spriteSourcePFrog);
 		PFrog->GetComponent<Transform>()->SetTranslation(Vector2D(235, 80));
 		GetSpace()->GetObjectManager().AddObject(*PFrog);
 
@@ -445,7 +475,13 @@ namespace Levels
 		delete spriteSourceText;
 		delete mesh1x2;
 		delete spriteSourceFrog;
+		delete spriteSourcePFrog;
+		delete spriteSourceWinFrog;
+		delete spriteSourceDeadFrog;
 		delete mesh1x1;
+		delete mesh2x2;
+		delete mesh1x3;
+		delete spriteSourceBackground;
 		delete spriteSourceLogSmall;
 		delete spriteSourceLogMedium;
 		delete spriteSourceLogLarge;
@@ -454,6 +490,30 @@ namespace Levels
 		delete spriteSourceCar3;
 		delete spriteSourceCar4;
 		delete spriteSourceCar5;
+		delete textureText;
+		delete textureDeadFrog;
+		delete textureFrog;
+		delete texturePFrog;
+		delete textureLogLarge;
+		delete textureLogMedium;
+		delete textureLogSmall;
+		delete textureCar1;
+		delete textureCar2;
+		delete textureCar3;
+		delete textureCar4;
+		delete textureCar5;
+		delete textureWinFrog;
+		delete textureBackground;
+		delete textureDrownFrog;
+		delete textureTurtleSink2;
+		delete textureTurtleSink3;
+		delete textureTurtleFloat2;
+		delete textureTurtleFloat3;
+		delete spriteSourceTurtleFloat2;
+		delete spriteSourceTurtleFloat3;
+		delete spriteSourceTurtleSink2;
+		delete spriteSourceTurtleSink3;
+		delete spriteSourceDrownFrog;
 	}
 }
 

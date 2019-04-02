@@ -5,7 +5,7 @@ PFrog
   {
     translation : { 245, 100 }
     rotation : 0
-    scale : { 80, 30 }
+    scale : { 30, 30 }
   }
   Sprite
   {
