@@ -1,4 +1,8 @@
-﻿  SoundManager.cpp
+﻿  Animation.cpp
+  GameObjectFactory.cpp
+  Sprite.cpp
+  SpriteText.cpp
+  SpriteTilemap.cpp
 glfw3.lib(context.c.obj) : warning LNK4006: glfwMakeContextCurrent already defined in BetaLow_x64.lib(context.c.obj); second definition ignored
 glfw3.lib(context.c.obj) : warning LNK4006: glfwGetCurrentContext already defined in BetaLow_x64.lib(context.c.obj); second definition ignored
 glfw3.lib(context.c.obj) : warning LNK4006: glfwSwapBuffers already defined in BetaLow_x64.lib(context.c.obj); second definition ignored

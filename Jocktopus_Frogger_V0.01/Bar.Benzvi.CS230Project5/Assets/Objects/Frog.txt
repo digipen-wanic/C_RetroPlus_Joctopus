@@ -3,7 +3,7 @@ Frog
   numComponents : 6
   Transform
   {
-    translation : { 0, -300 }
+    translation : { 0, -304 }
     rotation : 0
     scale : { 50, 50 }
   }
@@ -25,7 +25,7 @@ Frog
   }
   Behaviors::FrogMovement
   {
-    speed : 50
+    speed : 48
   }
   Animation
   {

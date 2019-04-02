@@ -33,6 +33,8 @@ namespace Behaviors
 		// Returns clone of the component
 		Component* Clone() const override;
 
+		void Initialize() override;
+
 		// Runs every frame
 		void Update(float dt) override;
 

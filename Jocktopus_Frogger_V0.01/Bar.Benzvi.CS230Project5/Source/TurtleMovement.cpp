@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 // File Name:	TurtleMovement.cpp
-// Author(s):	Freddy Martin
+// Author(s):	Freddy Martin, Bar Ben-zvi
 // Project:		BetaFramework
 // Course:		WANIC VGP2 2018-2019
 //
@@ -14,19 +14,26 @@
 #include <GameObject.h>
 #include <Sprite.h>
 #include <Animation.h>
+#include "SpriteSource.h"
 
 namespace Behaviors
 {
 	TurtleMovement::TurtleMovement()
 		:Component("TurtleMovement"), currPhase(Floating)
 	{
-		startSprite = GetOwner()->GetComponent<Sprite>()->GetSpriteSource();
-		GetOwner()->GetComponent<Animation>()->Play(0, 3, 0.33f, false);
+		
 	}
 	Component * TurtleMovement::Clone() const
 	{
 		return new TurtleMovement(*this);
 	}
+
+	void TurtleMovement::Initialize()
+	{
+		//startSprite = GetOwner()->GetComponent<Sprite>()->GetSpriteSource();
+		//GetOwner()->GetComponent<Animation>()->Play(0, 3, 0.33f, false);
+	}
+
 	void TurtleMovement::Update(float dt)
 	{
 		timer += dt;
@@ -43,13 +50,15 @@ namespace Behaviors
 			delete flipAnimation;
 		}
 	}
-	void TurtleMovement::Deserialize(Parser & parser)
+	void TurtleMovement::Deserialize(Parser& parser)
 	{
+		UNREFERENCED_PARAMETER(parser);
 	}
-	void TurtleMovement::Serialize(Parser & parser) const
+	void TurtleMovement::Serialize(Parser& parser) const
 	{
+		UNREFERENCED_PARAMETER(parser);
 	}
-	void TurtleMovement::SetFlipAnimation(SpriteSource * flipAnimation_)
+	void TurtleMovement::SetFlipAnimation(SpriteSource* flipAnimation_)
 	{
 		if (flipAnimation != nullptr)
 		{
