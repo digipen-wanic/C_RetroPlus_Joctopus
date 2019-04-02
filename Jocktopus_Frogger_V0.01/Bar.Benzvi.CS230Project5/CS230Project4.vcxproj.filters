@@ -61,6 +61,7 @@
     <ClCompile Include="Source\PurpleFrogMovement.cpp">
       <Filter>Game\Behaviors</Filter>
     </ClCompile>
+    <ClCompile Include="Source\TurtleMovement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h">
@@ -108,5 +109,6 @@
     <ClInclude Include="Source\PurpleFrogMovement.h">
       <Filter>Game\Behaviors</Filter>
     </ClInclude>
+    <ClInclude Include="Source\TurtleMovement.h" />
   </ItemGroup>
 </Project>

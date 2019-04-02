@@ -13,6 +13,7 @@
 #include "TurtleMovement.h"
 #include <GameObject.h>
 #include <Sprite.h>
+#include <Animation.h>
 
 namespace Behaviors
 {
@@ -20,6 +21,7 @@ namespace Behaviors
 		:Component("TurtleMovement"), currPhase(Floating)
 	{
 		startSprite = GetOwner()->GetComponent<Sprite>()->GetSpriteSource();
+		GetOwner()->GetComponent<Animation>()->Play(0, 3, 0.33f, false);
 	}
 	Component * TurtleMovement::Clone() const
 	{
@@ -58,23 +60,24 @@ namespace Behaviors
 	void TurtleMovement::ChangePhase()
 	{
 		Sprite* spriteComp = GetOwner()->GetComponent<Sprite>();
+		Animation* animationComp = GetOwner()->GetComponent<Animation>();
 		if (currPhase == Floating)
 		{
 			currPhase = Sinking;
 			spriteComp->SetSpriteSource(flipAnimation);
-			spriteComp->SetFrame(0);
+			animationComp->Play(0, 2, 0.5f, false);
 		}
 		else if (currPhase == Sinking)
 		{
 			currPhase = Sunk;
 			spriteComp->SetSpriteSource(startSprite);
-			spriteComp->SetFrame(0);
 			spriteComp->SetAlpha(0);
 		}
 		else if (currPhase == Sunk)
 		{
 			currPhase = Floating;
 			spriteComp->SetAlpha(1);
+			animationComp->Play(0, 3, 0.33f, false);
 		}
 	}
 	bool TurtleMovement::IsStandable()

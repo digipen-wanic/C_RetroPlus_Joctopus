@@ -88,6 +88,9 @@ public:
 	//	 spriteSource = A new sprite source for the sprite.
 	void SetSpriteSource(SpriteSource* spriteSource);
 
+	// Returns the spritesource assigned to this sprite
+	SpriteSource* GetSpriteSource() const;
+
 	// Set the blend color for the specified sprite.
 	// Params:
 	//	 color = A new color for the sprite.
