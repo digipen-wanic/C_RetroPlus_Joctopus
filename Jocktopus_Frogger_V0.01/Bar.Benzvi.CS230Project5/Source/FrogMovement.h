@@ -70,6 +70,8 @@ namespace Behaviors
 
 		void SetWinSprite(Mesh* mesh, SpriteSource* spriteSource);
 
+		void SetPurpleSprite(SpriteSource* spriteSource);
+
 	private:
 		// Amount the frog moves
 		float speed;
@@ -107,6 +109,9 @@ namespace Behaviors
 		// WinSpriteStuff
 		Mesh* winMesh;
 		SpriteSource* winSpriteSource;
+
+		// PurpleFrogSprite
+		SpriteSource* purpleSpriteSource;
 
 		SoundManager* soundManager;
 

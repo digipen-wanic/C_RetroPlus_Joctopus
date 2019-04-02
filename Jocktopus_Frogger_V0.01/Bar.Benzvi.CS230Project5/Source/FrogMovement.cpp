@@ -66,6 +66,7 @@ namespace Behaviors
 		else if (other.GetName() == "PFrog")
 		{
 			movement->purpleFrogActive = true;
+			object.GetComponent<Sprite>()->SetSpriteSource(movement->purpleSpriteSource);
 			other.Destroy();
 		}
 		else if (other.GetName() == "WinSlot" && !other.GetComponent<WinSlot>()->GetContainsFrog())
@@ -288,5 +289,10 @@ namespace Behaviors
 	{
 		winMesh = mesh;
 		winSpriteSource = spriteSource;
+	}
+
+	void FrogMovement::SetPurpleSprite(SpriteSource* spriteSource)
+	{
+		purpleSpriteSource = spriteSource;
 	}
 }
