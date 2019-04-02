@@ -1,6 +1,6 @@
 Turtle
 {
-  numComponents : 7
+  numComponents : 8
   Transform
   {
     translation : { 0, 0 }
@@ -30,6 +30,9 @@ Turtle
   {
   }
   Behaviors::TurtleMovement
+  {
+  }
+  Animation
   {
   }
 }

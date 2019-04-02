@@ -69,13 +69,17 @@ namespace Levels
 		Mesh* mesh1x1;
 		Mesh* mesh1x2;
 		Mesh* mesh2x2;
+		Mesh* mesh1x3;
 
 		SpriteSource* spriteSourceDeadFrog;
 		SpriteSource* spriteSourceFrog;
 		SpriteSource* spriteSourceLogSmall;
 		SpriteSource* spriteSourceLogMedium;
 		SpriteSource* spriteSourceLogLarge;
-		//SpriteSource* spriteSourceTurtle;
+		SpriteSource* spriteSourceTurtleFloat2;
+		SpriteSource* spriteSourceTurtleFloat3;
+		SpriteSource* spriteSourceTurtleSink2;
+		SpriteSource* spriteSourceTurtleSink3;
 		SpriteSource* spriteSourceCar1;
 		SpriteSource* spriteSourceCar2;
 		SpriteSource* spriteSourceCar3;
@@ -103,6 +107,10 @@ namespace Levels
 		Texture* textureCar5;
 		Texture* textureWinFrog;
 		Texture* textureDrownFrog;
+		Texture* textureTurtleFloat2;
+		Texture* textureTurtleFloat3;
+		Texture* textureTurtleSink2;
+		Texture* textureTurtleSink3;
 
 		// Game Variables
 		GameObject* currFrog;

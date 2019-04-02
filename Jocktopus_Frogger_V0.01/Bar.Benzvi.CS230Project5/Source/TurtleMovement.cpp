@@ -19,7 +19,7 @@
 namespace Behaviors
 {
 	TurtleMovement::TurtleMovement()
-		:Component("TurtleMovement"), currPhase(Floating)
+		:Component("TurtleMovement"), currPhase(Floating), flipAnimation(nullptr)
 	{
 		
 	}
@@ -30,8 +30,8 @@ namespace Behaviors
 
 	void TurtleMovement::Initialize()
 	{
-		//startSprite = GetOwner()->GetComponent<Sprite>()->GetSpriteSource();
-		//GetOwner()->GetComponent<Animation>()->Play(0, 3, 0.33f, false);
+		startSprite = GetOwner()->GetComponent<Sprite>()->GetSpriteSource();
+		GetOwner()->GetComponent<Animation>()->Play(0, 3, 0.5f, true);
 	}
 
 	void TurtleMovement::Update(float dt)
@@ -78,7 +78,7 @@ namespace Behaviors
 		{
 			currPhase = Sinking;
 			spriteComp->SetSpriteSource(flipAnimation);
-			animationComp->Play(0, 2, 0.5f, false);
+			animationComp->Play(0, 2, 0.5f, true);
 		}
 		else if (currPhase == Sinking)
 		{
@@ -90,7 +90,7 @@ namespace Behaviors
 		{
 			currPhase = Floating;
 			spriteComp->SetAlpha(1);
-			animationComp->Play(0, 3, 0.33f, false);
+			animationComp->Play(0, 3, 0.33f, true);
 		}
 	}
 	bool TurtleMovement::IsStandable()
