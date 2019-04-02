@@ -14,12 +14,13 @@
 #include <GameObject.h>
 #include <Sprite.h>
 #include <Animation.h>
+#include <Transform.h>
 #include "SpriteSource.h"
 
 namespace Behaviors
 {
 	TurtleMovement::TurtleMovement()
-		:Component("TurtleMovement"), currPhase(Floating), flipAnimation(nullptr)
+		:Component("TurtleMovement"), currPhase(Floating), flipAnimation(nullptr), active(true), timer(0)
 	{
 		
 	}
@@ -36,11 +37,14 @@ namespace Behaviors
 
 	void TurtleMovement::Update(float dt)
 	{
-		timer += dt;
-		if (timer > 1)
+		if (active)
 		{
-			timer = 0;
-			ChangePhase();
+			timer += dt;
+			if (timer > 1)
+			{
+				timer = 0;
+				ChangePhase();
+			}
 		}
 	}
 	void TurtleMovement::Shutdown()
@@ -70,7 +74,7 @@ namespace Behaviors
 	{
 		Sprite* spriteComp = GetOwner()->GetComponent<Sprite>();
 		Animation* animationComp = GetOwner()->GetComponent<Animation>();
-		if (animationComp == nullptr)
+		if (animationComp == nullptr || !active)
 		{
 			return;
 		}
@@ -96,5 +100,9 @@ namespace Behaviors
 	bool TurtleMovement::IsStandable()
 	{
 		return currPhase != Sunk;
+	}
+	void TurtleMovement::SetActive(bool active_)
+	{
+		active = active_;
 	}
 }

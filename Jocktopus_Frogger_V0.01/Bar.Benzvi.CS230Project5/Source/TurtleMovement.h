@@ -55,6 +55,10 @@ namespace Behaviors
 
 		// Returns true if the turtle can be stood on
 		bool IsStandable();
+
+		// Sets if the turtle is active
+		void SetActive(bool active_);
+
 	private:
 		// Keeps track of phase changes
 		float timer;
@@ -64,5 +68,7 @@ namespace Behaviors
 		SpriteSource* startSprite;
 		// The current phase of the turtle
 		TurtlePhase currPhase;
+		// If false, this component doesn't do anything
+		bool active;
 	};
 }
