@@ -23,6 +23,19 @@ namespace Behaviors
 	{
 		return new SnakeMovement(*this);
 	}
+
+	void SnakeCollisionHandler(GameObject & object, GameObject & other)
+	{
+		if (other.GetName() == "Log")
+		{
+			object.GetComponent<SnakeMovement>()->SetOnLog(true);
+		}
+		if (other.GetName() == "Wall")
+		{
+			object.GetComponent<SnakeMovement>()->SetDirection(object.GetComponent<SnakeMovement>()->GetDirection() * -1);
+		}
+	}
+
 	void SnakeMovement::Initialize()
 	{
 		transform = GetOwner()->GetComponent<Transform>();
@@ -52,15 +65,5 @@ namespace Behaviors
 	{
 		onLog = log;
 	}
-	void SnakeCollisionHandler(GameObject & object, GameObject & other)
-	{
-		if (other.GetName() == "Log")
-		{
-			object.GetComponent<SnakeMovement>()->SetOnLog(true);
-		}
-		if (other.GetName() == "Wall")
-		{
-			object.GetComponent<SnakeMovement>()->SetDirection(object.GetComponent<SnakeMovement>()->GetDirection() * -1);
-		}
-	}
+	
 }

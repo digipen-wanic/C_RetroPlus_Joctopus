@@ -3,9 +3,9 @@ SpriteText
   numComponents : 2
   Transform
   {
-    translation : { -300, 300 }
+    translation : { -320, 344 }
     rotation : 0
-    scale : { 25, 25 }
+    scale : { 20, 22 }
   }
   SpriteText
   {

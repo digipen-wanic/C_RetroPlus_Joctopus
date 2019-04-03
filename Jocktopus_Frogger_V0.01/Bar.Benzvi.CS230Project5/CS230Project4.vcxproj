@@ -14,7 +14,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{553D497C-DD10-4B3D-9F5A-CC4267744407}</ProjectGuid>
     <RootNamespace>CS230Project4</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -105,18 +105,12 @@ xcopy fmod\lib\fmodstudio64.dll "$(OutDir)" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Asteroid.cpp" />
-    <ClCompile Include="Source\ColorChange.cpp" />
     <ClCompile Include="Source\FrogMovement.cpp" />
     <ClCompile Include="Source\ItemMovement.cpp" />
     <ClCompile Include="Source\Level2.cpp" />
     <ClCompile Include="Source\Level1.cpp" />
-    <ClCompile Include="Source\Level3.cpp" />
     <ClCompile Include="Source\Main.cpp" />
-    <ClCompile Include="Source\MonkeyMovement.cpp" />
-    <ClCompile Include="Source\Omega.cpp" />
-    <ClCompile Include="Source\PlayerProjectile.cpp" />
-    <ClCompile Include="Source\PlayerShip.cpp" />
+    <ClCompile Include="Source\MainMenu.cpp" />
     <ClCompile Include="Source\PurpleFrogMovement.cpp" />
     <ClCompile Include="Source\ScreenWrap.cpp" />
     <ClCompile Include="Source\SnakeMovement.cpp" />
@@ -124,27 +118,19 @@ xcopy fmod\lib\fmodstudio64.dll "$(OutDir)" /Y</Command>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Source\TimedDeath.cpp" />
     <ClCompile Include="Source\TurtleMovement.cpp" />
     <ClCompile Include="Source\WinSlot.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Asteroid.h" />
-    <ClInclude Include="Source\ColorChange.h" />
     <ClInclude Include="Source\FrogMovement.h" />
     <ClInclude Include="Source\ItemMovement.h" />
     <ClInclude Include="Source\Level2.h" />
     <ClInclude Include="Source\Level1.h" />
-    <ClInclude Include="Source\Level3.h" />
-    <ClInclude Include="Source\MonkeyMovement.h" />
-    <ClInclude Include="Source\Omega.h" />
-    <ClInclude Include="Source\PlayerProjectile.h" />
-    <ClInclude Include="Source\PlayerShip.h" />
+    <ClInclude Include="Source\MainMenu.h" />
     <ClInclude Include="Source\PurpleFrogMovement.h" />
     <ClInclude Include="Source\ScreenWrap.h" />
     <ClInclude Include="Source\SnakeMovement.h" />
     <ClInclude Include="Source\stdafx.h" />
-    <ClInclude Include="Source\TimedDeath.h" />
     <ClInclude Include="Source\TurtleMovement.h" />
     <ClInclude Include="Source\WinSlot.h" />
   </ItemGroup>

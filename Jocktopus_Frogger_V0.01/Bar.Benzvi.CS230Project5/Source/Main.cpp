@@ -27,18 +27,13 @@
 #include "FrogMovement.h"
 #include "PurpleFrogMovement.h"
 #include "GameObjectFactory.h"
-#include "PlayerShip.h"
-#include "TimedDeath.h"
-#include "MonkeyMovement.h"
-#include "ColorChange.h"
 #include "ScreenWrap.h"
-#include "PlayerProjectile.h"
-#include "Asteroid.h"
 #include "ItemMovement.h"
 #include "SoundManager.h"
 #include "TurtleMovement.h"
 #include "WinSlot.h"
 #include "SnakeMovement.h"
+#include "MainMenu.h"
 
 //------------------------------------------------------------------------------
 
@@ -62,13 +57,7 @@ int WINAPI WinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prevInstance, _In
 	// Create a new space called "GameSpace"
 	Space* space = new Space("GameSpace");
 
-	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::PlayerShip>();
-	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::TimedDeath>();
-	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::MonkeyMovement>();
-	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::ColorChange>();
 	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::ScreenWrap>();
-	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::PlayerProjectile>();
-	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::Asteroid>();
 	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::FrogMovement>();
 	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::PurpleFrogMovement>();
 	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::ItemMovement>();
@@ -78,7 +67,7 @@ int WINAPI WinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prevInstance, _In
 	
 
 	// Set initial level to the second level.
-	space->SetLevel(new Levels::Level1());
+	space->SetLevel(new Levels::MainMenu());
 
 	// Add additional modules to engine
 	Engine::GetInstance().AddModule(new SoundManager());

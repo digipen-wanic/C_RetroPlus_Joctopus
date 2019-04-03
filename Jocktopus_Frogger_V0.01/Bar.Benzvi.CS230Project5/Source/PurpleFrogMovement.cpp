@@ -63,6 +63,15 @@ namespace Behaviors
 				transform->SetTranslation(transform->GetTranslation() + Vector2D(speed * direction, 0));
 
 				direction *= -1;
+				if (direction == -1)
+				{
+					transform->SetRotation(static_cast<float>(M_PI));
+				}
+				else
+				{
+					transform->SetRotation(0.0f);
+				}
+				
 				timer = 0;
 				
 				onLog = false;

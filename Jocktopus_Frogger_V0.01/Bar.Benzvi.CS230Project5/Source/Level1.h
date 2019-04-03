@@ -87,9 +87,11 @@ namespace Levels
 		SpriteSource* spriteSourceCar4;
 		SpriteSource* spriteSourceCar5;
 		SpriteSource* spriteSourceWinFrog;
+		SpriteSource* spriteSourceWinFrog2;
 		SpriteSource* spriteSourceBackground;
 		SpriteSource* spriteSourceDrownFrog;
 		SpriteSource* spriteSourceCombinedFrog;
+		SpriteSource* spriteSourceFly;
 
 		Mesh* meshText;
 		Texture* textureText;
@@ -109,22 +111,32 @@ namespace Levels
 		Texture* textureCar4;
 		Texture* textureCar5;
 		Texture* textureWinFrog;
+		Texture* textureWinFrog2;
 		Texture* textureDrownFrog;
 		Texture* textureTurtleFloat2;
 		Texture* textureTurtleFloat3;
 		Texture* textureTurtleSink2;
 		Texture* textureTurtleSink3;
 		Texture* textureCombinedFrog;
+		Texture* textureFly;
 
 		// Game Variables
 		GameObject* currFrog;
 		GameObject* scoreText;
+		GameObject* highScoreText;
 		GameObject* timerObject;
 		GameObject* FrogLife1;
 		GameObject* FrogLife2;
+		GameObject* currFly;
 		int lives;
 		float timer;
+		float winLoseTimer;
+		float flySpawnTimer;
+		float flyAliveTimer;
+		bool winLoseSequenceInit;
 		bool lost;
+		bool won;
+		std::vector<GameObject*> winSlots;
 
 		// Sounds
 		SoundManager* soundManager;

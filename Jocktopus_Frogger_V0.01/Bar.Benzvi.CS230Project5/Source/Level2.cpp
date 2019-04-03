@@ -26,12 +26,10 @@
 #include "Transform.h"
 #include "Physics.h"
 #include "GameObject.h"
-#include "Level3.h"
 #include "Tilemap.h"
 #include "GameObjectFactory.h"
 #include "SpriteTilemap.h"
 #include "ColliderTilemap.h"
-#include "Omega.h"
 #include "ItemMovement.h"
 #include "ColliderRectangle.h"
 #include "PurpleFrogMovement.h"
@@ -471,14 +469,6 @@ namespace Levels
 		else if (Input::GetInstance().CheckTriggered('2'))
 		{
 			GetSpace()->SetLevel<Levels::Level2>();
-		}
-		else if (Input::GetInstance().CheckTriggered('3'))
-		{
-			GetSpace()->SetLevel<Levels::Level3>();
-		}
-		else if (Input::GetInstance().CheckTriggered('4'))
-		{
-			GetSpace()->SetLevel<Levels::Omega>();
 		}
 	}
 

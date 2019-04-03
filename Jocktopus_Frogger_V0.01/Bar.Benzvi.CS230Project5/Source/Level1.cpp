@@ -25,11 +25,9 @@
 #include "GameObject.h"
 #include "Archetypes.h"
 #include "GameObjectManager.h"
-#include "Level3.h"
 #include "SoundManager.h"
 #include <fmod.hpp>
 #include "Parser.h"
-#include "Omega.h"
 #include "GameObjectFactory.h"
 #include "Texture.h"
 #include "SpriteSource.h"
@@ -39,11 +37,15 @@
 #include "FrogMovement.h"
 #include "TurtleMovement.h"
 #include <Graphics.h>
+#include "WinSlot.h"
+#include "MainMenu.h"
+#include "Random.h"
 
 namespace Levels
 {
 	Level1::Level1()
-		: Level("Level1"), mesh1x1(nullptr), mesh1x2(nullptr), lives(2), timer(40.0f), lost(false)
+		: Level("Level1"), mesh1x1(nullptr), mesh1x2(nullptr), currFly(nullptr), lives(2), timer(1.0f), winLoseTimer(5.0f), flyAliveTimer(2.5f),
+		  flySpawnTimer(3.0f), winLoseSequenceInit(false), lost(false), won(false)
 	{
 
 	}
@@ -56,6 +58,7 @@ namespace Levels
 		soundManager->AddEffect("Respawn1.wav");
 		soundManager->AddEffect("LoseSong.wav");
 		soundManager->AddEffect("WinRibbit.wav");
+		soundManager->AddEffect("WinSong.wav");
 
 		//meshShip = CreateTriangleMesh(Colors::Red, Colors::Blue, Colors::Green);
 		//meshBullet = CreateTriangleMesh(Colors::Aqua, Colors::Grey, Colors::LightBlue);
@@ -88,6 +91,9 @@ namespace Levels
 
 		textureWinFrog = Texture::CreateTextureFromFile("EndFrogSmirk.png");
 		spriteSourceWinFrog = new SpriteSource(1, 1, textureWinFrog);
+
+		textureWinFrog2 = Texture::CreateTextureFromFile("EndFrogSmile.png");
+		spriteSourceWinFrog2 = new SpriteSource(1, 1, textureWinFrog2);
 
 		textureLogLarge = Texture::CreateTextureFromFile("LargeLog.png");
 		spriteSourceLogLarge = new SpriteSource(1, 1, textureLogLarge);
@@ -124,6 +130,9 @@ namespace Levels
 
 		textureTurtleSink3 = Texture::CreateTextureFromFile("TurtleRollTriple.png");
 		spriteSourceTurtleSink3 = new SpriteSource(1, 3, textureTurtleSink3);
+
+		textureFly = Texture::CreateTextureFromFile("Fly.png");
+		spriteSourceFly = new SpriteSource(1, 1, textureFly);
 
 		//GetSpace()->GetObjectManager().AddArchetype(*GameObjectFactory::GetInstance().CreateObject("Bullet", meshBullet));
 
@@ -175,18 +184,44 @@ namespace Levels
 		winSlot5->GetComponent<Transform>()->SetTranslation(Vector2D(264.0f, 270.0f));
 		GetSpace()->GetObjectManager().AddObject(*winSlot5);
 
-		scoreText = GameObjectFactory::GetInstance().CreateObject("SpriteText", meshText, spriteSourceText);
-		GameObject* text2 = GameObjectFactory::GetInstance().CreateObject("SpriteText", meshText, spriteSourceText);
+		winSlots.push_back(winSlot1);
+		winSlots.push_back(winSlot2);
+		winSlots.push_back(winSlot3);
+		winSlots.push_back(winSlot4);
+		winSlots.push_back(winSlot5);
 
+		
+		
+		scoreText = GameObjectFactory::GetInstance().CreateObject("SpriteText", meshText, spriteSourceText);
 		scoreText->GetComponent<SpriteText>()->SetString(""); 
 		scoreText->GetComponent<SpriteText>()->SetAlignment(LEFT);
+		scoreText->GetComponent<Transform>()->SetScale(Vector2D(16.0f, 18.0f));
 		GetSpace()->GetObjectManager().AddObject(*scoreText);
-		
 
-		text2->GetComponent<SpriteText>()->SetString("TIME");
+		highScoreText = GameObjectFactory::GetInstance().CreateObject("SpriteText", meshText, spriteSourceText);
+		highScoreText->GetComponent<SpriteText>()->SetString("");
+		highScoreText->GetComponent<SpriteText>()->SetAlignment(LEFT);
+		highScoreText->GetComponent<Transform>()->SetScale(Vector2D(16.0f, 18.0f));
+		highScoreText->GetComponent<Transform>()->SetTranslation(Vector2D(-64.0f, 344.0f));
+		GetSpace()->GetObjectManager().AddObject(*highScoreText);
+		
+		GameObject* text1 = GameObjectFactory::GetInstance().CreateObject("SpriteText", meshText, spriteSourceText);
+		text1->GetComponent<SpriteText>()->SetString("TIME");
+		text1->GetComponent<SpriteText>()->SetAlignment(LEFT);
+		text1->GetComponent<Transform>()->SetTranslation(Vector2D(115.0f, -357.0f));
+		GetSpace()->GetObjectManager().AddObject(*text1);
+
+		GameObject* text2 = GameObjectFactory::GetInstance().CreateObject("SpriteText", meshText, spriteSourceText);
+		text2->GetComponent<SpriteText>()->SetString("SCORE");
 		text2->GetComponent<SpriteText>()->SetAlignment(LEFT);
-		text2->GetComponent<Transform>()->SetTranslation(Vector2D(115.0f, -330.0f));
+		text2->GetComponent<Transform>()->SetTranslation(Vector2D(-320.0f, 368.0f));
 		GetSpace()->GetObjectManager().AddObject(*text2);
+
+		GameObject* text3 = GameObjectFactory::GetInstance().CreateObject("SpriteText", meshText, spriteSourceText);
+		text3->GetComponent<SpriteText>()->SetString("HIGH SCORE");
+		text3->GetComponent<SpriteText>()->SetAlignment(LEFT);
+		text3->GetComponent<Transform>()->SetTranslation(Vector2D(-64.0f, 368.0f));
+		GetSpace()->GetObjectManager().AddObject(*text3);
 		
 
 		currFrog = GameObjectFactory::GetInstance().CreateObject("Frog", mesh2x2, spriteSourceFrog);
@@ -461,61 +496,159 @@ namespace Levels
 
 	void Level1::Update(float dt)
 	{
-
-		UNREFERENCED_PARAMETER(dt);
-
-		if (!lost)
+		if (won)
 		{
+			if (!winLoseSequenceInit)
+			{
+				soundManager->PlaySound("WinSong.wav");
+				winLoseSequenceInit = true;
+				winLoseTimer = 8.0f;
+
+				for (auto it = winSlots.cbegin(); it != winSlots.cend(); ++it)
+				{
+					GameObject* winFrog = GameObjectFactory::GetInstance().CreateObject("WinFrog", mesh1x1, spriteSourceWinFrog2);
+					winFrog->GetComponent<Transform>()->SetTranslation((*it)->GetComponent<Transform>()->GetTranslation());
+					GetSpace()->GetObjectManager().AddObject(*winFrog);
+				}
+
+			}
+
+			winLoseTimer -= dt;
+			if (winLoseTimer <= 0.0f)
+			{
+				GetSpace()->SetLevel<Level2>();
+			}
+		}
+		else if (!lost)
+		{
+
+			if (currFly == nullptr)
+			{
+				flySpawnTimer -= dt;
+
+				if (flySpawnTimer <= 0.0f)
+				{
+					int spawnSlot = RandomRange(0, 4);
+
+					while (winSlots[spawnSlot]->GetComponent<Behaviors::WinSlot>()->GetContainsFrog())
+					{
+						spawnSlot = RandomRange(0, 4);
+					}
+
+					currFly = GameObjectFactory::GetInstance().CreateObject("Fly", mesh1x1, spriteSourceFly);
+					currFly->GetComponent<Transform>()->SetTranslation(winSlots[spawnSlot]->GetComponent<Transform>()->GetTranslation());
+
+					GetSpace()->GetObjectManager().AddObject(*currFly);
+
+					flySpawnTimer = RandomRange(3.0f, 10.0f);
+					flyAliveTimer = 2.5f;
+
+				}
+			}
+			else
+			{
+				if (currFly->IsDestroyed())
+				{
+					currFly = nullptr;
+				}
+				else
+				{
+					flyAliveTimer -= dt;
+
+					if (flyAliveTimer <= 0.0f)
+					{
+						currFly->Destroy();
+						currFly = nullptr;
+						flyAliveTimer = 2.5f;
+					}
+				}
+			}
+
+			int slotsFull = 0;
+
+			for (auto it = winSlots.cbegin(); it != winSlots.cend(); ++it)
+			{
+				if ((*it)->GetComponent<Behaviors::WinSlot>()->GetContainsFrog())
+				{
+					slotsFull++;
+				}
+			}
+
+			if (slotsFull == 5)
+			{
+				won = true;
+			}
 
 			if (currFrog->IsDestroyed() || currFrog == nullptr)
 			{
+				timer -= dt;
 
-				lives = Behaviors::FrogMovement::GetLives();
-
-				if (lives < 0)
+				if (timer <= 0.0f)
 				{
-					soundManager->PlaySound("LoseSong.wav");
-					lost = true;
-					//GetSpace()->SetLevel<Levels::Level2>();
-					return;
+					lives = Behaviors::FrogMovement::GetLives();
+
+					if (lives < 0)
+					{
+						soundManager->PlaySound("LoseSong.wav");
+						lost = true;
+						//GetSpace()->SetLevel<Levels::Level2>();
+						return;
+					}
+
+					currFrog = GameObjectFactory::GetInstance().CreateObject("Frog", mesh2x2, spriteSourceFrog);
+					currFrog->GetComponent<Behaviors::FrogMovement>()->SetDeathAnimations(spriteSourceDeadFrog, spriteSourceDrownFrog);
+					currFrog->GetComponent<Behaviors::FrogMovement>()->SetWinSprite(mesh1x1, spriteSourceWinFrog);
+
+					GetSpace()->GetObjectManager().AddObject(*currFrog);
+
+					soundManager->PlaySound("Respawn1.wav");
+
+					timer = 1.0f;
 				}
-
-				currFrog = GameObjectFactory::GetInstance().CreateObject("Frog", mesh2x2, spriteSourceFrog);
-				currFrog->GetComponent<Behaviors::FrogMovement>()->SetDeathAnimations(spriteSourceDeadFrog, spriteSourceDrownFrog);
-				currFrog->GetComponent<Behaviors::FrogMovement>()->SetWinSprite(mesh1x1, spriteSourceWinFrog);
-
-				GetSpace()->GetObjectManager().AddObject(*currFrog);
-
-				soundManager->PlaySound("Respawn1.wav");
-
-				timer = 40.0f;
+				return;
 
 
 			}
 			else
 			{
-				scoreText->GetComponent<SpriteText>()->SetString(std::to_string(currFrog->GetComponent<Behaviors::FrogMovement>()->GetScore()));
+				scoreText->GetComponent<SpriteText>()->SetString(std::to_string(Behaviors::FrogMovement::GetScore()));
+				highScoreText->GetComponent<SpriteText>()->SetString(std::to_string(Behaviors::FrogMovement::GetHighScore()));
 			}
 
-			timer = currFrog->GetComponent<Behaviors::FrogMovement>()->GetTimer();
-
-			if (timerObject != nullptr)
+			if (timerObject != nullptr && !currFrog->IsDestroyed())
 			{
 				//Set the scale and translation of the timer to make it display the time remaining
 				Transform* timerTransform = timerObject->GetComponent<Transform>();
 
-				timerTransform->SetTranslation(Vector2D((-timerTransform->GetScale().x / 2) + 100.0f, -330.0f));
-				timerTransform->SetScale(Vector2D(timer * 5.0f, 25.0f));
+				timerTransform->SetTranslation(Vector2D((-timerTransform->GetScale().x / 2) + 100.0f, -357.0f));
+				timerTransform->SetScale(Vector2D(currFrog->GetComponent<Behaviors::FrogMovement>()->GetTimer() * 5.0f, 25.0f));
 
 				//std::cout << timerTransform->GetScale() << std::endl;
 			}
 
-			if (timer <= 0.0f)
+			if (currFrog->GetComponent<Behaviors::FrogMovement>()->GetTimer() <= 0.0f)
 			{
 				currFrog->Destroy();
 			}
 
 			
+		}
+		else
+		{
+			if (!winLoseSequenceInit)
+			{
+				soundManager->PlaySound("LoseSong.wav");
+				winLoseSequenceInit = true;
+				winLoseTimer = 5.0f;
+			}
+
+			winLoseTimer -= dt;
+
+			if (winLoseTimer <= 0)
+			{
+				GetSpace()->SetLevel<MainMenu>();
+				Behaviors::FrogMovement::ResetScore();
+			}
 		}
 
 		if (lives < 2)
@@ -535,15 +668,7 @@ namespace Levels
 		}
 		else if (Input::GetInstance().CheckTriggered('2'))
 		{
-			GetSpace()->SetLevel<Levels::Level2>();
-		}
-		else if (Input::GetInstance().CheckTriggered('3'))
-		{
-			GetSpace()->SetLevel<Levels::Level3>();
-		}
-		else if (Input::GetInstance().CheckTriggered('4'))
-		{
-			GetSpace()->SetLevel<Levels::Omega>();
+			won = true;
 		}
 
 		if (Input::GetInstance().CheckTriggered('T'))
@@ -600,6 +725,13 @@ namespace Levels
 		delete spriteSourceDrownFrog;
 		delete spriteSourceCombinedFrog;
 		delete textureCombinedFrog;
+		delete spriteSourcePFrog;
+		delete texturePFrog;
+		delete spriteSourceWinFrog2;
+		delete textureWinFrog2;
+		delete textureFly;
+		delete spriteSourceFly;
+
 		soundManager->Shutdown();
 		std::cout << "Level1::Unload" << std::endl;
 	}

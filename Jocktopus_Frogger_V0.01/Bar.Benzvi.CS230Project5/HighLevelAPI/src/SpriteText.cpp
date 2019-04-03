@@ -62,7 +62,7 @@ void SpriteText::Draw()
 			
 		}
 		//If the current character is an uppercase letter
-		else if (asciiVal < 91 && asciiVal > 65)
+		else if (asciiVal < 91 && asciiVal > 64)
 		{
 			SetFrame(asciiVal - 55);
 			Sprite::Draw(currOffset);

@@ -34,13 +34,14 @@
 namespace Behaviors
 {
 	int FrogMovement::score = 0;
+	int FrogMovement::highScore = 0;
 	int FrogMovement::furthestForward = 0;
 	int FrogMovement::lives = 2;
 
 	FrogMovement::FrogMovement(float speed, int walkFrames, float deathTime)
 		:Component("FrogMovement"), speed(speed), canWalk(0), walkFrames(walkFrames), dying(false), 
 		currentForward(0), onFloat(false), deathTime(deathTime), timer(0), loseTimer(40.0f), waterDeathActive(false),
-		purpleFrogActive(false), deathAnimation(nullptr), drownAnimation(nullptr)
+		purpleFrogActive(false), deathAnimation(nullptr), drownAnimation(nullptr), destroyNextFrame(false)
 	{
 	}
 
@@ -66,6 +67,7 @@ namespace Behaviors
 		else if (other.GetName() == "PFrog")
 		{
 			movement->purpleFrogActive = true;
+			object.GetComponent<Sprite>()->SetFrame(0);
 			object.GetComponent<Sprite>()->SetSpriteSource(movement->purpleSpriteSource);
 			other.Destroy();
 		}
@@ -81,14 +83,21 @@ namespace Behaviors
 
 			movement->score += timerScore + 50;
 
-			Engine::GetInstance().GetModule<SoundManager>()->PlaySound("WinRibbit");
+			Engine::GetInstance().GetModule<SoundManager>()->PlaySound("WinRibbit.wav");
 
 			if (movement->purpleFrogActive)
 			{
 				movement->score += 100;
 			}
 
-			object.Destroy();
+			if (movement->score > movement->highScore)
+			{
+				movement->highScore = movement->score;
+			}
+
+			movement->furthestForward = 0;
+
+			movement->destroyNextFrame = true;
 		}
 		else if ((other.GetName() == "Log" || other.GetName() == "Turtle") && !object.GetComponent<FrogMovement>()->dying)
 		{
@@ -115,8 +124,13 @@ namespace Behaviors
 		UNREFERENCED_PARAMETER(dt);
 		Input& input = Input::GetInstance();
 
+		if (destroyNextFrame)
+		{
+			GetOwner()->Destroy();
+		}
+
 		// Runs movement if the player isn't dying
-		if (!dying)
+		if (!dying && !destroyNextFrame)
 		{
 
 			loseTimer -= dt;
@@ -146,6 +160,11 @@ namespace Behaviors
 					{
 						score += (currentForward - furthestForward) * 10;
 						furthestForward = currentForward;
+
+						if (score > highScore)
+						{
+							highScore = score;
+						}
 					}
 				}
 				// If the player isn't at the bottom and s is pressed, move down
@@ -270,9 +289,22 @@ namespace Behaviors
 
 	
 
-	int FrogMovement::GetScore() const
+	
+	int FrogMovement::GetScore()
 	{
 		return score;
+	}
+
+	void FrogMovement::ResetScore()
+	{
+		score = 0;
+		furthestForward = 0;
+		lives = 2;
+	}
+
+	int FrogMovement::GetHighScore()
+	{
+		return highScore;
 	}
 
 	float FrogMovement::GetTimer() const

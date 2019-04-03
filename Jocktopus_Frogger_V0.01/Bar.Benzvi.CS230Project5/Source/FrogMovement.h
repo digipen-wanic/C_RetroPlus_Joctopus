@@ -61,7 +61,11 @@ namespace Behaviors
 		void SetDeathAnimations(SpriteSource* deathAnimation_, SpriteSource* drownAnimation);
 
 		//Gets the static score variable
-		int GetScore() const;
+		static int GetScore();
+
+		static void ResetScore();
+
+		static int GetHighScore();
 
 		//Gets the current amount of time until the current frog dies
 		float GetTimer() const;
@@ -102,6 +106,8 @@ namespace Behaviors
 		// If the player is on a float
 		bool onFloat;
 
+		bool destroyNextFrame;
+
 		// Animation to play when the frog dies
 		SpriteSource* deathAnimation;
 		SpriteSource* drownAnimation;
@@ -117,6 +123,7 @@ namespace Behaviors
 
 		static int score;
 		static int lives;
+		static int highScore;
 
 		bool waterDeathActive;
 		bool purpleFrogActive;

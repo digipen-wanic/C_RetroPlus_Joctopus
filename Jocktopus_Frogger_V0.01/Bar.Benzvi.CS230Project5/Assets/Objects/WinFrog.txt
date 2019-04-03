@@ -5,7 +5,7 @@ WinFrog
   {
     translation : { 0, -300 }
     rotation : 0
-    scale : { 50, 50 }
+    scale : { 40, 40 }
   }
   Sprite
   {
