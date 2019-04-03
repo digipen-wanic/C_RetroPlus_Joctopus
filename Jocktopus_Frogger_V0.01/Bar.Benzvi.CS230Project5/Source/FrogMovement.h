@@ -100,6 +100,9 @@ namespace Behaviors
 		// How far forward the player currently is
 		int currentForward;
 
+		// Measures how far to the left or right the player is
+		int currX;
+
 		// If the player is dying
 		bool dying;
 

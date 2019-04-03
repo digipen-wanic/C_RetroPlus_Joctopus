@@ -40,7 +40,7 @@ namespace Behaviors
 
 	FrogMovement::FrogMovement(float speed, int walkFrames, float deathTime)
 		:Component("FrogMovement"), speed(speed), canWalk(0), walkFrames(walkFrames), dying(false), 
-		currentForward(0), onFloat(false), deathTime(deathTime), timer(0), loseTimer(40.0f), waterDeathActive(false),
+		currentForward(0), currX(1), onFloat(false), deathTime(deathTime), timer(0), loseTimer(40.0f), waterDeathActive(false),
 		purpleFrogActive(false), deathAnimation(nullptr), drownAnimation(nullptr), destroyNextFrame(false)
 	{
 	}
@@ -90,11 +90,6 @@ namespace Behaviors
 				movement->score += 100;
 			}
 
-			if (movement->score > movement->highScore)
-			{
-				movement->highScore = movement->score;
-			}
-
 			movement->furthestForward = 0;
 
 			movement->destroyNextFrame = true;
@@ -106,6 +101,11 @@ namespace Behaviors
 				object.GetComponent<FrogMovement>()->onFloat = true;
 				object.GetComponent<Physics>()->SetVelocity(Vector2D(other.GetComponent<ItemMovement>()->GetSpeed() * other.GetComponent<ItemMovement>()->GetDirection(), 0));
 			}
+		}
+
+		if (movement->score > movement->highScore)
+		{
+			movement->highScore = movement->score;
 		}
 	}
 
@@ -174,6 +174,7 @@ namespace Behaviors
 					GetOwner()->GetComponent<Transform>()->SetRotation((float)M_PI);
 					GetOwner()->GetComponent<Sprite>()->SetFrame(2);
 					canWalk = 8;
+
 					// If currentForward - 1 is greater than 0, we can move
 					if (currentForward - 1 >= 0)
 					{
@@ -184,19 +185,31 @@ namespace Behaviors
 				}
 				if (input.CheckTriggered('D'))
 				{
-					GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() + Vector2D(speed, 0));
-					GetOwner()->GetComponent<Transform>()->SetRotation(-(float)M_PI / 2.0f);
-					GetOwner()->GetComponent<Sprite>()->SetFrame(2);
-					canWalk = 8;
-					soundManager->PlaySound("Jump.wav");
+					if (currX + 1 <= 7)
+					{
+						GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() + Vector2D(speed, 0));
+						GetOwner()->GetComponent<Transform>()->SetRotation(-(float)M_PI / 2.0f);
+						GetOwner()->GetComponent<Sprite>()->SetFrame(2);
+						canWalk = 8;
+						soundManager->PlaySound("Jump.wav");
+
+						currX += 1;
+					}
+
 				}
 				if (input.CheckTriggered('A'))
 				{
-					GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() - Vector2D(speed, 0));
-					GetOwner()->GetComponent<Transform>()->SetRotation((float)M_PI / 2.0f);
-					GetOwner()->GetComponent<Sprite>()->SetFrame(2);
-					canWalk = 8;
-					soundManager->PlaySound("Jump.wav");
+					if (currX - 1 >= -6)
+					{
+						GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() - Vector2D(speed, 0));
+						GetOwner()->GetComponent<Transform>()->SetRotation((float)M_PI / 2.0f);
+						GetOwner()->GetComponent<Sprite>()->SetFrame(2);
+
+						canWalk = 8;
+						soundManager->PlaySound("Jump.wav");
+
+						currX -= 1;
+					}
 				}
 			}
 		}

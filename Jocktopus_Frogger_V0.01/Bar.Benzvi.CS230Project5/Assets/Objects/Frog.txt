@@ -3,7 +3,7 @@ Frog
   numComponents : 6
   Transform
   {
-    translation : { 0, -304 }
+    translation : { 24, -304 }
     rotation : 0
     scale : { 50, 50 }
   }
