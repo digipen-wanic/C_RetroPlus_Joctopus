@@ -38,6 +38,7 @@
 #include "SoundManager.h"
 #include "FrogMovement.h"
 #include "TurtleMovement.h"
+#include <Graphics.h>
 
 
 
@@ -150,6 +151,16 @@ namespace Levels
 		//ship->GetComponent<Transform>()->SetRotation(3.14f);
 
 		//GetSpace()->GetObjectManager().AddObject(*ship);
+
+		FrogLife1 = GameObjectFactory::GetInstance().CreateObject("BasicSprite", mesh2x2, spriteSourceFrog);
+		FrogLife1->GetComponent<Transform>()->SetScale(Vector2D(35, 35));
+		FrogLife1->GetComponent<Transform>()->SetTranslation(Vector2D(Graphics::GetInstance().GetScreenWorldDimensions().left + 25, -335));
+		GetSpace()->GetObjectManager().AddObject(*FrogLife1);
+
+		FrogLife2 = GameObjectFactory::GetInstance().CreateObject("BasicSprite", mesh2x2, spriteSourceFrog);
+		FrogLife2->GetComponent<Transform>()->SetScale(Vector2D(35, 35));
+		FrogLife2->GetComponent<Transform>()->SetTranslation(Vector2D(Graphics::GetInstance().GetScreenWorldDimensions().left + 52, -335));
+		GetSpace()->GetObjectManager().AddObject(*FrogLife2);
 
 		scoreText = GameObjectFactory::GetInstance().CreateObject("SpriteText", meshText, spriteSourceText);
 		GameObject* text2 = GameObjectFactory::GetInstance().CreateObject("SpriteText", meshText, spriteSourceText);
