@@ -272,6 +272,11 @@ namespace Levels
 		truck_2->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
 		GetSpace()->GetObjectManager().AddObject(*truck_2);
 
+		//Snake. Snake! SNAKE!!!
+		GameObject* snake = GameObjectFactory::GetInstance().CreateObject("Snake", mesh1x1, spriteSourceCar5);
+		snake->GetComponent<Transform>()->SetTranslation(Vector2D(0, -16));
+		GetSpace()->GetObjectManager().AddObject(*snake);
+
 		// Turtle
 		GameObject* turtle_1_1 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x3, spriteSourceTurtleFloat3);
 		turtle_1_1->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);

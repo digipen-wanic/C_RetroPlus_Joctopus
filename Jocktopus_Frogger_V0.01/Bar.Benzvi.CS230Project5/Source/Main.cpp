@@ -38,6 +38,7 @@
 #include "SoundManager.h"
 #include "TurtleMovement.h"
 #include "WinSlot.h"
+#include "SnakeMovement.h"
 
 //------------------------------------------------------------------------------
 
@@ -73,6 +74,8 @@ int WINAPI WinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prevInstance, _In
 	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::ItemMovement>();
 	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::TurtleMovement>();
 	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::WinSlot>();
+	GameObjectFactory::GetInstance().RegisterComponent<Behaviors::SnakeMovement>();
+	
 
 	// Set initial level to the second level.
 	space->SetLevel(new Levels::Level1());

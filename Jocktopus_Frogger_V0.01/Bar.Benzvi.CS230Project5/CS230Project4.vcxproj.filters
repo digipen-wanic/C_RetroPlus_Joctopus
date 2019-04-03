@@ -67,6 +67,9 @@
     <ClCompile Include="Source\WinSlot.cpp">
       <Filter>Game\Behaviors</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SnakeMovement.cpp">
+      <Filter>Game\Behaviors</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\stdafx.h">
@@ -120,5 +123,11 @@
     <ClInclude Include="Source\WinSlot.h">
       <Filter>Game\Behaviors</Filter>
     </ClInclude>
+    <ClInclude Include="Source\SnakeMovement.h">
+      <Filter>Game\Behaviors</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

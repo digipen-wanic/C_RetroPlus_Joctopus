@@ -26,7 +26,7 @@ namespace Behaviors
 		/*
 		Make a PFrog
 		*/
-		SnakeMovement(float speed = 25, int direction = 1, bool flaot = false);
+		SnakeMovement(float speed = 50, int direction = 1, bool flaot = false);
 		/*
 		Make a clone
 		*/
