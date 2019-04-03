@@ -42,9 +42,6 @@ namespace Behaviors
 		// Runs every 1/60 seconds
 		void FixedUpdate(float dt) override;
 
-		// Runs whenever the object is created
-		void Shutdown() override;
-
 		// Runs whenever a collision is detected
 		friend void FrogCollisionHandler(GameObject& object, GameObject& other);
 
@@ -66,6 +63,8 @@ namespace Behaviors
 		static void ResetScore();
 
 		static int GetHighScore();
+
+		static void SetLives(int newLives);
 
 		//Gets the current amount of time until the current frog dies
 		float GetTimer() const;

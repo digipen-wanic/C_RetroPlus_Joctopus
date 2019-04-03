@@ -36,7 +36,6 @@ GameObject* GameObjectFactory::CreateObject(const std::string& name, Mesh* mesh,
 
 	try
 	{
-		std::cout << "hmm" << std::endl;
 		object->Deserialize(parser);
 		if (object->GetComponent("Sprite") != nullptr)
 		{

@@ -56,6 +56,8 @@ namespace Levels
 		//	 dt = Change in time (in seconds) since the last game loop.
 		void Update(float dt) override;
 
+		void Shutdown() override;
+
 		// Unload the resources associated with Level 1.
 		void Unload() override;
 

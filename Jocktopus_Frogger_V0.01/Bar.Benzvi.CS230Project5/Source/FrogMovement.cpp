@@ -250,11 +250,6 @@ namespace Behaviors
 		onFloat = false;
 	}
 
-	void FrogMovement::Shutdown()
-	{
-		delete deathAnimation;
-	}
-
 	void FrogMovement::Deserialize(Parser & parser)
 	{
 		parser.ReadVariable("speed", speed);
@@ -288,19 +283,9 @@ namespace Behaviors
 
 	void FrogMovement::SetDeathAnimations(SpriteSource* deathAnimation_, SpriteSource* drownAnimation_)
 	{
-		if (deathAnimation != nullptr)
-		{
-			delete deathAnimation;
-		}
-		if (drownAnimation != nullptr)
-		{
-			delete drownAnimation;
-		}
 		deathAnimation = deathAnimation_;
 		drownAnimation = drownAnimation_;
 	}
-
-	
 
 	
 	int FrogMovement::GetScore()
@@ -328,6 +313,11 @@ namespace Behaviors
 	int FrogMovement::GetLives()
 	{
 		return lives;
+	}
+
+	void FrogMovement::SetLives(int newLives)
+	{
+		lives = newLives;
 	}
 
 	void FrogMovement::SetWinSprite(Mesh* mesh, SpriteSource* spriteSource)

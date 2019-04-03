@@ -156,11 +156,13 @@ namespace Levels
 
 		FrogLife1 = GameObjectFactory::GetInstance().CreateObject("BasicSprite", mesh2x2, spriteSourceFrog);
 		FrogLife1->GetComponent<Transform>()->SetScale(Vector2D(35, 35));
+		FrogLife1->GetComponent<Sprite>()->SetAlpha(1.0f);
 		FrogLife1->GetComponent<Transform>()->SetTranslation(Vector2D(Graphics::GetInstance().GetScreenWorldDimensions().left + 25, -335));
 		GetSpace()->GetObjectManager().AddObject(*FrogLife1);
 
 		FrogLife2 = GameObjectFactory::GetInstance().CreateObject("BasicSprite", mesh2x2, spriteSourceFrog);
 		FrogLife2->GetComponent<Transform>()->SetScale(Vector2D(35, 35));
+		FrogLife2->GetComponent<Sprite>()->SetAlpha(1.0f);
 		FrogLife2->GetComponent<Transform>()->SetTranslation(Vector2D(Graphics::GetInstance().GetScreenWorldDimensions().left + 52, -335));
 		GetSpace()->GetObjectManager().AddObject(*FrogLife2);
 
@@ -598,6 +600,7 @@ namespace Levels
 					currFrog = GameObjectFactory::GetInstance().CreateObject("Frog", mesh2x2, spriteSourceFrog);
 					currFrog->GetComponent<Behaviors::FrogMovement>()->SetDeathAnimations(spriteSourceDeadFrog, spriteSourceDrownFrog);
 					currFrog->GetComponent<Behaviors::FrogMovement>()->SetWinSprite(mesh1x1, spriteSourceWinFrog);
+					currFrog->GetComponent<Behaviors::FrogMovement>()->SetPurpleSprite(spriteSourceCombinedFrog);
 
 					GetSpace()->GetObjectManager().AddObject(*currFrog);
 
@@ -664,7 +667,7 @@ namespace Levels
 
 		if (Input::GetInstance().CheckTriggered('1'))
 		{
-			GetSpace()->SetLevel<Levels::Level1>();
+			GetSpace()->RestartLevel();
 		}
 		else if (Input::GetInstance().CheckTriggered('2'))
 		{
@@ -679,6 +682,18 @@ namespace Levels
 		
 	}
 
+	void Level1::Shutdown()
+	{
+		currFrog = nullptr;
+		winSlots.clear();
+		timerObject = nullptr;
+		scoreText = nullptr;
+		highScoreText = nullptr;
+		Behaviors::FrogMovement::SetLives(2);
+		lives = Behaviors::FrogMovement::GetLives();
+		FrogLife1 = nullptr;
+		FrogLife2 = nullptr;
+	}
 
 	void Level1::Unload()
 	{
