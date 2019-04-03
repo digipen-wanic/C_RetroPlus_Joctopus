@@ -81,20 +81,23 @@ namespace Behaviors
 		if (currPhase == Floating)
 		{
 			currPhase = Sinking;
+			spriteComp->SetFrame(0);
 			spriteComp->SetSpriteSource(flipAnimation);
 			animationComp->Play(0, 2, 0.5f, true);
 		}
 		else if (currPhase == Sinking)
 		{
 			currPhase = Sunk;
+			spriteComp->SetFrame(0);
 			spriteComp->SetSpriteSource(startSprite);
 			spriteComp->SetAlpha(0);
 		}
 		else if (currPhase == Sunk)
 		{
 			currPhase = Floating;
+			spriteComp->SetFrame(0);
 			spriteComp->SetAlpha(1);
-			animationComp->Play(0, 3, 0.5f, true);
+			animationComp->Play(0, 2, 0.5f, true);
 		}
 	}
 	bool TurtleMovement::IsStandable()

@@ -51,9 +51,10 @@ namespace Levels
 	{
 
 		soundManager = Engine::GetInstance().GetModule<SoundManager>();
-		soundManager->SetEffectsVolume(0.0f);
+		soundManager->SetEffectsVolume(0.5f);
 		soundManager->AddEffect("Respawn1.wav");
 		soundManager->AddEffect("LoseSong.wav");
+		soundManager->AddEffect("WinRibbit.wav");
 
 		//meshShip = CreateTriangleMesh(Colors::Red, Colors::Blue, Colors::Green);
 		//meshBullet = CreateTriangleMesh(Colors::Aqua, Colors::Grey, Colors::LightBlue);
@@ -65,6 +66,9 @@ namespace Levels
 		meshText = CreateQuadMesh(Vector2D(1.0f / 6.0f, 1.0f / 6.0f), Vector2D(0.5f, 0.5f));
 		textureText = Texture::CreateTextureFromFile("NumberLetterSpriteSheet.png");
 		spriteSourceText = new SpriteSource(6, 6, textureText);
+
+		textureCombinedFrog = Texture::CreateTextureFromFile("YellowPinkFrog.png");
+		spriteSourceCombinedFrog = new SpriteSource(2, 2, textureCombinedFrog);
 
 		textureBackground = Texture::CreateTextureFromFile("Background.png");
 		spriteSourceBackground = new SpriteSource(1, 1, textureBackground);
@@ -177,6 +181,7 @@ namespace Levels
 		currFrog = GameObjectFactory::GetInstance().CreateObject("Frog", mesh2x2, spriteSourceFrog);
 		currFrog->GetComponent<Behaviors::FrogMovement>()->SetDeathAnimations(spriteSourceDeadFrog, spriteSourceDrownFrog);
 		currFrog->GetComponent<Behaviors::FrogMovement>()->SetWinSprite(mesh1x1, spriteSourceWinFrog);
+		currFrog->GetComponent<Behaviors::FrogMovement>()->SetPurpleSprite(spriteSourceCombinedFrog);
 
 		GameObject* wallL = GameObjectFactory::GetInstance().CreateObject("Wall", mesh1x1);
 		wallL->GetComponent<Transform>()->SetTranslation(Vector2D(-336, 0));
@@ -573,7 +578,9 @@ namespace Levels
 		delete spriteSourceTurtleSink2;
 		delete spriteSourceTurtleSink3;
 		delete spriteSourceDrownFrog;
-		//soundManager->Shutdown();
+		delete spriteSourceCombinedFrog;
+		delete textureCombinedFrog;
+		soundManager->Shutdown();
 		std::cout << "Level1::Unload" << std::endl;
 	}
 }

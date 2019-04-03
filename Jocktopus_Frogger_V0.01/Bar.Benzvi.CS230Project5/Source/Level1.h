@@ -89,6 +89,7 @@ namespace Levels
 		SpriteSource* spriteSourceWinFrog;
 		SpriteSource* spriteSourceBackground;
 		SpriteSource* spriteSourceDrownFrog;
+		SpriteSource* spriteSourceCombinedFrog;
 
 		Mesh* meshText;
 		Texture* textureText;
@@ -113,6 +114,7 @@ namespace Levels
 		Texture* textureTurtleFloat3;
 		Texture* textureTurtleSink2;
 		Texture* textureTurtleSink3;
+		Texture* textureCombinedFrog;
 
 		// Game Variables
 		GameObject* currFrog;

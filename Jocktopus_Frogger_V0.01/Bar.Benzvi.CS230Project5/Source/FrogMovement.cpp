@@ -81,6 +81,8 @@ namespace Behaviors
 
 			movement->score += timerScore + 50;
 
+			Engine::GetInstance().GetModule<SoundManager>()->PlaySound("WinRibbit");
+
 			if (movement->purpleFrogActive)
 			{
 				movement->score += 100;
@@ -134,7 +136,7 @@ namespace Behaviors
 					GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() + Vector2D(0, speed));
 					GetOwner()->GetComponent<Transform>()->SetRotation(0);
 					GetOwner()->GetComponent<Sprite>()->SetFrame(2);
-					canWalk = 2;
+					canWalk = 8;
 					currentForward++;
 
 					soundManager->PlaySound("Jump.wav");
@@ -152,7 +154,7 @@ namespace Behaviors
 					GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() - Vector2D(0, speed));
 					GetOwner()->GetComponent<Transform>()->SetRotation((float)M_PI);
 					GetOwner()->GetComponent<Sprite>()->SetFrame(2);
-					canWalk = 2;
+					canWalk = 8;
 					// If currentForward - 1 is greater than 0, we can move
 					if (currentForward - 1 >= 0)
 					{
@@ -166,7 +168,7 @@ namespace Behaviors
 					GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() + Vector2D(speed, 0));
 					GetOwner()->GetComponent<Transform>()->SetRotation(-(float)M_PI / 2.0f);
 					GetOwner()->GetComponent<Sprite>()->SetFrame(2);
-					canWalk = 2;
+					canWalk = 8;
 					soundManager->PlaySound("Jump.wav");
 				}
 				if (input.CheckTriggered('A'))
@@ -174,7 +176,7 @@ namespace Behaviors
 					GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() - Vector2D(speed, 0));
 					GetOwner()->GetComponent<Transform>()->SetRotation((float)M_PI / 2.0f);
 					GetOwner()->GetComponent<Sprite>()->SetFrame(2);
-					canWalk = 2;
+					canWalk = 8;
 					soundManager->PlaySound("Jump.wav");
 				}
 			}
