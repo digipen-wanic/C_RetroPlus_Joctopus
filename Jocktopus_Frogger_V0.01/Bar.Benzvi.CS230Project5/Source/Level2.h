@@ -134,6 +134,8 @@ namespace Levels
 		GameObject* currFrog;
 		GameObject* scoreText;
 		GameObject* timerObject;
+		GameObject* FrogLife1;
+		GameObject* FrogLife2;
 		int lives;
 		float timer;
 		bool lost;
