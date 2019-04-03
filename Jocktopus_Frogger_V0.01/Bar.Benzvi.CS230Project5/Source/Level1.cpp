@@ -38,6 +38,7 @@
 #include "ColliderRectangle.h"
 #include "FrogMovement.h"
 #include "TurtleMovement.h"
+#include <Graphics.h>
 
 namespace Levels
 {
@@ -143,6 +144,16 @@ namespace Levels
 		GameObject* background = GameObjectFactory::GetInstance().CreateObject("BasicSprite", mesh1x1, spriteSourceBackground);
 		background->GetComponent<Transform>()->SetScale(Vector2D(672, 768));
 		GetSpace()->GetObjectManager().AddObject(*background);
+
+		FrogLife1 = GameObjectFactory::GetInstance().CreateObject("BasicSprite", mesh2x2, spriteSourceFrog);
+		FrogLife1->GetComponent<Transform>()->SetScale(Vector2D(35, 35));
+		FrogLife1->GetComponent<Transform>()->SetTranslation(Vector2D(Graphics::GetInstance().GetScreenWorldDimensions().left + 25, -335));
+		GetSpace()->GetObjectManager().AddObject(*FrogLife1);
+
+		FrogLife2 = GameObjectFactory::GetInstance().CreateObject("BasicSprite", mesh2x2, spriteSourceFrog);
+		FrogLife2->GetComponent<Transform>()->SetScale(Vector2D(35, 35));
+		FrogLife2->GetComponent<Transform>()->SetTranslation(Vector2D(Graphics::GetInstance().GetScreenWorldDimensions().left + 52, -335));
+		GetSpace()->GetObjectManager().AddObject(*FrogLife2);
 
 		GameObject* winSlot1 = GameObjectFactory::GetInstance().CreateObject("WinSlot");
 		winSlot1->GetComponent<Transform>()->SetTranslation(Vector2D(-6.0f, 270.0f));
@@ -505,6 +516,15 @@ namespace Levels
 			}
 
 			
+		}
+
+		if (lives < 2)
+		{
+			FrogLife2->GetComponent<Sprite>()->SetAlpha(0);
+			if (lives < 1)
+			{
+				FrogLife1->GetComponent<Sprite>()->SetAlpha(0);
+			}
 		}
 
 		
