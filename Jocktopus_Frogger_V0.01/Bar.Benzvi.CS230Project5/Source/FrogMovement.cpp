@@ -112,8 +112,6 @@ namespace Behaviors
 	void FrogMovement::Initialize()
 	{
 		soundManager = Engine::GetInstance().GetModule<SoundManager>();
-		soundManager->AddEffect("Jump.wav");
-		soundManager->AddEffect("DieExplosion.wav");
 
 		// Init collision handler
 		static_cast<Collider*>(GetOwner()->GetComponent("Collider"))->SetCollisionHandler(FrogCollisionHandler);

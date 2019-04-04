@@ -55,11 +55,6 @@ namespace Levels
 	{
 
 		soundManager = Engine::GetInstance().GetModule<SoundManager>();
-		soundManager->SetEffectsVolume(0.5f);
-		soundManager->AddEffect("Respawn1.wav");
-		soundManager->AddEffect("LoseSong.wav");
-		soundManager->AddEffect("WinRibbit.wav");
-		soundManager->AddEffect("WinSong.wav");
 
 		//meshShip = CreateTriangleMesh(Colors::Red, Colors::Blue, Colors::Green);
 		//meshBullet = CreateTriangleMesh(Colors::Aqua, Colors::Grey, Colors::LightBlue);

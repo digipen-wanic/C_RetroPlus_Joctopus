@@ -59,6 +59,8 @@ namespace Levels
 		soundManager->AddEffect("LoseSong.wav");
 		soundManager->AddEffect("WinRibbit.wav");
 		soundManager->AddEffect("WinSong.wav");
+		soundManager->AddEffect("Jump.wav");
+		soundManager->AddEffect("DieExplosion.wav");
 
 		//meshShip = CreateTriangleMesh(Colors::Red, Colors::Blue, Colors::Green);
 		//meshBullet = CreateTriangleMesh(Colors::Aqua, Colors::Grey, Colors::LightBlue);
