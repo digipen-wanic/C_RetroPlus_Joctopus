@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 // File Name:	Level2.cpp
-// Author(s):	Bar Ben-zvi, Kyle
+// Author(s):	Bar Ben-zvi, Freddy Martin
 // Project:		BetaFramework
 // Course:		WANIC VGP2 2018-2019
 //
@@ -11,66 +11,55 @@
 
 
 #include "stdafx.h"
+#include "Level1.h"
 #include "Level2.h"
 #include "Engine.h"
 #include "Space.h"
-#include "Mesh.h"
 #include "MeshHelper.h"
-#include "Texture.h"
+#include "Color.h"
 #include "Sprite.h"
-#include "SpriteSource.h"
-#include "SpriteText.h"
-#include "Animation.h"
+#include "Mesh.h"
 #include "Input.h"
-#include "Level1.h"
 #include "Transform.h"
 #include "Physics.h"
 #include "GameObject.h"
-#include "Tilemap.h"
+#include "Archetypes.h"
+#include "GameObjectManager.h"
+#include "SoundManager.h"
+#include <fmod.hpp>
+#include "Parser.h"
 #include "GameObjectFactory.h"
-#include "SpriteTilemap.h"
-#include "ColliderTilemap.h"
+#include "Texture.h"
+#include "SpriteSource.h"
+#include "SpriteText.h"
 #include "ItemMovement.h"
 #include "ColliderRectangle.h"
-#include "PurpleFrogMovement.h"
-#include "SoundManager.h"
 #include "FrogMovement.h"
 #include "TurtleMovement.h"
 #include <Graphics.h>
-
-
+#include "WinSlot.h"
+#include "MainMenu.h"
+#include "Random.h"
+#include <Animation.h>
 
 namespace Levels
 {
 	Level2::Level2()
-		: Level("Level2"), columnsMonkey(3), rowsMonkey(5), columnsMap(4), rowsMap(3)
+		: Level("Level2"), mesh1x1(nullptr), mesh1x2(nullptr), currFly(nullptr), lives(2), timer(1.0f), winLoseTimer(5.0f), flyAliveTimer(2.5f),
+		flySpawnTimer(3.0f), winLoseSequenceInit(false), lost(false), won(false)
 	{
 
 	}
 
 	void Level2::Load()
 	{
-		/*
-		meshMonkey = CreateQuadMesh(Vector2D(1.0f / 3.0f, 1.0f / 5.0f), Vector2D(0.5, 0.5));
-		textureMonkey = Texture::CreateTextureFromFile("Monkey.png");
-		spriteSourceMonkey = new SpriteSource(columnsMonkey, rowsMonkey, textureMonkey);
-
-		meshMap = CreateQuadMesh(Vector2D(1.0f / columnsMap, 1.0f / rowsMap), Vector2D(0.5f, 0.5f));
-		textureMap = Texture::CreateTextureFromFile("Tilemap.png");
-		spriteSourceMap = new SpriteSource(columnsMap, rowsMap, textureMap);
-		dataMap = Tilemap::CreateTilemapFromFile("level2.txt");
-
-		if (dataMap == nullptr)
-		{
-			std::cout << "Error loading map" << std::endl;
-		}*/
-
-		//////////////////////////////////////////////////////////////////////////////////////////////
 
 		soundManager = Engine::GetInstance().GetModule<SoundManager>();
-		soundManager->SetEffectsVolume(0.2f);
+		soundManager->SetEffectsVolume(0.5f);
 		soundManager->AddEffect("Respawn1.wav");
 		soundManager->AddEffect("LoseSong.wav");
+		soundManager->AddEffect("WinRibbit.wav");
+		soundManager->AddEffect("WinSong.wav");
 
 		//meshShip = CreateTriangleMesh(Colors::Red, Colors::Blue, Colors::Green);
 		//meshBullet = CreateTriangleMesh(Colors::Aqua, Colors::Grey, Colors::LightBlue);
@@ -78,21 +67,25 @@ namespace Levels
 		mesh1x2 = CreateQuadMesh(Vector2D(1.0f, 1.0f / 2.0f), Vector2D(0.5f, 0.5f));
 		mesh2x2 = CreateQuadMesh(Vector2D(1.0f / 2.0f, 1.0f / 2.0f), Vector2D(0.5f, 0.5f));
 		mesh1x3 = CreateQuadMesh(Vector2D(1.0f, 1.0f / 3.0f), Vector2D(0.5f, 0.5f));
+		mesh3x3 = CreateQuadMesh(Vector2D(1.0f / 3.0f, 1.0f / 3.0f), Vector2D(0.5f, 0.5f));
 
 		meshText = CreateQuadMesh(Vector2D(1.0f / 6.0f, 1.0f / 6.0f), Vector2D(0.5f, 0.5f));
 		textureText = Texture::CreateTextureFromFile("NumberLetterSpriteSheet.png");
 		spriteSourceText = new SpriteSource(6, 6, textureText);
 
+		textureCombinedFrog = Texture::CreateTextureFromFile("YellowPinkFrog.png");
+		spriteSourceCombinedFrog = new SpriteSource(2, 2, textureCombinedFrog);
+
 		textureBackground = Texture::CreateTextureFromFile("Background.png");
 		spriteSourceBackground = new SpriteSource(1, 1, textureBackground);
 
-		textureDeadFrog = Texture::CreateTextureFromFile("PlayerFrogRoadKill.png");
+		textureDeadFrog = Texture::CreateTextureFromFile("RoboFrogRoadKill.png");
 		spriteSourceDeadFrog = new SpriteSource(2, 2, textureDeadFrog);
 
-		textureDrownFrog = Texture::CreateTextureFromFile("PlayerFrogDrown.png");
+		textureDrownFrog = Texture::CreateTextureFromFile("RoboFrogDrown.png");
 		spriteSourceDrownFrog = new SpriteSource(2, 2, textureDrownFrog);
 
-		textureFrog = Texture::CreateTextureFromFile("PlayerFrog.png");
+		textureFrog = Texture::CreateTextureFromFile("RoboFrogJump.png");
 		spriteSourceFrog = new SpriteSource(2, 2, textureFrog);
 
 		texturePFrog = Texture::CreateTextureFromFile("pinkfrog_01.png");
@@ -101,10 +94,13 @@ namespace Levels
 		textureWinFrog = Texture::CreateTextureFromFile("EndFrogSmirk.png");
 		spriteSourceWinFrog = new SpriteSource(1, 1, textureWinFrog);
 
-		textureLogLarge = Texture::CreateTextureFromFile("LargeLog.png");
+		textureWinFrog2 = Texture::CreateTextureFromFile("EndFrogSmile.png");
+		spriteSourceWinFrog2 = new SpriteSource(1, 1, textureWinFrog2);
+
+		textureLogLarge = Texture::CreateTextureFromFile("FloatingBarrels.png");
 		spriteSourceLogLarge = new SpriteSource(1, 1, textureLogLarge);
 
-		textureLogMedium = Texture::CreateTextureFromFile("MediumLog.png");
+		textureLogMedium = Texture::CreateTextureFromFile("WoodenPlanks (done).png");
 		spriteSourceLogMedium = new SpriteSource(1, 1, textureLogMedium);
 
 		textureLogSmall = Texture::CreateTextureFromFile("SmallLog.png");
@@ -116,67 +112,129 @@ namespace Levels
 		textureCar2 = Texture::CreateTextureFromFile("dozer_01.png");
 		spriteSourceCar2 = new SpriteSource(1, 1, textureCar2);
 
-		textureCar3 = Texture::CreateTextureFromFile("pinkcar_01.png");
-		spriteSourceCar3 = new SpriteSource(1, 1, textureCar3);
+		textureCar3 = Texture::CreateTextureFromFile("Tank(PinkCar)(done).png");
+		spriteSourceCar3 = new SpriteSource(1, 2, textureCar3);
 
-		textureCar4 = Texture::CreateTextureFromFile("whitecar_01.png");
-		spriteSourceCar4 = new SpriteSource(1, 1, textureCar4);
+		textureCar4 = Texture::CreateTextureFromFile("ToxicBarrel.png");
+		spriteSourceCar4 = new SpriteSource(3, 3, textureCar4);
 
 		textureCar5 = Texture::CreateTextureFromFile("truck_01.png");
 		spriteSourceCar5 = new SpriteSource(1, 1, textureCar5);
 
-		textureTurtleFloat2 = Texture::CreateTextureFromFile("TurtleSwim2.png");
+		textureTurtleFloat2 = Texture::CreateTextureFromFile("RoboSwimDouble.png");
 		spriteSourceTurtleFloat2 = new SpriteSource(1, 3, textureTurtleFloat2);
 
-		textureTurtleFloat3 = Texture::CreateTextureFromFile("TurtleSwim3.png");
+		textureTurtleFloat3 = Texture::CreateTextureFromFile("RoboSwimTriple.png");
 		spriteSourceTurtleFloat3 = new SpriteSource(1, 3, textureTurtleFloat3);
 
-		textureTurtleSink2 = Texture::CreateTextureFromFile("TurtleRollDouble.png");
+		textureTurtleSink2 = Texture::CreateTextureFromFile("RoboRollDouble.png");
 		spriteSourceTurtleSink2 = new SpriteSource(1, 3, textureTurtleSink2);
 
-		textureTurtleSink3 = Texture::CreateTextureFromFile("TurtleRollTriple.png");
+		textureTurtleSink3 = Texture::CreateTextureFromFile("RoboRollTriple.png");
 		spriteSourceTurtleSink3 = new SpriteSource(1, 3, textureTurtleSink3);
+
+		textureFly = Texture::CreateTextureFromFile("Fly.png");
+		spriteSourceFly = new SpriteSource(1, 1, textureFly);
+
+		textureSnake = Texture::CreateTextureFromFile("Tornado2.png");
+		spriteSourceSnake = new SpriteSource(2, 2, textureSnake);
+
+		//GetSpace()->GetObjectManager().AddArchetype(*GameObjectFactory::GetInstance().CreateObject("Bullet", meshBullet));
+
+		//GetSpace()->GetObjectManager().AddArchetype(*Archetypes::CreateBulletArchetype(meshBullet));
 
 		std::cout << "Level2::Load" << std::endl;
 	}
 
 	void Level2::Initialize()
 	{
-		std::cout << "Level2::Initialize" << std::endl;
-		
+
 		//GameObject* ship = GameObjectFactory::GetInstance().CreateObject("PlayerShip", meshShip);
 
 		//ship->GetComponent<Transform>()->SetRotation(3.14f);
 
 		//GetSpace()->GetObjectManager().AddObject(*ship);
 
+		GameObject* background = GameObjectFactory::GetInstance().CreateObject("BasicSprite", mesh1x1, spriteSourceBackground);
+		background->GetComponent<Transform>()->SetScale(Vector2D(672, 768));
+		GetSpace()->GetObjectManager().AddObject(*background);
+
 		FrogLife1 = GameObjectFactory::GetInstance().CreateObject("BasicSprite", mesh2x2, spriteSourceFrog);
 		FrogLife1->GetComponent<Transform>()->SetScale(Vector2D(35, 35));
+		FrogLife1->GetComponent<Sprite>()->SetAlpha(1.0f);
 		FrogLife1->GetComponent<Transform>()->SetTranslation(Vector2D(Graphics::GetInstance().GetScreenWorldDimensions().left + 25, -335));
 		GetSpace()->GetObjectManager().AddObject(*FrogLife1);
 
 		FrogLife2 = GameObjectFactory::GetInstance().CreateObject("BasicSprite", mesh2x2, spriteSourceFrog);
 		FrogLife2->GetComponent<Transform>()->SetScale(Vector2D(35, 35));
+		FrogLife2->GetComponent<Sprite>()->SetAlpha(1.0f);
 		FrogLife2->GetComponent<Transform>()->SetTranslation(Vector2D(Graphics::GetInstance().GetScreenWorldDimensions().left + 52, -335));
 		GetSpace()->GetObjectManager().AddObject(*FrogLife2);
 
-		scoreText = GameObjectFactory::GetInstance().CreateObject("SpriteText", meshText, spriteSourceText);
-		GameObject* text2 = GameObjectFactory::GetInstance().CreateObject("SpriteText", meshText, spriteSourceText);
+		GameObject* winSlot1 = GameObjectFactory::GetInstance().CreateObject("WinSlot");
+		winSlot1->GetComponent<Transform>()->SetTranslation(Vector2D(-6.0f, 270.0f));
+		GetSpace()->GetObjectManager().AddObject(*winSlot1);
 
+		GameObject* winSlot2 = GameObjectFactory::GetInstance().CreateObject("WinSlot");
+		winSlot2->GetComponent<Transform>()->SetTranslation(Vector2D(-140.0f, 270.0f));
+		GetSpace()->GetObjectManager().AddObject(*winSlot2);
+
+		GameObject* winSlot3 = GameObjectFactory::GetInstance().CreateObject("WinSlot");
+		winSlot3->GetComponent<Transform>()->SetTranslation(Vector2D(130.0f, 270.0f));
+		GetSpace()->GetObjectManager().AddObject(*winSlot3);
+
+		GameObject* winSlot4 = GameObjectFactory::GetInstance().CreateObject("WinSlot");
+		winSlot4->GetComponent<Transform>()->SetTranslation(Vector2D(-276.0f, 270.0f));
+		GetSpace()->GetObjectManager().AddObject(*winSlot4);
+
+		GameObject* winSlot5 = GameObjectFactory::GetInstance().CreateObject("WinSlot");
+		winSlot5->GetComponent<Transform>()->SetTranslation(Vector2D(264.0f, 270.0f));
+		GetSpace()->GetObjectManager().AddObject(*winSlot5);
+
+		winSlots.push_back(winSlot1);
+		winSlots.push_back(winSlot2);
+		winSlots.push_back(winSlot3);
+		winSlots.push_back(winSlot4);
+		winSlots.push_back(winSlot5);
+
+
+
+		scoreText = GameObjectFactory::GetInstance().CreateObject("SpriteText", meshText, spriteSourceText);
 		scoreText->GetComponent<SpriteText>()->SetString("");
 		scoreText->GetComponent<SpriteText>()->SetAlignment(LEFT);
+		scoreText->GetComponent<Transform>()->SetScale(Vector2D(16.0f, 18.0f));
 		GetSpace()->GetObjectManager().AddObject(*scoreText);
 
+		highScoreText = GameObjectFactory::GetInstance().CreateObject("SpriteText", meshText, spriteSourceText);
+		highScoreText->GetComponent<SpriteText>()->SetString("");
+		highScoreText->GetComponent<SpriteText>()->SetAlignment(LEFT);
+		highScoreText->GetComponent<Transform>()->SetScale(Vector2D(16.0f, 18.0f));
+		highScoreText->GetComponent<Transform>()->SetTranslation(Vector2D(-64.0f, 344.0f));
+		GetSpace()->GetObjectManager().AddObject(*highScoreText);
 
-		text2->GetComponent<SpriteText>()->SetString("TIME");
+		GameObject* text1 = GameObjectFactory::GetInstance().CreateObject("SpriteText", meshText, spriteSourceText);
+		text1->GetComponent<SpriteText>()->SetString("TIME");
+		text1->GetComponent<SpriteText>()->SetAlignment(LEFT);
+		text1->GetComponent<Transform>()->SetTranslation(Vector2D(115.0f, -357.0f));
+		GetSpace()->GetObjectManager().AddObject(*text1);
+
+		GameObject* text2 = GameObjectFactory::GetInstance().CreateObject("SpriteText", meshText, spriteSourceText);
+		text2->GetComponent<SpriteText>()->SetString("SCORE");
 		text2->GetComponent<SpriteText>()->SetAlignment(LEFT);
-		text2->GetComponent<Transform>()->SetTranslation(Vector2D(115.0f, -330.0f));
+		text2->GetComponent<Transform>()->SetTranslation(Vector2D(-320.0f, 368.0f));
 		GetSpace()->GetObjectManager().AddObject(*text2);
+
+		GameObject* text3 = GameObjectFactory::GetInstance().CreateObject("SpriteText", meshText, spriteSourceText);
+		text3->GetComponent<SpriteText>()->SetString("HIGH SCORE");
+		text3->GetComponent<SpriteText>()->SetAlignment(LEFT);
+		text3->GetComponent<Transform>()->SetTranslation(Vector2D(-64.0f, 368.0f));
+		GetSpace()->GetObjectManager().AddObject(*text3);
 
 
 		currFrog = GameObjectFactory::GetInstance().CreateObject("Frog", mesh2x2, spriteSourceFrog);
 		currFrog->GetComponent<Behaviors::FrogMovement>()->SetDeathAnimations(spriteSourceDeadFrog, spriteSourceDrownFrog);
 		currFrog->GetComponent<Behaviors::FrogMovement>()->SetWinSprite(mesh1x1, spriteSourceWinFrog);
+		currFrog->GetComponent<Behaviors::FrogMovement>()->SetPurpleSprite(spriteSourceCombinedFrog);
 
 		GameObject* wallL = GameObjectFactory::GetInstance().CreateObject("Wall", mesh1x1);
 		wallL->GetComponent<Transform>()->SetTranslation(Vector2D(-336, 0));
@@ -184,6 +242,7 @@ namespace Levels
 		GameObject* wallR = GameObjectFactory::GetInstance().CreateObject("Wall", mesh1x1);
 		wallR->GetComponent<Transform>()->SetTranslation(Vector2D(336, 0));
 		GetSpace()->GetObjectManager().AddObject(*wallR);
+
 
 		timerObject = GameObjectFactory::GetInstance().CreateObject("Timer", mesh1x1);
 
@@ -228,29 +287,34 @@ namespace Levels
 		GetSpace()->GetObjectManager().AddObject(*car2_3);
 
 		//Car type three
-		GameObject* car3_1 = GameObjectFactory::GetInstance().CreateObject("Car", mesh1x1, spriteSourceCar3);
+		GameObject* car3_1 = GameObjectFactory::GetInstance().CreateObject("Car", mesh1x2, spriteSourceCar3);
 		car3_1->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
 		car3_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(40);
 		car3_1->GetComponent<Transform>()->SetTranslation(Vector2D(10, -160));
+		car3_1->GetComponent<Animation>()->Play(0, 2, 0.1f, true);
 		GetSpace()->GetObjectManager().AddObject(*car3_1);
 
-		GameObject* car3_2 = GameObjectFactory::GetInstance().CreateObject("Car", mesh1x1, spriteSourceCar3);
+		GameObject* car3_2 = GameObjectFactory::GetInstance().CreateObject("Car", mesh1x2, spriteSourceCar3);
 		car3_2->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
 		car3_2->GetComponent<Behaviors::ItemMovement>()->SetSpeed(40);
 		car3_2->GetComponent<Transform>()->SetTranslation(Vector2D(190, -160));
+		car3_2->GetComponent<Animation>()->Play(0, 2, 0.1f, true);
 		GetSpace()->GetObjectManager().AddObject(*car3_2);
 
-		GameObject* car3_3 = GameObjectFactory::GetInstance().CreateObject("Car", mesh1x1, spriteSourceCar3);
+		GameObject* car3_3 = GameObjectFactory::GetInstance().CreateObject("Car", mesh1x2, spriteSourceCar3);
 		car3_3->GetComponent<Behaviors::ItemMovement>()->SetDirection(-1);
 		car3_3->GetComponent<Behaviors::ItemMovement>()->SetSpeed(40);
 		car3_3->GetComponent<Transform>()->SetTranslation(Vector2D(370, -160));
+		car3_3->GetComponent<Animation>()->Play(0, 2, 0.1f, true);
 		GetSpace()->GetObjectManager().AddObject(*car3_3);
 
 		//Car type four
-		GameObject* car4_1 = GameObjectFactory::GetInstance().CreateObject("Car", mesh1x1, spriteSourceCar4);
+		GameObject* car4_1 = GameObjectFactory::GetInstance().CreateObject("Car", mesh3x3, spriteSourceCar4);
 		car4_1->GetComponent<Behaviors::ItemMovement>()->SetDirection(1);
 		car4_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(60);
 		car4_1->GetComponent<Transform>()->SetTranslation(Vector2D(-100, -112));
+		car4_1->GetComponent<Transform>()->SetScale(Vector2D(-car4_1->GetComponent<Transform>()->GetScale().x, car4_1->GetComponent<Transform>()->GetScale().y));
+		car4_1->GetComponent<Animation>()->Play(0, 8, 0.1f, true);
 		GetSpace()->GetObjectManager().AddObject(*car4_1);
 
 		//Truck
@@ -281,8 +345,8 @@ namespace Levels
 		turtle_1_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(55);
 		turtle_1_1->GetComponent<Behaviors::TurtleMovement>()->SetFlipAnimation(spriteSourceTurtleSink3);
 		turtle_1_1->GetComponent<Transform>()->SetTranslation(Vector2D(290, 32));
-		turtle_1_1->GetComponent<Transform>()->SetScale(Vector2D(90, 30));
-		turtle_1_1->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
+		turtle_1_1->GetComponent<Transform>()->SetScale(Vector2D(120, 45));
+		turtle_1_1->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(45, 15));
 		GetSpace()->GetObjectManager().AddObject(*turtle_1_1);
 
 		GameObject* turtle_1_2 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x3, spriteSourceTurtleFloat3);
@@ -290,8 +354,8 @@ namespace Levels
 		turtle_1_2->GetComponent<Behaviors::ItemMovement>()->SetSpeed(55);
 		turtle_1_2->GetComponent<Behaviors::TurtleMovement>()->SetActive(false);
 		turtle_1_2->GetComponent<Transform>()->SetTranslation(Vector2D(110, 32));
-		turtle_1_2->GetComponent<Transform>()->SetScale(Vector2D(90, 30));
-		turtle_1_2->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
+		turtle_1_2->GetComponent<Transform>()->SetScale(Vector2D(120, 45));
+		turtle_1_2->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(45, 15));
 		GetSpace()->GetObjectManager().AddObject(*turtle_1_2);
 
 		GameObject* turtle_1_3 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x3, spriteSourceTurtleFloat3);
@@ -299,8 +363,8 @@ namespace Levels
 		turtle_1_3->GetComponent<Behaviors::ItemMovement>()->SetSpeed(55);
 		turtle_1_3->GetComponent<Behaviors::TurtleMovement>()->SetActive(false);
 		turtle_1_3->GetComponent<Transform>()->SetTranslation(Vector2D(-70, 32));
-		turtle_1_3->GetComponent<Transform>()->SetScale(Vector2D(90, 30));
-		turtle_1_3->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
+		turtle_1_3->GetComponent<Transform>()->SetScale(Vector2D(120, 45));
+		turtle_1_3->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(45, 15));
 		GetSpace()->GetObjectManager().AddObject(*turtle_1_3);
 
 		GameObject* turtle_1_4 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x3, spriteSourceTurtleFloat3);
@@ -308,8 +372,8 @@ namespace Levels
 		turtle_1_4->GetComponent<Behaviors::ItemMovement>()->SetSpeed(55);
 		turtle_1_4->GetComponent<Behaviors::TurtleMovement>()->SetActive(false);
 		turtle_1_4->GetComponent<Transform>()->SetTranslation(Vector2D(-250, 32));
-		turtle_1_4->GetComponent<Transform>()->SetScale(Vector2D(90, 30));
-		turtle_1_4->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(30, 15));
+		turtle_1_4->GetComponent<Transform>()->SetScale(Vector2D(120, 45));
+		turtle_1_4->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(45, 15));
 		GetSpace()->GetObjectManager().AddObject(*turtle_1_4);
 
 		GameObject* turtle_2_1 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x3, spriteSourceTurtleFloat2);
@@ -317,8 +381,8 @@ namespace Levels
 		turtle_2_1->GetComponent<Behaviors::ItemMovement>()->SetSpeed(65);
 		turtle_2_1->GetComponent<Behaviors::TurtleMovement>()->SetFlipAnimation(spriteSourceTurtleSink2);
 		turtle_2_1->GetComponent<Transform>()->SetTranslation(Vector2D(360, 176));
-		turtle_2_1->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
-		turtle_2_1->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(15, 15));
+		turtle_2_1->GetComponent<Transform>()->SetScale(Vector2D(90, 45));
+		turtle_2_1->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(22.5f, 15));
 		GetSpace()->GetObjectManager().AddObject(*turtle_2_1);
 
 		GameObject* turtle_2_2 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x3, spriteSourceTurtleFloat2);
@@ -326,8 +390,8 @@ namespace Levels
 		turtle_2_2->GetComponent<Behaviors::ItemMovement>()->SetSpeed(65);
 		turtle_2_2->GetComponent<Behaviors::TurtleMovement>()->SetActive(false);
 		turtle_2_2->GetComponent<Transform>()->SetTranslation(Vector2D(180, 176));
-		turtle_2_2->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
-		turtle_2_2->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(15, 15));
+		turtle_2_2->GetComponent<Transform>()->SetScale(Vector2D(90, 45));
+		turtle_2_2->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(22.5f, 15));
 		GetSpace()->GetObjectManager().AddObject(*turtle_2_2);
 
 		GameObject* turtle_2_3 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x3, spriteSourceTurtleFloat2);
@@ -335,8 +399,8 @@ namespace Levels
 		turtle_2_3->GetComponent<Behaviors::ItemMovement>()->SetSpeed(65);
 		turtle_2_3->GetComponent<Behaviors::TurtleMovement>()->SetActive(false);
 		turtle_2_3->GetComponent<Transform>()->SetTranslation(Vector2D(0, 176));
-		turtle_2_3->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
-		turtle_2_3->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(15, 15));
+		turtle_2_3->GetComponent<Transform>()->SetScale(Vector2D(90, 45));
+		turtle_2_3->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(22.5f, 15));
 		GetSpace()->GetObjectManager().AddObject(*turtle_2_3);
 
 		GameObject* turtle_2_4 = GameObjectFactory::GetInstance().CreateObject("Turtle", mesh1x3, spriteSourceTurtleFloat2);
@@ -344,8 +408,8 @@ namespace Levels
 		turtle_2_4->GetComponent<Behaviors::ItemMovement>()->SetSpeed(65);
 		turtle_2_4->GetComponent<Behaviors::TurtleMovement>()->SetActive(false);
 		turtle_2_4->GetComponent<Transform>()->SetTranslation(Vector2D(-180, 176));
-		turtle_2_4->GetComponent<Transform>()->SetScale(Vector2D(60, 30));
-		turtle_2_4->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(15, 15));
+		turtle_2_4->GetComponent<Transform>()->SetScale(Vector2D(90, 45));
+		turtle_2_4->GetComponent<ColliderRectangle>()->SetExtents(Vector2D(22.5f, 15));
 		GetSpace()->GetObjectManager().AddObject(*turtle_2_4);
 
 		// Log
@@ -444,51 +508,213 @@ namespace Levels
 
 		GetSpace()->GetObjectManager().AddObject(*currFrog);
 
-
-		/*
-		//GetSpace()->GetObjectManager().AddObject(*Archetypes::CreateTilemapObject(meshMap, spriteSourceMap, dataMap));
-		GameObject* tileMap = GameObjectFactory::GetInstance().CreateObject("Tilemap", meshMap, spriteSourceMap);
-		static_cast<SpriteTilemap*>(tileMap->GetComponent("Sprite"))->SetTilemap(dataMap);
-		static_cast<ColliderTilemap*>(tileMap->GetComponent("Collider"))->SetTilemap(dataMap);
-
-		//GetSpace()->GetObjectManager().AddObject(*tileMap);
-
-
-		//static_cast<Animation*>(GetSpace()->GetObjectManager().GetObjectByName("Monkey")->GetComponent("Animation"))->Play(0, 8, 0.2f, true);*/
+		std::cout << "Level2::Initialize" << std::endl;
 	}
 
 	void Level2::Update(float dt)
 	{
-
-		UNREFERENCED_PARAMETER(dt);
-
-		if (Input::GetInstance().CheckTriggered('1'))
+		if (won)
 		{
-			GetSpace()->SetLevel<Levels::Level1>();
+			if (!winLoseSequenceInit)
+			{
+				soundManager->PlaySound("WinSong.wav");
+				winLoseSequenceInit = true;
+				winLoseTimer = 8.0f;
+
+				for (auto it = winSlots.cbegin(); it != winSlots.cend(); ++it)
+				{
+					GameObject* winFrog = GameObjectFactory::GetInstance().CreateObject("WinFrog", mesh1x1, spriteSourceWinFrog2);
+					winFrog->GetComponent<Transform>()->SetTranslation((*it)->GetComponent<Transform>()->GetTranslation());
+					GetSpace()->GetObjectManager().AddObject(*winFrog);
+				}
+			}
+
+			winLoseTimer -= dt;
+			if (winLoseTimer <= 0.0f)
+			{
+				GetSpace()->SetLevel<MainMenu>();
+			}
 		}
-		else if (Input::GetInstance().CheckTriggered('2'))
+		else if (!lost)
 		{
-			GetSpace()->SetLevel<Levels::Level2>();
+
+			if (currFly == nullptr)
+			{
+				flySpawnTimer -= dt;
+
+				if (flySpawnTimer <= 0.0f)
+				{
+					int spawnSlot = RandomRange(0, 4);
+
+					while (winSlots[spawnSlot]->GetComponent<Behaviors::WinSlot>()->GetContainsFrog())
+					{
+						spawnSlot = RandomRange(0, 4);
+					}
+
+					currFly = GameObjectFactory::GetInstance().CreateObject("Fly", mesh1x1, spriteSourceFly);
+					currFly->GetComponent<Transform>()->SetTranslation(winSlots[spawnSlot]->GetComponent<Transform>()->GetTranslation());
+
+					GetSpace()->GetObjectManager().AddObject(*currFly);
+
+					flySpawnTimer = RandomRange(3.0f, 10.0f);
+					flyAliveTimer = 2.5f;
+
+				}
+			}
+			else
+			{
+				if (currFly->IsDestroyed())
+				{
+					currFly = nullptr;
+				}
+				else
+				{
+					flyAliveTimer -= dt;
+
+					if (flyAliveTimer <= 0.0f)
+					{
+						currFly->Destroy();
+						currFly = nullptr;
+						flyAliveTimer = 2.5f;
+					}
+				}
+			}
+
+			int slotsFull = 0;
+
+			for (auto it = winSlots.cbegin(); it != winSlots.cend(); ++it)
+			{
+				if ((*it)->GetComponent<Behaviors::WinSlot>()->GetContainsFrog())
+				{
+					slotsFull++;
+				}
+			}
+
+			if (slotsFull == 5)
+			{
+				won = true;
+			}
+
+			if (currFrog->IsDestroyed() || currFrog == nullptr)
+			{
+				timer -= dt;
+
+				if (timer <= 0.0f)
+				{
+					lives = Behaviors::FrogMovement::GetLives();
+
+					if (lives < 0)
+					{
+						soundManager->PlaySound("LoseSong.wav");
+						lost = true;
+						//GetSpace()->SetLevel<Levels::Level2>();
+						return;
+					}
+
+					currFrog = GameObjectFactory::GetInstance().CreateObject("Frog", mesh2x2, spriteSourceFrog);
+					currFrog->GetComponent<Behaviors::FrogMovement>()->SetDeathAnimations(spriteSourceDeadFrog, spriteSourceDrownFrog);
+					currFrog->GetComponent<Behaviors::FrogMovement>()->SetWinSprite(mesh1x1, spriteSourceWinFrog);
+					currFrog->GetComponent<Behaviors::FrogMovement>()->SetPurpleSprite(spriteSourceCombinedFrog);
+
+					GetSpace()->GetObjectManager().AddObject(*currFrog);
+
+					soundManager->PlaySound("Respawn1.wav");
+
+					timer = 1.0f;
+				}
+				return;
+
+
+			}
+			else
+			{
+				scoreText->GetComponent<SpriteText>()->SetString(std::to_string(Behaviors::FrogMovement::GetScore()));
+				highScoreText->GetComponent<SpriteText>()->SetString(std::to_string(Behaviors::FrogMovement::GetHighScore()));
+			}
+
+			if (timerObject != nullptr && !currFrog->IsDestroyed())
+			{
+				//Set the scale and translation of the timer to make it display the time remaining
+				Transform* timerTransform = timerObject->GetComponent<Transform>();
+
+				timerTransform->SetTranslation(Vector2D((-timerTransform->GetScale().x / 2) + 100.0f, -357.0f));
+				timerTransform->SetScale(Vector2D(currFrog->GetComponent<Behaviors::FrogMovement>()->GetTimer() * 5.0f, 25.0f));
+
+				//std::cout << timerTransform->GetScale() << std::endl;
+			}
+
+			if (currFrog->GetComponent<Behaviors::FrogMovement>()->GetTimer() <= 0.0f)
+			{
+				currFrog->Destroy();
+			}
+
+
 		}
+		else
+		{
+			if (!winLoseSequenceInit)
+			{
+				soundManager->PlaySound("LoseSong.wav");
+				winLoseSequenceInit = true;
+				winLoseTimer = 5.0f;
+			}
+
+			winLoseTimer -= dt;
+
+			if (winLoseTimer <= 0)
+			{
+				GetSpace()->SetLevel<MainMenu>();
+				Behaviors::FrogMovement::ResetScore();
+			}
+		}
+
+		if (lives < 2)
+		{
+			FrogLife2->GetComponent<Sprite>()->SetAlpha(0);
+			if (lives < 1)
+			{
+				FrogLife1->GetComponent<Sprite>()->SetAlpha(0);
+			}
+		}
+
+
+
+		if (Input::GetInstance().CheckTriggered('2'))
+		{
+			GetSpace()->RestartLevel();
+		}
+		else if (Input::GetInstance().CheckTriggered('1'))
+		{
+			won = true;
+		}
+
+		if (Input::GetInstance().CheckTriggered('T'))
+		{
+			//soundManager->PlaySound("teleport.wav");
+		}
+
+
 	}
 
+	void Level2::Shutdown()
+	{
+		currFrog = nullptr;
+		winSlots.clear();
+		timerObject = nullptr;
+		scoreText = nullptr;
+		highScoreText = nullptr;
+		Behaviors::FrogMovement::SetLives(2);
+		lives = Behaviors::FrogMovement::GetLives();
+		FrogLife1 = nullptr;
+		FrogLife2 = nullptr;
+	}
 
 	void Level2::Unload()
 	{
-		std::cout << "Level2::Unload" << std::endl;
-
-		//delete dataMap;
-		//delete textureMonkey;
-		//delete spriteSourceMonkey;
-		//delete meshMonkey;
-		//delete textureMap;
-		//delete spriteSourceMap;
-		//delete meshMap;
 		delete meshText;
 		delete spriteSourceText;
 		delete mesh1x2;
 		delete spriteSourceFrog;
-		delete spriteSourcePFrog;
 		delete spriteSourceWinFrog;
 		delete spriteSourceDeadFrog;
 		delete mesh1x1;
@@ -506,7 +732,6 @@ namespace Levels
 		delete textureText;
 		delete textureDeadFrog;
 		delete textureFrog;
-		delete texturePFrog;
 		delete textureLogLarge;
 		delete textureLogMedium;
 		delete textureLogSmall;
@@ -527,6 +752,18 @@ namespace Levels
 		delete spriteSourceTurtleSink2;
 		delete spriteSourceTurtleSink3;
 		delete spriteSourceDrownFrog;
+		delete spriteSourceCombinedFrog;
+		delete textureCombinedFrog;
+		delete spriteSourcePFrog;
+		delete texturePFrog;
+		delete spriteSourceWinFrog2;
+		delete textureWinFrog2;
+		delete textureFly;
+		delete spriteSourceFly;
+		delete textureSnake;
+		delete spriteSourceSnake;
+
+		soundManager->Shutdown();
+		std::cout << "Level2::Unload" << std::endl;
 	}
 }
-

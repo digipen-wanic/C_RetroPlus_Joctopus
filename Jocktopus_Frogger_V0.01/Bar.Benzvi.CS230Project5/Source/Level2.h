@@ -95,6 +95,7 @@ namespace Levels
 		SpriteSource* spriteSourceDrownFrog;
 		SpriteSource* spriteSourceCombinedFrog;
 		SpriteSource* spriteSourceFly;
+		SpriteSource* spriteSourceSnake;
 
 		Mesh* meshText;
 		Texture* textureText;
@@ -122,6 +123,7 @@ namespace Levels
 		Texture* textureTurtleSink3;
 		Texture* textureCombinedFrog;
 		Texture* textureFly;
+		Texture* textureSnake;
 
 		// Game Variables
 		GameObject* currFrog;
