@@ -168,7 +168,7 @@ namespace Behaviors
 					}
 				}
 				// If the player isn't at the bottom and s is pressed, move down
-				if (currentForward > 0 && input.CheckTriggered('S'))
+				else if (currentForward > 0 && input.CheckTriggered('S'))
 				{
 					
 
@@ -185,7 +185,7 @@ namespace Behaviors
 					}
 					
 				}
-				if (input.CheckTriggered('D'))
+				else if (input.CheckTriggered('D'))
 				{
 					float currXTranslation = GetOwner()->GetComponent<Transform>()->GetTranslation().x;
 
@@ -203,7 +203,7 @@ namespace Behaviors
 					}
 
 				}
-				if (input.CheckTriggered('A'))
+				else if (input.CheckTriggered('A'))
 				{
 					float currXTranslation = GetOwner()->GetComponent<Transform>()->GetTranslation().x;
 

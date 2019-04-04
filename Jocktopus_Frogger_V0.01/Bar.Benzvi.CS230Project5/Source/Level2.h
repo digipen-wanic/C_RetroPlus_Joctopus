@@ -76,7 +76,6 @@ namespace Levels
 
 		SpriteSource* spriteSourceDeadFrog;
 		SpriteSource* spriteSourceFrog;
-		SpriteSource* spriteSourcePFrog;
 		SpriteSource* spriteSourceLogSmall;
 		SpriteSource* spriteSourceLogMedium;
 		SpriteSource* spriteSourceLogLarge;
@@ -84,8 +83,6 @@ namespace Levels
 		SpriteSource* spriteSourceTurtleFloat3;
 		SpriteSource* spriteSourceTurtleSink2;
 		SpriteSource* spriteSourceTurtleSink3;
-		SpriteSource* spriteSourceCar1;
-		SpriteSource* spriteSourceCar2;
 		SpriteSource* spriteSourceCar3;
 		SpriteSource* spriteSourceCar4;
 		SpriteSource* spriteSourceCar5;
@@ -93,8 +90,6 @@ namespace Levels
 		SpriteSource* spriteSourceWinFrog2;
 		SpriteSource* spriteSourceBackground;
 		SpriteSource* spriteSourceDrownFrog;
-		SpriteSource* spriteSourceCombinedFrog;
-		SpriteSource* spriteSourceFly;
 		SpriteSource* spriteSourceSnake;
 
 		Mesh* meshText;
@@ -105,12 +100,9 @@ namespace Levels
 		Texture* textureBackground;
 		Texture* textureDeadFrog;
 		Texture* textureFrog;
-		Texture* texturePFrog;
 		Texture* textureLogLarge;
 		Texture* textureLogMedium;
 		Texture* textureLogSmall;
-		Texture* textureCar1;
-		Texture* textureCar2;
 		Texture* textureCar3;
 		Texture* textureCar4;
 		Texture* textureCar5;
@@ -121,8 +113,6 @@ namespace Levels
 		Texture* textureTurtleFloat3;
 		Texture* textureTurtleSink2;
 		Texture* textureTurtleSink3;
-		Texture* textureCombinedFrog;
-		Texture* textureFly;
 		Texture* textureSnake;
 
 		// Game Variables
@@ -132,7 +122,6 @@ namespace Levels
 		GameObject* timerObject;
 		GameObject* FrogLife1;
 		GameObject* FrogLife2;
-		GameObject* currFly;
 		int lives;
 		float timer;
 		float winLoseTimer;
