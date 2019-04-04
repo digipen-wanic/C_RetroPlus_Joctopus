@@ -5,7 +5,7 @@ Turtle
   {
     translation : { 0, 0 }
     rotation : 0
-    scale : { 30, 30 }
+    scale : { 45, 45 }
   }
   Sprite
   {
