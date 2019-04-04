@@ -77,6 +77,8 @@ namespace Behaviors
 			GameObject* winFrog = GameObjectFactory::GetInstance().CreateObject("WinFrog", movement->winMesh, movement->winSpriteSource);
 			winFrog->GetComponent<Transform>()->SetTranslation(other.GetComponent<Transform>()->GetTranslation());
 
+			other.GetComponent<WinSlot>()->SetContainsFrog(true);
+
 			object.GetSpace()->GetObjectManager().AddObject(*winFrog);
 
 			int timerScore = static_cast<int>((movement->loseTimer * 20.0f));
