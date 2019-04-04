@@ -618,20 +618,24 @@ namespace Levels
 				highScoreText->GetComponent<SpriteText>()->SetString(std::to_string(Behaviors::FrogMovement::GetHighScore()));
 			}
 
-			if (timerObject != nullptr && !currFrog->IsDestroyed())
+			if (currFrog->GetComponent<Behaviors::FrogMovement>() != nullptr)
 			{
-				//Set the scale and translation of the timer to make it display the time remaining
-				Transform* timerTransform = timerObject->GetComponent<Transform>();
 
-				timerTransform->SetTranslation(Vector2D((-timerTransform->GetScale().x / 2) + 100.0f, -357.0f));
-				timerTransform->SetScale(Vector2D(currFrog->GetComponent<Behaviors::FrogMovement>()->GetTimer() * 5.0f, 25.0f));
+				if (timerObject != nullptr && !currFrog->IsDestroyed())
+				{
+					//Set the scale and translation of the timer to make it display the time remaining
+					Transform* timerTransform = timerObject->GetComponent<Transform>();
 
-				//std::cout << timerTransform->GetScale() << std::endl;
-			}
+					timerTransform->SetTranslation(Vector2D((-timerTransform->GetScale().x / 2) + 100.0f, -357.0f));
+					timerTransform->SetScale(Vector2D(currFrog->GetComponent<Behaviors::FrogMovement>()->GetTimer() * 5.0f, 25.0f));
 
-			if (currFrog->GetComponent<Behaviors::FrogMovement>()->GetTimer() <= 0.0f)
-			{
-				currFrog->Destroy();
+					//std::cout << timerTransform->GetScale() << std::endl;
+				}
+
+				if (currFrog->GetComponent<Behaviors::FrogMovement>()->GetTimer() <= 0.0f)
+				{
+					currFrog->Destroy();
+				}
 			}
 
 			
