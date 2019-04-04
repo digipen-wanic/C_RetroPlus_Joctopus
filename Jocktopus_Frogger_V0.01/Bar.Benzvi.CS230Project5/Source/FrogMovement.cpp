@@ -41,7 +41,7 @@ namespace Behaviors
 	FrogMovement::FrogMovement(float speed, int walkFrames, float deathTime)
 		:Component("FrogMovement"), speed(speed), canWalk(0), walkFrames(walkFrames), dying(false), 
 		currentForward(0), currX(1), onFloat(false), deathTime(deathTime), timer(0), loseTimer(40.0f), waterDeathActive(false),
-		purpleFrogActive(false), deathAnimation(nullptr), drownAnimation(nullptr), destroyNextFrame(false)
+		purpleFrogActive(false), deathAnimation(nullptr), drownAnimation(nullptr), destroyNextFrame(false), ribbitSoundName("WinRibbit.wav")
 	{
 	}
 
@@ -83,7 +83,7 @@ namespace Behaviors
 
 			movement->score += timerScore + 50;
 
-			Engine::GetInstance().GetModule<SoundManager>()->PlaySound("WinRibbit.wav");
+			Engine::GetInstance().GetModule<SoundManager>()->PlaySound(movement->ribbitSoundName);
 
 			if (movement->purpleFrogActive)
 			{
@@ -341,4 +341,10 @@ namespace Behaviors
 	{
 		purpleSpriteSource = spriteSource;
 	}
+
+	void FrogMovement::SetRibbitSound(std::string soundName)
+	{
+		ribbitSoundName = soundName;
+	}
+
 }

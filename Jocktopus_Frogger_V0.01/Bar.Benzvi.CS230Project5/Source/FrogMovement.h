@@ -60,20 +60,29 @@ namespace Behaviors
 		//Gets the static score variable
 		static int GetScore();
 
+		//Resets the score
 		static void ResetScore();
 
+		//Gets the highest score achieved in this instance
 		static int GetHighScore();
 
+		//Sets the current amount of lives
 		static void SetLives(int newLives);
 
 		//Gets the current amount of time until the current frog dies
 		float GetTimer() const;
 
+		//Gets the current amount of lives
 		static int GetLives();
 
+		//Sets the sprite and mesh of the win frog, which is spawned when you reach the end
 		void SetWinSprite(Mesh* mesh, SpriteSource* spriteSource);
 
+		//Sets the sprite of the frog when he picks up the purple frog
 		void SetPurpleSprite(SpriteSource* spriteSource);
+
+		//Sets the name of the ribbit sound that will be played
+		void SetRibbitSound(std::string name);
 
 	private:
 		// Amount the frog moves
@@ -121,7 +130,9 @@ namespace Behaviors
 		// PurpleFrogSprite
 		SpriteSource* purpleSpriteSource;
 
+		//Sound
 		SoundManager* soundManager;
+		std::string ribbitSoundName;
 
 		static int score;
 		static int lives;

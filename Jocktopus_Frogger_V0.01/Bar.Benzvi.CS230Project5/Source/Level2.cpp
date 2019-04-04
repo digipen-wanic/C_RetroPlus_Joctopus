@@ -55,9 +55,15 @@ namespace Levels
 	{
 
 		soundManager = Engine::GetInstance().GetModule<SoundManager>();
+		soundManager->AddEffect("Robbit.wav");
+		soundManager->AddMusic("PlusSong.wav");
+		/*soundManager->AddEffect("Respawn1.wav");
+		soundManager->AddEffect("LoseSong.wav");
+		soundManager->AddEffect("WinSong.wav");
+		soundManager->AddEffect("Jump.wav");
+		soundManager->AddEffect("DieExplosion.wav");*/
 
-		//meshShip = CreateTriangleMesh(Colors::Red, Colors::Blue, Colors::Green);
-		//meshBullet = CreateTriangleMesh(Colors::Aqua, Colors::Grey, Colors::LightBlue);
+
 		mesh1x1 = CreateQuadMesh(Vector2D(1.0f, 1.0f), Vector2D(0.5f, 0.5f));
 		mesh1x2 = CreateQuadMesh(Vector2D(1.0f, 1.0f / 2.0f), Vector2D(0.5f, 0.5f));
 		mesh2x2 = CreateQuadMesh(Vector2D(1.0f / 2.0f, 1.0f / 2.0f), Vector2D(0.5f, 0.5f));
@@ -134,21 +140,15 @@ namespace Levels
 		textureSnake = Texture::CreateTextureFromFile("Tornado2.png");
 		spriteSourceSnake = new SpriteSource(2, 2, textureSnake);
 
-		//GetSpace()->GetObjectManager().AddArchetype(*GameObjectFactory::GetInstance().CreateObject("Bullet", meshBullet));
-
-		//GetSpace()->GetObjectManager().AddArchetype(*Archetypes::CreateBulletArchetype(meshBullet));
-
 		std::cout << "Level2::Load" << std::endl;
 	}
 
 	void Level2::Initialize()
 	{
 
-		//GameObject* ship = GameObjectFactory::GetInstance().CreateObject("PlayerShip", meshShip);
-
-		//ship->GetComponent<Transform>()->SetRotation(3.14f);
-
-		//GetSpace()->GetObjectManager().AddObject(*ship);
+		soundManager->PlaySound("PlusSong.wav");
+		soundManager->SetMusicVolume(0.7f);
+		soundManager->SetEffectsVolume(0.5f);
 
 		GameObject* background = GameObjectFactory::GetInstance().CreateObject("BasicSprite", mesh1x1, spriteSourceBackground);
 		background->GetComponent<Transform>()->SetScale(Vector2D(672, 768));
@@ -230,6 +230,7 @@ namespace Levels
 		currFrog->GetComponent<Behaviors::FrogMovement>()->SetDeathAnimations(spriteSourceDeadFrog, spriteSourceDrownFrog);
 		currFrog->GetComponent<Behaviors::FrogMovement>()->SetWinSprite(mesh1x1, spriteSourceWinFrog);
 		currFrog->GetComponent<Behaviors::FrogMovement>()->SetPurpleSprite(spriteSourceCombinedFrog);
+		currFrog->GetComponent<Behaviors::FrogMovement>()->SetRibbitSound("Robbit.wav");
 
 		GameObject* wallL = GameObjectFactory::GetInstance().CreateObject("Wall", mesh1x1);
 		wallL->GetComponent<Transform>()->SetTranslation(Vector2D(-336, 0));
@@ -517,6 +518,7 @@ namespace Levels
 		{
 			if (!winLoseSequenceInit)
 			{
+				//soundManager->SetMusicVolume(0.0f);
 				soundManager->PlaySound("WinSong.wav");
 				winLoseSequenceInit = true;
 				winLoseTimer = 8.0f;
@@ -546,15 +548,13 @@ namespace Levels
 				{
 					int spawnSlot = RandomRange(0, 4);
 
-					while (winSlots[spawnSlot]->GetComponent<Behaviors::WinSlot>()->GetContainsFrog())
+					if (!winSlots[spawnSlot]->GetComponent<Behaviors::WinSlot>()->GetContainsFrog())
 					{
-						spawnSlot = RandomRange(0, 4);
+						currFly = GameObjectFactory::GetInstance().CreateObject("Fly", mesh1x1, spriteSourceFly);
+						currFly->GetComponent<Transform>()->SetTranslation(winSlots[spawnSlot]->GetComponent<Transform>()->GetTranslation());
+
+						GetSpace()->GetObjectManager().AddObject(*currFly);
 					}
-
-					currFly = GameObjectFactory::GetInstance().CreateObject("Fly", mesh1x1, spriteSourceFly);
-					currFly->GetComponent<Transform>()->SetTranslation(winSlots[spawnSlot]->GetComponent<Transform>()->GetTranslation());
-
-					GetSpace()->GetObjectManager().AddObject(*currFly);
 
 					flySpawnTimer = RandomRange(3.0f, 10.0f);
 					flyAliveTimer = 2.5f;
@@ -605,6 +605,7 @@ namespace Levels
 
 					if (lives < 0)
 					{
+						soundManager->SetMusicVolume(0.0f);
 						soundManager->PlaySound("LoseSong.wav");
 						lost = true;
 						//GetSpace()->SetLevel<Levels::Level2>();
@@ -615,6 +616,7 @@ namespace Levels
 					currFrog->GetComponent<Behaviors::FrogMovement>()->SetDeathAnimations(spriteSourceDeadFrog, spriteSourceDrownFrog);
 					currFrog->GetComponent<Behaviors::FrogMovement>()->SetWinSprite(mesh1x1, spriteSourceWinFrog);
 					currFrog->GetComponent<Behaviors::FrogMovement>()->SetPurpleSprite(spriteSourceCombinedFrog);
+					currFrog->GetComponent<Behaviors::FrogMovement>()->SetRibbitSound("Robbit.wav");
 
 					GetSpace()->GetObjectManager().AddObject(*currFrog);
 
@@ -682,22 +684,6 @@ namespace Levels
 		}
 
 
-
-		if (Input::GetInstance().CheckTriggered('2'))
-		{
-			GetSpace()->RestartLevel();
-		}
-		else if (Input::GetInstance().CheckTriggered('1'))
-		{
-			won = true;
-		}
-
-		if (Input::GetInstance().CheckTriggered('T'))
-		{
-			//soundManager->PlaySound("teleport.wav");
-		}
-
-
 	}
 
 	void Level2::Shutdown()
@@ -724,6 +710,7 @@ namespace Levels
 		delete mesh1x1;
 		delete mesh2x2;
 		delete mesh1x3;
+		delete mesh3x3;
 		delete spriteSourceBackground;
 		delete spriteSourceLogSmall;
 		delete spriteSourceLogMedium;

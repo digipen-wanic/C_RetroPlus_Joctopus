@@ -9,7 +9,7 @@ WinSlot
   }
   ColliderRectangle
   {
-    extents : { 1, 1 }
+    extents : { 5, 5 }
   }
   Behaviors::WinSlot
   {

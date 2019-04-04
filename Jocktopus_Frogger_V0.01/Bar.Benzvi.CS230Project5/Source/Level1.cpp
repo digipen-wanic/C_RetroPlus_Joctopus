@@ -680,11 +680,6 @@ namespace Levels
 			won = true;
 		}
 
-		if (Input::GetInstance().CheckTriggered('T'))
-		{
-			//soundManager->PlaySound("teleport.wav");
-		}
-
 		
 	}
 
