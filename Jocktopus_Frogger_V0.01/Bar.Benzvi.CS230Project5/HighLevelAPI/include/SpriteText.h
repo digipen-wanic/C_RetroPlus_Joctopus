@@ -24,6 +24,16 @@
 // RIGHT = the character at the end of the 
 enum TextAlignment {CENTER, LEFT, RIGHT};
 
+struct SpecialCase
+{
+	char caseLetter;
+	Vector2D caseOffset;
+
+	SpecialCase(char letter, Vector2D offset)
+		: caseLetter(letter), caseOffset(offset)
+	{}
+};
+
 class SpriteText : public Sprite
 {
 public:
@@ -32,6 +42,8 @@ public:
 
 	// Clone the sprite, returning a dynamically allocated copy.
 	Component* Clone() const override;
+
+	void Initialize() override;
 
 	// Draw a sprite (Sprite can be textured or untextured).
 	void Draw() override;
@@ -51,5 +63,7 @@ private:
 	std::string text;
 
 	TextAlignment alignment;
+
+	std::vector<SpecialCase> cases;
 
 };

@@ -80,7 +80,7 @@ namespace Levels
 		GetSpace()->GetObjectManager().AddObject(*highScoreText);
 
 		startText = GameObjectFactory::GetInstance().CreateObject("SpriteText", meshText, spriteSourceText);
-		startText->GetComponent<SpriteText>()->SetString("PRESS 1 TO START");
+		startText->GetComponent<SpriteText>()->SetString("PRESS ENTER TO START");
 		startText->GetComponent<Transform>()->SetTranslation(Vector2D(0.0f, -100.0f));
 		GetSpace()->GetObjectManager().AddObject(*startText);
 
@@ -116,7 +116,7 @@ namespace Levels
 
 		startText->GetComponent<Sprite>()->SetAlpha(currAlpha);
 
-		if (Input::GetInstance().CheckTriggered('1'))
+		if (Input::GetInstance().CheckTriggered(VK_RETURN))
 		{
 			GetSpace()->SetLevel<Level1>();
 		}

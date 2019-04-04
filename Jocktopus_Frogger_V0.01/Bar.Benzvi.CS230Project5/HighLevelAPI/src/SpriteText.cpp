@@ -18,7 +18,7 @@
 SpriteText::SpriteText()
 	: text(""), alignment(CENTER)
 {
-
+	
 }
 
 
@@ -27,9 +27,17 @@ Component* SpriteText::Clone() const
 	return new SpriteText(*this);
 }
 
+void SpriteText::Initialize()
+{
+	Sprite::Initialize();
+	cases.push_back(SpecialCase('I', Vector2D(-4.0f, 0.0f)));
+}
+
 void SpriteText::Draw()
 {
 	Vector2D currOffset(0, 0);
+	Vector2D specialOffset(0, 0);
+	Vector2D nextSpecialOffset(0, 0);
 	Vector2D scale = transform->GetScale();
 
 	float xOffset = 0;
@@ -53,6 +61,25 @@ void SpriteText::Draw()
 	{
 		int asciiVal = text[i];
 
+		for (auto it = cases.cbegin(); it != cases.cend(); ++it)
+		{
+			if ((*it).caseLetter == text[i])
+			{
+				specialOffset = (*it).caseOffset;
+				nextSpecialOffset = (*it).caseOffset;
+				break;
+			}
+		}
+
+		if (specialOffset.MagnitudeSquared() == 0.0f)
+		{
+			currOffset += nextSpecialOffset;
+			nextSpecialOffset.x = 0.0f;
+			nextSpecialOffset.y = 0.0f;
+		}
+
+		currOffset += specialOffset;
+
 		//If the current character is a number
 		if (asciiVal < 58 && asciiVal > 47)
 		{
@@ -69,6 +96,9 @@ void SpriteText::Draw()
 		}
 
 		currOffset.x += scale.x;
+
+		specialOffset.x = 0.0f;
+		specialOffset.y = 0.0f;
 
 	}
 
