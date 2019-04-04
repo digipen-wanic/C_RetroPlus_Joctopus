@@ -133,6 +133,8 @@ namespace Behaviors
 		if (!dying && !destroyNextFrame)
 		{
 
+			
+
 			loseTimer -= dt;
 
 			if (canWalk > 0)
@@ -170,6 +172,8 @@ namespace Behaviors
 				// If the player isn't at the bottom and s is pressed, move down
 				if (currentForward > 0 && input.CheckTriggered('S'))
 				{
+					
+
 					GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() - Vector2D(0, speed));
 					GetOwner()->GetComponent<Transform>()->SetRotation((float)M_PI);
 					GetOwner()->GetComponent<Sprite>()->SetFrame(2);
@@ -185,7 +189,11 @@ namespace Behaviors
 				}
 				if (input.CheckTriggered('D'))
 				{
-					if (currX + 1 <= 7)
+					float currXTranslation = GetOwner()->GetComponent<Transform>()->GetTranslation().x;
+
+					currX = static_cast<int>(currXTranslation / 48.0f);
+
+					if (currX <= 5)
 					{
 						GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() + Vector2D(speed, 0));
 						GetOwner()->GetComponent<Transform>()->SetRotation(-(float)M_PI / 2.0f);
@@ -199,7 +207,11 @@ namespace Behaviors
 				}
 				if (input.CheckTriggered('A'))
 				{
-					if (currX - 1 >= -6)
+					float currXTranslation = GetOwner()->GetComponent<Transform>()->GetTranslation().x;
+
+					currX = static_cast<int>(currXTranslation / 48.0f);
+
+					if (currX >= -5)
 					{
 						GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() - Vector2D(speed, 0));
 						GetOwner()->GetComponent<Transform>()->SetRotation((float)M_PI / 2.0f);
@@ -265,11 +277,12 @@ namespace Behaviors
 		if (!dying)
 		{
 			dying = true;
-			soundManager->PlaySound("DieExplosion.wav");
+			
 			--lives;
 			GetOwner()->GetComponent<Transform>()->SetRotation(0);
 			if (!waterDeathActive)
 			{
+				soundManager->PlaySound("DieExplosion.wav");
 				GetOwner()->GetComponent<Sprite>()->SetSpriteSource(deathAnimation);
 			}
 			else
