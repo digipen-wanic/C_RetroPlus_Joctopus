@@ -76,7 +76,7 @@ namespace Levels
 		textureCombinedFrog = Texture::CreateTextureFromFile("YellowPinkFrog.png");
 		spriteSourceCombinedFrog = new SpriteSource(2, 2, textureCombinedFrog);
 
-		textureBackground = Texture::CreateTextureFromFile("Background.png");
+		textureBackground = Texture::CreateTextureFromFile("PlusBackground.jpg");
 		spriteSourceBackground = new SpriteSource(1, 1, textureBackground);
 
 		textureDeadFrog = Texture::CreateTextureFromFile("RoboFrogRoadKill.png");
@@ -335,8 +335,9 @@ namespace Levels
 		GetSpace()->GetObjectManager().AddObject(*truck_2);
 
 		//Snake. Snake! SNAKE!!!
-		GameObject* snake = GameObjectFactory::GetInstance().CreateObject("Snake", mesh1x1, spriteSourceCar5);
+		GameObject* snake = GameObjectFactory::GetInstance().CreateObject("Snake", mesh2x2, spriteSourceSnake);
 		snake->GetComponent<Transform>()->SetTranslation(Vector2D(0, -16));
+		snake->GetComponent<Animation>()->Play(0, 4, 0.5f, true);
 		GetSpace()->GetObjectManager().AddObject(*snake);
 
 		// Turtle
