@@ -13,6 +13,7 @@
 #include "MainMenu.h"
 #include "GameObject.h"
 #include "Level1.h"
+#include "Level2.h"
 #include "SpriteSource.h"
 #include "Sprite.h"
 #include "MeshHelper.h"
@@ -119,6 +120,10 @@ namespace Levels
 		if (Input::GetInstance().CheckTriggered(VK_RETURN))
 		{
 			GetSpace()->SetLevel<Level1>();
+		}
+		else if (Input::GetInstance().CheckTriggered('2'))
+		{
+			GetSpace()->SetLevel<Level2>();
 		}
 
 	}
