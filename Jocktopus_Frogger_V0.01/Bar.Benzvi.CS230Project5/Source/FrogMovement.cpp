@@ -60,7 +60,7 @@ namespace Behaviors
 			other.Destroy();
 		}
 
-		if (other.GetName() == "Car")
+		if (other.GetName() == "Car" || other.GetName() == "Snake")
 		{
 			movement->InitDeathSequence();
 		}
