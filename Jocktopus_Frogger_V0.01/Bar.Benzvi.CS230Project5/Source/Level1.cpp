@@ -152,6 +152,8 @@ namespace Levels
 
 		//GetSpace()->GetObjectManager().AddObject(*ship);
 
+		soundManager->PlaySound("Respawn1.wav");
+
 		GameObject* background = GameObjectFactory::GetInstance().CreateObject("BasicSprite", mesh1x1, spriteSourceBackground);
 		background->GetComponent<Transform>()->SetScale(Vector2D(672, 768));
 		GetSpace()->GetObjectManager().AddObject(*background);
