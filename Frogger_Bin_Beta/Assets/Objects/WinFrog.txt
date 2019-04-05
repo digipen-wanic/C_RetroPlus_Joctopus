@@ -1,6 +1,6 @@
 WinFrog
 {
-  numComponents : 2
+  numComponents : 3
   Transform
   {
     translation : { 0, -300 }
@@ -11,5 +11,8 @@ WinFrog
   {
     frameIndex : 0
     color : { 1 , 1 , 1 , 1 }
+  }
+  Animation
+  {
   }
 }
