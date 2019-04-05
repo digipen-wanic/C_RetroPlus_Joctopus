@@ -80,7 +80,8 @@ namespace Behaviors
 			if (object.GetSpace()->GetLevelName() == "Level2")
 			{
 				winFrog->GetComponent<Transform>()->SetScale(Vector2D(70, 70));
-				winFrog->GetComponent<Transform>()->SetRotation((float)M_PI / 6);
+				winFrog->GetComponent<Transform>()->SetRotation(-(float)M_PI / 6);
+				winFrog->GetComponent<Animation>()->Play(0, 4, 1.0f / 7.0f, true);
 			}
 
 			other.GetComponent<WinSlot>()->SetContainsFrog(true);

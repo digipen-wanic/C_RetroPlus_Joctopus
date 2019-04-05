@@ -89,7 +89,7 @@ namespace Levels
 		spriteSourceFrog = new SpriteSource(2, 2, textureFrog);
 
 		textureWinFrog = Texture::CreateTextureFromFile("Helicopter.png");
-		spriteSourceWinFrog = new SpriteSource(1, 1, textureWinFrog);
+		spriteSourceWinFrog = new SpriteSource(2, 2, textureWinFrog);
 
 		textureWinFrog2 = Texture::CreateTextureFromFile("Helicopter.png");
 		spriteSourceWinFrog2 = new SpriteSource(1, 1, textureWinFrog2);
@@ -215,7 +215,7 @@ namespace Levels
 
 		currFrog = GameObjectFactory::GetInstance().CreateObject("Frog", mesh2x2, spriteSourceFrog);
 		currFrog->GetComponent<Behaviors::FrogMovement>()->SetDeathAnimations(spriteSourceDeadFrog, spriteSourceDrownFrog);
-		currFrog->GetComponent<Behaviors::FrogMovement>()->SetWinSprite(mesh1x1, spriteSourceWinFrog);
+		currFrog->GetComponent<Behaviors::FrogMovement>()->SetWinSprite(mesh2x2, spriteSourceWinFrog);
 		currFrog->GetComponent<Behaviors::FrogMovement>()->SetSounds("Robbit.wav", "PlusJump.wav", "PlusDieExplosion.wav");
 
 		GameObject* wallL = GameObjectFactory::GetInstance().CreateObject("Wall", mesh1x1);
