@@ -563,7 +563,7 @@ namespace Levels
 
 					currFrog = GameObjectFactory::GetInstance().CreateObject("Frog", mesh2x2, spriteSourceFrog);
 					currFrog->GetComponent<Behaviors::FrogMovement>()->SetDeathAnimations(spriteSourceDeadFrog, spriteSourceDrownFrog);
-					currFrog->GetComponent<Behaviors::FrogMovement>()->SetWinSprite(mesh1x1, spriteSourceWinFrog);
+					currFrog->GetComponent<Behaviors::FrogMovement>()->SetWinSprite(mesh2x2, spriteSourceWinFrog);
 					currFrog->GetComponent<Behaviors::FrogMovement>()->SetSounds("Robbit.wav", "PlusJump.wav", "PlusDieExplosion.wav");
 
 					GetSpace()->GetObjectManager().AddObject(*currFrog);
