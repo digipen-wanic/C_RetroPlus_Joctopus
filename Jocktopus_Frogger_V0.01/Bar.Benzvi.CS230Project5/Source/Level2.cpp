@@ -79,7 +79,7 @@ namespace Levels
 		textureBackground = Texture::CreateTextureFromFile("PlusBackground.jpg");
 		spriteSourceBackground = new SpriteSource(1, 1, textureBackground);
 
-		textureDeadFrog = Texture::CreateTextureFromFile("RoboFrogRoadKill.png");
+		textureDeadFrog = Texture::CreateTextureFromFile("Explode.png");
 		spriteSourceDeadFrog = new SpriteSource(2, 2, textureDeadFrog);
 
 		textureDrownFrog = Texture::CreateTextureFromFile("RoboFrogDrown.png");

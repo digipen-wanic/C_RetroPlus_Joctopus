@@ -77,6 +77,10 @@ namespace Behaviors
 
 			GameObject* winFrog = GameObjectFactory::GetInstance().CreateObject("WinFrog", movement->winMesh, movement->winSpriteSource);
 			winFrog->GetComponent<Transform>()->SetTranslation(other.GetComponent<Transform>()->GetTranslation());
+			if (object.GetSpace()->GetLevelName() == "Level2")
+			{
+				winFrog->GetComponent<Transform>()->SetScale(Vector2D(70, 70));
+			}
 
 			other.GetComponent<WinSlot>()->SetContainsFrog(true);
 
