@@ -1,0 +1,38 @@
+Turtle
+{
+  numComponents : 8
+  Transform
+  {
+    translation : { 0, 0 }
+    rotation : 0
+    scale : { 45, 45 }
+  }
+  Sprite
+  {
+    frameIndex : 0
+    color : { 1 , 1 , 1 , 1 }
+  }
+  Physics
+  {
+    acceleration : { 0, 0 }
+    velocity : { 0, 0 }
+    angularVelocity : 0
+    mass : 1
+  }
+  ColliderRectangle
+  {
+    extents : { 15, 15 }
+  }
+  Behaviors::ScreenWrap
+  {
+  }
+  Behaviors::ItemMovement
+  {
+  }
+  Behaviors::TurtleMovement
+  {
+  }
+  Animation
+  {
+  }
+}

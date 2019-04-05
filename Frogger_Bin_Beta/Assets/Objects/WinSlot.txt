@@ -1,0 +1,17 @@
+WinSlot
+{
+  numComponents : 3
+  Transform
+  {
+    translation : { 0, 0 }
+    rotation : 0
+    scale : { 1, 1 }
+  }
+  ColliderRectangle
+  {
+    extents : { 5, 5 }
+  }
+  Behaviors::WinSlot
+  {
+  }
+}

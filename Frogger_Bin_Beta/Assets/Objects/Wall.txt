@@ -1,0 +1,19 @@
+Wall
+{
+  numComponents : 3
+  Transform
+  {
+    translation : { 0, 0 }
+    rotation : 0
+    scale : { 10, 768 }
+  }
+  Sprite
+  {
+    frameIndex : 0
+    color : { 1 , 1 , 1 , 0 }
+  }
+  ColliderRectangle
+  {
+    extents : { 5, 384 }
+  }
+}

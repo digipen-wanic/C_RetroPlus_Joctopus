@@ -1,0 +1,15 @@
+Timer
+{
+  numComponents : 2
+  Transform
+  {
+    translation : { 0, -357 }
+    rotation : 0
+    scale : { 250, 25 }
+  }
+  Sprite
+  {
+    frameIndex : 0
+    color : { 1 , 1 , 1 , 1 }
+  }
+}
