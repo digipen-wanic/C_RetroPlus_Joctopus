@@ -56,12 +56,14 @@ namespace Levels
 
 		soundManager = Engine::GetInstance().GetModule<SoundManager>();
 		soundManager->AddEffect("Robbit.wav");
+		soundManager->AddEffect("DieBubbles.wav");
 		soundManager->AddMusic("PlusSong.wav");
-		/*soundManager->AddEffect("Respawn1.wav");
-		soundManager->AddEffect("LoseSong.wav");
-		soundManager->AddEffect("WinSong.wav");
-		soundManager->AddEffect("Jump.wav");
-		soundManager->AddEffect("DieExplosion.wav");*/
+		soundManager->AddEffect("PlusRespawn1.wav");
+		soundManager->AddEffect("PlusLoseSong.wav");
+		soundManager->AddEffect("PlusWinSong.wav");
+		soundManager->AddEffect("PlusJump.wav");
+		soundManager->AddEffect("PlusDieExplosion.wav");
+		soundManager->AddEffect("DieBubbles.wav");
 
 
 		mesh1x1 = CreateQuadMesh(Vector2D(1.0f, 1.0f), Vector2D(0.5f, 0.5f));
@@ -214,7 +216,7 @@ namespace Levels
 		currFrog = GameObjectFactory::GetInstance().CreateObject("Frog", mesh2x2, spriteSourceFrog);
 		currFrog->GetComponent<Behaviors::FrogMovement>()->SetDeathAnimations(spriteSourceDeadFrog, spriteSourceDrownFrog);
 		currFrog->GetComponent<Behaviors::FrogMovement>()->SetWinSprite(mesh1x1, spriteSourceWinFrog);
-		currFrog->GetComponent<Behaviors::FrogMovement>()->SetRibbitSound("Robbit.wav");
+		currFrog->GetComponent<Behaviors::FrogMovement>()->SetSounds("Robbit.wav", "PlusJump.wav", "PlusDieExplosion.wav");
 
 		GameObject* wallL = GameObjectFactory::GetInstance().CreateObject("Wall", mesh1x1);
 		wallL->GetComponent<Transform>()->SetTranslation(Vector2D(-336, 0));
@@ -506,10 +508,10 @@ namespace Levels
 		{
 			if (!winLoseSequenceInit)
 			{
-				//soundManager->SetMusicVolume(0.0f);
-				soundManager->PlaySound("WinSong.wav");
+				soundManager->SetMusicVolume(0.0f);
+				soundManager->PlaySound("PlusWinSong.wav");
 				winLoseSequenceInit = true;
-				winLoseTimer = 8.0f;
+				winLoseTimer = 3.0f;
 
 				for (auto it = winSlots.cbegin(); it != winSlots.cend(); ++it)
 				{
@@ -554,7 +556,6 @@ namespace Levels
 					if (lives < 0)
 					{
 						soundManager->SetMusicVolume(0.0f);
-						soundManager->PlaySound("LoseSong.wav");
 						lost = true;
 						//GetSpace()->SetLevel<Levels::Level2>();
 						return;
@@ -563,7 +564,7 @@ namespace Levels
 					currFrog = GameObjectFactory::GetInstance().CreateObject("Frog", mesh2x2, spriteSourceFrog);
 					currFrog->GetComponent<Behaviors::FrogMovement>()->SetDeathAnimations(spriteSourceDeadFrog, spriteSourceDrownFrog);
 					currFrog->GetComponent<Behaviors::FrogMovement>()->SetWinSprite(mesh1x1, spriteSourceWinFrog);
-					currFrog->GetComponent<Behaviors::FrogMovement>()->SetRibbitSound("Robbit.wav");
+					currFrog->GetComponent<Behaviors::FrogMovement>()->SetSounds("Robbit.wav", "PlusJump.wav", "PlusDieExplosion.wav");
 
 					GetSpace()->GetObjectManager().AddObject(*currFrog);
 
@@ -607,7 +608,7 @@ namespace Levels
 		{
 			if (!winLoseSequenceInit)
 			{
-				soundManager->PlaySound("LoseSong.wav");
+				soundManager->PlaySound("PlusLoseSong.wav");
 				winLoseSequenceInit = true;
 				winLoseTimer = 5.0f;
 			}

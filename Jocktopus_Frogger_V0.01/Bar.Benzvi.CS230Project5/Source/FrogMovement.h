@@ -82,7 +82,7 @@ namespace Behaviors
 		void SetPurpleSprite(SpriteSource* spriteSource);
 
 		//Sets the name of the ribbit sound that will be played
-		void SetRibbitSound(std::string name);
+		void SetSounds(std::string name, std::string name2, std::string name3);
 
 	private:
 		// Amount the frog moves
@@ -133,6 +133,8 @@ namespace Behaviors
 		//Sound
 		SoundManager* soundManager;
 		std::string ribbitSoundName;
+		std::string jumpSoundName;
+		std::string deathSoundName;
 
 		static int score;
 		static int lives;

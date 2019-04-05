@@ -39,9 +39,10 @@ namespace Behaviors
 	int FrogMovement::lives = 2;
 
 	FrogMovement::FrogMovement(float speed, int walkFrames, float deathTime)
-		:Component("FrogMovement"), speed(speed), canWalk(0), walkFrames(walkFrames), dying(false), 
+		:Component("FrogMovement"), speed(speed), canWalk(0), walkFrames(walkFrames), dying(false),
 		currentForward(0), currX(1), onFloat(false), deathTime(deathTime), timer(0), loseTimer(40.0f), waterDeathActive(false),
-		purpleFrogActive(false), deathAnimation(nullptr), drownAnimation(nullptr), destroyNextFrame(false), ribbitSoundName("WinRibbit.wav")
+		purpleFrogActive(false), deathAnimation(nullptr), drownAnimation(nullptr), destroyNextFrame(false), ribbitSoundName("WinRibbit.wav"),
+		jumpSoundName("Jump.wav"), deathSoundName("DieExplosion.wav")
 	{
 	}
 
@@ -155,7 +156,7 @@ namespace Behaviors
 					canWalk = 8;
 					currentForward++;
 
-					soundManager->PlaySound("Jump.wav");
+					soundManager->PlaySound(jumpSoundName);
 
 					// Checks if the player has moved further forward than before and sets the furthest forward if they have
 					if (currentForward > furthestForward)
@@ -183,7 +184,7 @@ namespace Behaviors
 					if (currentForward - 1 >= 0)
 					{
 						currentForward -= 1;
-						soundManager->PlaySound("Jump.wav");
+						soundManager->PlaySound(jumpSoundName);
 					}
 					
 				}
@@ -199,7 +200,7 @@ namespace Behaviors
 						GetOwner()->GetComponent<Transform>()->SetRotation(-(float)M_PI / 2.0f);
 						GetOwner()->GetComponent<Sprite>()->SetFrame(2);
 						canWalk = 8;
-						soundManager->PlaySound("Jump.wav");
+						soundManager->PlaySound(jumpSoundName);
 
 						currX += 1;
 					}
@@ -218,7 +219,7 @@ namespace Behaviors
 						GetOwner()->GetComponent<Sprite>()->SetFrame(2);
 
 						canWalk = 8;
-						soundManager->PlaySound("Jump.wav");
+						soundManager->PlaySound(jumpSoundName);
 
 						currX -= 1;
 					}
@@ -282,11 +283,12 @@ namespace Behaviors
 			GetOwner()->GetComponent<Transform>()->SetRotation(0);
 			if (!waterDeathActive)
 			{
-				soundManager->PlaySound("DieExplosion.wav");
+				soundManager->PlaySound(deathSoundName);
 				GetOwner()->GetComponent<Sprite>()->SetSpriteSource(deathAnimation);
 			}
 			else
 			{
+				soundManager->PlaySound("DieBubbles.wav");
 				GetOwner()->GetComponent<Sprite>()->SetSpriteSource(drownAnimation);
 			}
 			
@@ -344,9 +346,11 @@ namespace Behaviors
 		purpleSpriteSource = spriteSource;
 	}
 
-	void FrogMovement::SetRibbitSound(std::string soundName)
+	void FrogMovement::SetSounds(std::string soundName, std::string soundName2, std::string soundName3)
 	{
 		ribbitSoundName = soundName;
+		jumpSoundName = soundName2;
+		deathSoundName = soundName3;
 	}
 
 }
