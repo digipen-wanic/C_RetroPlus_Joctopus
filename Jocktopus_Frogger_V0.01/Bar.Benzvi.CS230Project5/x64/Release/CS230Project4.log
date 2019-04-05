@@ -1,9 +1,17 @@
-﻿  Level1.cpp
+﻿  stdafx.cpp
+  FrogMovement.cpp
+  ItemMovement.cpp
   Level2.cpp
+  Level1.cpp
+  Main.cpp
+  MainMenu.cpp
+  PurpleFrogMovement.cpp
+  ScreenWrap.cpp
+  SnakeMovement.cpp
+  TurtleMovement.cpp
+  WinSlot.cpp
   Generating code
-  1 of 1017 functions (<0.1%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
+  All 1017 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
 BetaHigh_x64.lib(Vertex.obj) : warning LNK4099: PDB 'BetaLow_x64.pdb' was not found with 'BetaHigh_x64.lib(Vertex.obj)' or at 'C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\x64\Release\BetaLow_x64.pdb'; linking object as if no debug info
 BetaHigh_x64.lib(Vector3D.obj) : warning LNK4099: PDB 'BetaLow_x64.pdb' was not found with 'BetaHigh_x64.lib(Vector3D.obj)' or at 'C:\Users\bar_b\Documents\Github\C_RetroPlus_Joctopus\Jocktopus_Frogger_V0.01\Bar.Benzvi.CS230Project5\x64\Release\BetaLow_x64.pdb'; linking object as if no debug info

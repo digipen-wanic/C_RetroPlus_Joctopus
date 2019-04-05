@@ -694,8 +694,6 @@ namespace Levels
 		timerObject = nullptr;
 		scoreText = nullptr;
 		highScoreText = nullptr;
-		Behaviors::FrogMovement::SetLives(2);
-		lives = Behaviors::FrogMovement::GetLives();
 		FrogLife1 = nullptr;
 		FrogLife2 = nullptr;
 	}

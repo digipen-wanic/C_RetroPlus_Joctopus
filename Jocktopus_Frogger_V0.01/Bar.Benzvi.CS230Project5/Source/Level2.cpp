@@ -629,6 +629,21 @@ namespace Levels
 			{
 				FrogLife1->GetComponent<Sprite>()->SetAlpha(0);
 			}
+			else
+			{
+				FrogLife1->GetComponent<Sprite>()->SetAlpha(1.0f);
+			}
+		}
+		else
+		{
+			FrogLife2->GetComponent<Sprite>()->SetAlpha(1.0f);
+			FrogLife1->GetComponent<Sprite>()->SetAlpha(1.0f);
+		}
+
+		if (Input::GetInstance().CheckTriggered('L'))
+		{
+			Behaviors::FrogMovement::SetLives(2);
+			lives = Behaviors::FrogMovement::GetLives();
 		}
 
 
@@ -641,7 +656,6 @@ namespace Levels
 		timerObject = nullptr;
 		scoreText = nullptr;
 		highScoreText = nullptr;
-		Behaviors::FrogMovement::SetLives(2);
 		lives = Behaviors::FrogMovement::GetLives();
 		FrogLife1 = nullptr;
 		FrogLife2 = nullptr;

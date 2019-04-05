@@ -51,6 +51,9 @@ namespace Levels
 
 	void MainMenu::Initialize()
 	{
+
+		Behaviors::FrogMovement::SetLives(2);
+
 		GameObject* background = GameObjectFactory::GetInstance().CreateObject("BasicSprite", mesh1x1, spriteSourceBackground);
 		background->GetComponent<Transform>()->SetScale(Vector2D(672, 768));
 		GetSpace()->GetObjectManager().AddObject(*background);
