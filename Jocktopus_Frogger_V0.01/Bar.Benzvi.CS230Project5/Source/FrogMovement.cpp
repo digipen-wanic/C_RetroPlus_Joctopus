@@ -42,7 +42,7 @@ namespace Behaviors
 		:Component("FrogMovement"), speed(speed), canWalk(0), walkFrames(walkFrames), dying(false),
 		currentForward(0), currX(1), onFloat(false), deathTime(deathTime), timer(0), loseTimer(40.0f), waterDeathActive(false),
 		purpleFrogActive(false), deathAnimation(nullptr), drownAnimation(nullptr), destroyNextFrame(false), ribbitSoundName("WinRibbit.wav"),
-		jumpSoundName("Jump.wav"), deathSoundName("DieExplosion.wav")
+		jumpSoundName("Jump.wav"), deathSoundName("DieExplosion.wav"), currentJumpSound(nullptr)
 	{
 	}
 
@@ -153,7 +153,7 @@ namespace Behaviors
 			}
 			else
 			{
-				if (input.CheckTriggered('W'))
+				if (input.CheckTriggered('W') || input.CheckTriggered(VK_UP))
 				{
 					GetOwner()->GetComponent<Transform>()->SetTranslation(GetOwner()->GetComponent<Transform>()->GetTranslation() + Vector2D(0, speed));
 					GetOwner()->GetComponent<Transform>()->SetRotation(0);
@@ -161,7 +161,11 @@ namespace Behaviors
 					canWalk = 8;
 					currentForward++;
 
-					soundManager->PlaySound(jumpSoundName);
+					if (currentJumpSound != nullptr)
+					{
+						currentJumpSound->stop();
+					}
+					currentJumpSound = soundManager->PlaySound(jumpSoundName);
 
 					// Checks if the player has moved further forward than before and sets the furthest forward if they have
 					if (currentForward > furthestForward)
@@ -176,7 +180,7 @@ namespace Behaviors
 					}
 				}
 				// If the player isn't at the bottom and s is pressed, move down
-				else if (currentForward > 0 && input.CheckTriggered('S'))
+				else if (currentForward > 0 && (input.CheckTriggered('S') || input.CheckTriggered(VK_DOWN)))
 				{
 					
 
@@ -189,11 +193,15 @@ namespace Behaviors
 					if (currentForward - 1 >= 0)
 					{
 						currentForward -= 1;
-						soundManager->PlaySound(jumpSoundName);
+						if (currentJumpSound != nullptr)
+						{
+							currentJumpSound->stop();
+						}
+						currentJumpSound = soundManager->PlaySound(jumpSoundName);
 					}
 					
 				}
-				else if (input.CheckTriggered('D'))
+				else if (input.CheckTriggered('D') || input.CheckTriggered(VK_RIGHT))
 				{
 					float currXTranslation = GetOwner()->GetComponent<Transform>()->GetTranslation().x;
 
@@ -205,13 +213,17 @@ namespace Behaviors
 						GetOwner()->GetComponent<Transform>()->SetRotation(-(float)M_PI / 2.0f);
 						GetOwner()->GetComponent<Sprite>()->SetFrame(2);
 						canWalk = 8;
-						soundManager->PlaySound(jumpSoundName);
+						if (currentJumpSound != nullptr)
+						{
+							currentJumpSound->stop();
+						}
+						currentJumpSound = soundManager->PlaySound(jumpSoundName);
 
 						currX += 1;
 					}
 
 				}
-				else if (input.CheckTriggered('A'))
+				else if (input.CheckTriggered('A') || input.CheckTriggered(VK_LEFT))
 				{
 					float currXTranslation = GetOwner()->GetComponent<Transform>()->GetTranslation().x;
 
@@ -224,7 +236,11 @@ namespace Behaviors
 						GetOwner()->GetComponent<Sprite>()->SetFrame(2);
 
 						canWalk = 8;
-						soundManager->PlaySound(jumpSoundName);
+						if (currentJumpSound != nullptr)
+						{
+							currentJumpSound->stop();
+						}
+						currentJumpSound = soundManager->PlaySound(jumpSoundName);
 
 						currX -= 1;
 					}

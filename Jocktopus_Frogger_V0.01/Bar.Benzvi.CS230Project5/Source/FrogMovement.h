@@ -15,6 +15,7 @@
 #include <SpriteSource.h>
 #include <Component.h>
 #include <Vector2D.h>
+#include <fmod_studio.hpp>
 
 class SoundManager;
 class Mesh;
@@ -132,6 +133,7 @@ namespace Behaviors
 
 		//Sound
 		SoundManager* soundManager;
+		FMOD::Channel* currentJumpSound;
 		std::string ribbitSoundName;
 		std::string jumpSoundName;
 		std::string deathSoundName;
